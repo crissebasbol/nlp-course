@@ -1,0 +1,6 @@
+pandas>=2.2
+spacy>=3.8.10
+symspellpy>=6.7
+matplotlib>=3.9
+networkx>=3.3
+wordcloud>=1.9
