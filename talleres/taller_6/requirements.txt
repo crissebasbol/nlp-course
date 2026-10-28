@@ -1,0 +1,10 @@
+keras>=3.10
+keras-hub
+jax
+tensorflow>=2.16
+numpy
+pandas
+matplotlib
+sacrebleu
+rouge-score
+jupyter
