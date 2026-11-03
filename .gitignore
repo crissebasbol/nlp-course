@@ -225,3 +225,7 @@ __marimo__/
 .streamlit/secrets.toml
 
 .DS_Store
+
+talleres/taller_7/guion_presentacion.md
+talleres/taller_7/resumen_articulos.md
+talleres/taller_7/internal.md

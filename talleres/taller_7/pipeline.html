@@ -1,0 +1,717 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pipeline MEDEC</title>
+<style>
+/* Layout: diagram on the left, sticky detail panel on the right; single column on narrow screens */
+:root {
+  --bg: #f3f6f6;
+  --surface: #ffffff;
+  --ink: #16262b;
+  --muted: #56676c;
+  --line: #b9c7ca;
+  --accent: #0d6b62;
+  --data: #3d5a80;
+  --data-soft: #e6edf6;
+  --model: #0d6b62;
+  --model-soft: #ddf1ee;
+  --llm: #6a4aa8;
+  --llm-soft: #eee8f8;
+  --decision: #9a6a00;
+  --decision-soft: #fbf0d4;
+  --side: #6b7478;
+  --side-soft: #eef0f1;
+  --code-bg: #eef3f3;
+  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f1719;
+    --surface: #172226;
+    --ink: #e3ecee;
+    --muted: #9db0b5;
+    --line: #3b5157;
+    --accent: #4fc4b6;
+    --data: #8fb0dc;
+    --data-soft: #1c2a3b;
+    --model: #4fc4b6;
+    --model-soft: #133430;
+    --llm: #b59cf0;
+    --llm-soft: #2a2140;
+    --decision: #e6b84a;
+    --decision-soft: #3a2f12;
+    --side: #a5b0b4;
+    --side-soft: #1e282b;
+    --code-bg: #0f1a1d;
+    color-scheme: dark;
+  }
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font: 15px/1.55 var(--font-body);
+}
+.wrap {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 28px max(16px, env(safe-area-inset-right, 0px)) 48px max(16px, env(safe-area-inset-left, 0px));
+}
+
+header.top h1 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  line-height: 1.15;
+  margin: 0 0 6px;
+  text-wrap: balance;
+}
+header.top p { margin: 0; color: var(--muted); max-width: 70ch; }
+.legend {
+  display: flex; flex-wrap: wrap; gap: 8px 18px;
+  margin: 16px 0 0; padding: 0; list-style: none;
+  font-size: 13px; color: var(--muted);
+}
+.legend li { display: flex; align-items: center; gap: 6px; }
+.swatch { width: 14px; height: 14px; border-radius: 3px; border: 2px solid; }
+.swatch.data { background: var(--data-soft); border-color: var(--data); }
+.swatch.model { background: var(--model-soft); border-color: var(--model); }
+.swatch.llm { background: var(--llm-soft); border-color: var(--llm); }
+.swatch.decision { background: var(--decision-soft); border-color: var(--decision); }
+.swatch.side { background: var(--side-soft); border-color: var(--side); border-style: dashed; }
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: 32px;
+  margin-top: 28px;
+  align-items: start;
+}
+
+/* ---------- Diagram ---------- */
+.flow { display: flex; flex-direction: column; align-items: center; min-width: 0; }
+.hint { font-size: 13px; color: var(--muted); margin: 0 0 14px; text-align: center; }
+
+.node {
+  appearance: none;
+  display: block;
+  width: min(100%, 400px);
+  text-align: left;
+  font: inherit;
+  color: var(--ink);
+  background: var(--surface);
+  border: 2px solid var(--line);
+  border-left-width: 6px;
+  border-radius: 8px;
+  padding: 10px 14px 11px;
+  cursor: pointer;
+  transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease;
+}
+.node:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(0,0,0,.08); }
+.node:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+.node[aria-pressed="true"] { box-shadow: 0 0 0 3px var(--accent); }
+.node .eyebrow {
+  display: flex; justify-content: space-between; align-items: center; gap: 8px;
+  font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted);
+}
+.node .title { display: block; font-weight: 700; font-size: 16px; margin-top: 2px; }
+.node .simple { display: block; font-size: 14px; color: var(--ink); }
+.node .tech { display: block; font-family: var(--font-mono); font-size: 11.5px; color: var(--muted); margin-top: 4px; }
+.hf { font-size: 13px; letter-spacing: 0; text-transform: none; }
+
+.node.data { border-color: var(--data); background: var(--data-soft); }
+.node.model { border-color: var(--model); background: var(--model-soft); }
+.node.llm { border-color: var(--llm); background: var(--llm-soft); }
+.node.side { border-color: var(--side); background: var(--side-soft); border-style: dashed; border-left-style: dashed; }
+
+.arrow { width: 2px; height: 26px; background: var(--line); position: relative; flex: none; }
+.arrow::after {
+  content: ""; position: absolute; bottom: -1px; left: 50%; transform: translateX(-50%);
+  border: 6px solid transparent; border-top: 8px solid var(--line); border-bottom: 0;
+}
+.arrow.plain::after { display: none; }
+
+.group {
+  width: min(100%, 640px);
+  border: 2px dashed var(--line);
+  border-radius: 12px;
+  padding: 12px;
+}
+.group-label {
+  display: block; font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--muted); margin: 0 0 10px; text-align: center;
+}
+.group-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.group-grid .node { width: 100%; }
+
+button.decision {
+  appearance: none; font: inherit; color: var(--ink); cursor: pointer;
+  width: 170px; height: 96px;
+  background: var(--decision);
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+  border: 0; padding: 2px;
+  display: grid; place-items: center;
+}
+button.decision span {
+  display: grid; place-items: center; width: 100%; height: 100%;
+  background: var(--decision-soft);
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+  font-weight: 700;
+}
+button.decision:focus-visible { outline: none; filter: drop-shadow(0 0 0 var(--accent)) drop-shadow(0 0 3px var(--accent)); }
+button.decision[aria-pressed="true"] { filter: drop-shadow(0 0 3px var(--accent)) drop-shadow(0 0 1px var(--accent)); }
+
+.branch {
+  position: relative;
+  display: grid; grid-template-columns: 1fr 1fr;
+  width: min(100%, 640px);
+}
+.branch::before, .branch::after {
+  content: ""; position: absolute; left: 25%; right: 25%; height: 2px; background: var(--line);
+}
+.branch::before { top: 0; }
+.branch::after { bottom: 0; }
+.col { display: flex; flex-direction: column; align-items: center; padding: 0 6px; min-width: 0; }
+.col .node { width: 100%; }
+.col .tail { flex: 1; width: 2px; min-height: 18px; background: var(--line); }
+.branch-label {
+  font-size: 12px; font-weight: 700; color: var(--decision);
+  background: var(--bg); padding: 0 6px; margin: -2px 0 0;
+  position: relative; z-index: 1;
+}
+
+.side-zone {
+  width: min(100%, 640px);
+  margin-top: 30px;
+  border-top: 2px dashed var(--line);
+  padding-top: 14px;
+}
+.side-zone h2 {
+  font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--muted); margin: 0 0 10px; text-align: center;
+}
+.side-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.side-grid .node { width: 100%; }
+
+/* ---------- Detail panel ---------- */
+.panel {
+  position: sticky; top: 16px;
+  max-height: calc(100vh - 32px);
+  overflow: auto;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 20px 22px 22px;
+  min-width: 0;
+}
+.panel .chip {
+  display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase;
+  padding: 2px 10px; border-radius: 99px; border: 2px solid; margin-bottom: 8px;
+}
+.chip.data { color: var(--data); border-color: var(--data); }
+.chip.model { color: var(--model); border-color: var(--model); }
+.chip.llm { color: var(--llm); border-color: var(--llm); }
+.chip.decision { color: var(--decision); border-color: var(--decision); }
+.chip.side { color: var(--side); border-color: var(--side); border-style: dashed; }
+.panel h2 {
+  font-family: var(--font-display); font-weight: 600; font-size: 1.6rem; line-height: 1.2;
+  margin: 0 0 4px; text-wrap: balance;
+}
+.panel .lead { margin: 0 0 14px; color: var(--muted); }
+.panel h3 {
+  font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted);
+  margin: 20px 0 8px;
+}
+.panel p { margin: 0 0 8px; max-width: 65ch; }
+.panel ol, .panel ul { margin: 0; padding-left: 20px; }
+.panel li { margin-bottom: 4px; }
+.io { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.io div { background: var(--bg); border-radius: 8px; padding: 10px 12px; min-width: 0; }
+.io strong { display: block; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 2px; }
+.table-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+th, td { text-align: left; vertical-align: top; padding: 7px 8px; border-bottom: 1px solid var(--line); }
+th { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+td code { white-space: nowrap; }
+code { font-family: var(--font-mono); font-size: .9em; background: var(--code-bg); padding: 1px 5px; border-radius: 4px; }
+pre {
+  font-family: var(--font-mono); font-size: 12.5px; line-height: 1.5;
+  background: var(--code-bg); border-radius: 8px; padding: 12px 14px; margin: 0;
+  overflow-x: auto; white-space: pre;
+}
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tags span { font-size: 12.5px; padding: 3px 9px; border-radius: 99px; background: var(--bg); border: 1px solid var(--line); }
+.note {
+  margin-top: 18px; padding: 10px 12px; border-radius: 8px;
+  background: var(--decision-soft); border-left: 4px solid var(--decision);
+  font-size: 14px;
+}
+.nav { display: flex; justify-content: space-between; gap: 10px; margin-top: 22px; padding-top: 14px; border-top: 1px solid var(--line); }
+.nav button {
+  font: inherit; font-size: 14px; color: var(--accent); background: transparent;
+  border: 1.5px solid var(--accent); border-radius: 8px; padding: 6px 12px; cursor: pointer;
+}
+.nav button:disabled { opacity: .35; cursor: default; }
+.nav button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+@media (max-width: 920px) {
+  .layout { grid-template-columns: minmax(0, 1fr); }
+  .panel { position: static; max-height: none; }
+}
+@media (max-width: 520px) {
+  .group-grid, .side-grid, .io { grid-template-columns: 1fr; }
+  .node .title { font-size: 15px; }
+  .node .tech { font-size: 10.5px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .node { transition: none; }
+  .node:hover { transform: none; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1>Pipeline de detección y corrección de errores médicos</h1>
+    <p>Taller 7 de PLN, sobre el dataset MEDEC (MEDIQA-CORR 2024, subset MS). Haz clic en cualquier caja para ver qué hace, qué recibe, qué entrega y qué funciones hay que programar.</p>
+    <ul class="legend" aria-label="Leyenda">
+      <li><span class="swatch data"></span>Datos</li>
+      <li><span class="swatch model"></span>Modelo entrenado</li>
+      <li><span class="swatch llm"></span>LLM</li>
+      <li><span class="swatch decision"></span>Decisión</li>
+      <li><span class="swatch side"></span>Fuera del flujo principal</li>
+      <li><span class="hf">🤗</span>Usa Hugging Face</li>
+    </ul>
+  </header>
+
+  <div class="layout">
+    <section class="flow" aria-label="Diagrama del pipeline">
+      <p class="hint">Haz clic en una caja</p>
+
+      <button class="node data" data-id="p1" aria-pressed="false">
+        <span class="eyebrow"><span>Paso 1</span></span>
+        <span class="title">Preparar los datos</span>
+        <span class="simple">Leer los textos y separarlos en oraciones</span>
+        <span class="tech">pandas · split agrupado por caso</span>
+      </button>
+      <div class="arrow"></div>
+
+      <button class="node data" data-id="p2" aria-pressed="false">
+        <span class="eyebrow"><span>Paso 2</span><span class="hf">🤗</span></span>
+        <span class="title">Armar los ejemplos</span>
+        <span class="simple">Emparejar cada oración con su texto</span>
+        <span class="tech">tokenizador BiomedBERT · máx. 512 tokens</span>
+      </button>
+      <div class="arrow"></div>
+
+      <div class="group" role="group" aria-labelledby="g3">
+        <span class="group-label" id="g3">3. Encontrar la oración con error</span>
+        <div class="group-grid">
+          <button class="node model" data-id="p3a" aria-pressed="false">
+            <span class="eyebrow"><span>Paso 3a</span><span class="hf">🤗</span></span>
+            <span class="title">Modelo entrenado</span>
+            <span class="simple">Aprende de nuestros datos</span>
+            <span class="tech">BiomedBERT · fine-tuning</span>
+          </button>
+          <button class="node llm" data-id="p3b" aria-pressed="false">
+            <span class="eyebrow"><span>Paso 3b</span><span class="hf">🤗</span></span>
+            <span class="title">LLM con prompt optimizado</span>
+            <span class="simple">Lee el texto y señala la oración</span>
+            <span class="tech">Qwen2.5-7B · DSPy</span>
+          </button>
+        </div>
+      </div>
+      <div class="arrow"></div>
+
+      <button class="node model" data-id="p3c" aria-pressed="false">
+        <span class="eyebrow"><span>Paso 3c</span></span>
+        <span class="title">Combinar las dos respuestas</span>
+        <span class="simple">Más peso al modelo entrenado</span>
+        <span class="tech">w · BERT + (1 - w) · DSPy</span>
+      </button>
+      <div class="arrow"></div>
+
+      <button class="decision" data-id="dec" aria-pressed="false" aria-label="Decisión: ¿hay error?"><span>¿Hay error?</span></button>
+      <div class="arrow plain"></div>
+
+      <div class="branch">
+        <div class="col">
+          <span class="branch-label">Sí</span>
+          <div class="arrow"></div>
+          <button class="node llm" data-id="p4" aria-pressed="false">
+            <span class="eyebrow"><span>Paso 4</span><span class="hf">🤗</span></span>
+            <span class="title">Corregir la oración</span>
+            <span class="simple">El LLM la reescribe</span>
+            <span class="tech">Qwen2.5-7B · few-shot</span>
+          </button>
+          <div class="arrow"></div>
+          <button class="node data" data-id="p5" aria-pressed="false">
+            <span class="eyebrow"><span>Paso 5</span></span>
+            <span class="title">Revisar la corrección</span>
+            <span class="simple">Marcar correcciones dudosas</span>
+            <span class="tech">ROUGE-L</span>
+          </button>
+          <div class="tail"></div>
+        </div>
+        <div class="col">
+          <span class="branch-label">No</span>
+          <div class="arrow"></div>
+          <button class="node data" data-id="ok" aria-pressed="false">
+            <span class="eyebrow"><span>Salida directa</span></span>
+            <span class="title">Texto correcto</span>
+            <span class="simple">No se corrige</span>
+            <span class="tech">flag 0 · ID -1 · NA</span>
+          </button>
+          <div class="tail"></div>
+        </div>
+      </div>
+      <div class="arrow"></div>
+
+      <button class="node data" data-id="p6" aria-pressed="false">
+        <span class="eyebrow"><span>Paso 6</span><span class="hf">🤗</span></span>
+        <span class="title">Evaluar y comparar</span>
+        <span class="simple">Medir aciertos y calidad</span>
+        <span class="tech">Accuracy · ROUGE-1 · BERTScore</span>
+      </button>
+
+      <div class="side-zone">
+        <h2>Fuera del flujo principal</h2>
+        <div class="side-grid">
+          <button class="node side" data-id="ref" aria-pressed="false">
+            <span class="eyebrow"><span>Referencia</span></span>
+            <span class="title">LLM grande vía API</span>
+            <span class="simple">Resuelve todo en una sola llamada, solo para comparar</span>
+            <span class="tech">Claude Opus 5.5 · Batch API</span>
+          </button>
+          <button class="node side" data-id="exp" aria-pressed="false">
+            <span class="eyebrow"><span>Experimento</span><span class="hf">🤗</span></span>
+            <span class="title">Pista de MedQA</span>
+            <span class="simple">Repite los pasos 3 a 5 con la pregunta de examen más parecida</span>
+            <span class="tech">MedQA · embeddings · FAISS</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <aside class="panel" id="panel" aria-live="polite" tabindex="-1"></aside>
+  </div>
+</div>
+
+<script>
+const STEPS = {
+  p1: {
+    kind: "data", chip: "Paso 1", title: "Preparar los datos",
+    lead: "Leer el CSV, reconstruir las oraciones con su número y separar entrenamiento y validación.",
+    what: [
+      "Lee los 2.189 textos clínicos del archivo de entrenamiento MS.",
+      "Reconstruye la lista de oraciones de cada texto. Algunas líneas de la columna <code>Sentences</code> no tienen número (por ejemplo valores de laboratorio) y se pegan a la oración anterior.",
+      "Agrupa los textos por caso clínico: 934 casos aparecen dos veces, una versión correcta y otra con error.",
+      "Separa entrenamiento y validación por grupo, para que un mismo caso no quede en los dos lados."
+    ],
+    input: "CSV con 2.189 textos, sus oraciones numeradas y las etiquetas.",
+    output: "Tabla con la lista de oraciones por texto y dos conjuntos: train y validación.",
+    functions: [
+      ["load_mediqa_dataset(path)", "Lee el CSV y descarta columnas índice."],
+      ["parse_sentences(raw)", "Lista de oraciones indexada por ID, uniendo las líneas de continuación."],
+      ["normalize_text(text)", "Normaliza espacios y saltos de línea."],
+      ["build_case_groups(df)", "Asigna un ID de caso clínico a cada texto."],
+      ["split_by_case(df, val_size, seed)", "Split train/validación con GroupShuffleSplit."],
+      ["to_hf_dataset(df)", "Convierte los splits en Dataset para usarlos con Trainer."]
+    ],
+    hf: ["datasets (Dataset)"],
+    example: "Línea sin número en Sentences:\n  17 Leukocyte count 150/mm3\n     Segmented neutrophils 15%   <- se une a la 17\n  18 Lymphocytes 85%\n\nSin unirla, todos los IDs siguientes se corren una posición.",
+    note: "Si se separa train y validación al azar, la versión correcta de un caso puede caer en train y la versión con error en validación. Las métricas saldrían infladas."
+  },
+  p2: {
+    kind: "data", chip: "Paso 2", title: "Armar los ejemplos",
+    lead: "Convertir cada texto en un ejemplo por oración, que es lo que recibe el modelo entrenado.",
+    what: [
+      "Por cada oración del texto se crea un par: la oración candidata y el texto completo como contexto.",
+      "La etiqueta es 1 solo para la oración con error; las demás son 0. En textos sin error todas son 0.",
+      "Se tokeniza con el tokenizador de BiomedBERT. El texto más largo tiene 414 tokens, así que cabe en el límite de 512.",
+      "Como hay muchas más oraciones correctas que erróneas, se calculan pesos para compensar el desbalance."
+    ],
+    input: "Textos con sus oraciones (paso 1).",
+    output: "~28.000 pares (oración, texto, etiqueta) ya tokenizados.",
+    functions: [
+      ["build_sentence_pairs(row)", "Genera (oración, texto, posición relativa, etiqueta)."],
+      ["encode_pair(sentence, context, tokenizer)", "Tokeniza como [CLS] oración [SEP] texto [SEP]."],
+      ["compute_class_weights(labels)", "Pesos para el desbalance de clases."]
+    ],
+    hf: ["transformers (AutoTokenizer)", "BiomedBERT tokenizer"],
+    example: "ms-train-0 (8 oraciones, error en la 6):\n\n[CLS] A 53-year-old man comes to... [SEP] texto completo [SEP]   -> 0\n[CLS] He works as a commercial fisherman... [SEP] texto [SEP]   -> 0\n...\n[CLS] ...determined to be Haemophilus influenzae. [SEP] texto [SEP] -> 1\n[CLS] An x-ray of the chest showed... [SEP] texto [SEP]       -> 0"
+  },
+  p3a: {
+    kind: "model", chip: "Paso 3a", title: "Modelo entrenado",
+    lead: "BiomedBERT ajustado con nuestros datos para responder: ¿esta oración es el error de este texto?",
+    what: [
+      "<strong>BiomedBERT</strong> es un BERT entrenado por Microsoft con textos de PubMed. Ya conoce el lenguaje médico, pero no sabe detectar errores.",
+      "Se le pone encima una <strong>cabeza de clasificación</strong>: una capa pequeña (768 a 2) que convierte el resumen del texto en dos probabilidades, error o no error.",
+      "El <strong>fine-tuning</strong> entrena la cabeza desde cero y ajusta un poco el resto del modelo con nuestros pares, 2 o 3 épocas, con tasa de aprendizaje pequeña (~2e-5).",
+      "Al final, para cada oración de un texto nuevo entrega la probabilidad de que sea el error."
+    ],
+    input: "Pares (oración, texto) del paso 2.",
+    output: "Vector p_bert: una probabilidad por oración.",
+    functions: [
+      ["load_detector(model_name)", "Carga BiomedBERT con una cabeza de 2 clases."],
+      ["train_detector(train_ds, val_ds, args)", "Fine-tuning con pérdida ponderada, fp16 y checkpoints en Drive."],
+      ["predict_bert_scores(text_sentences)", "Probabilidad de error por oración (p_bert)."]
+    ],
+    hf: ["microsoft/BiomedNLP-BiomedBERT-base-uncased-abstract-fulltext", "AutoModelForSequenceClassification", "Trainer"],
+    example: "oración:  0     1     2     3     4     5     6     7\np_bert:  0.02  0.01  0.03  0.01  0.01  0.05  0.85  0.08",
+    note: "Costo: ~110 millones de parámetros. En una GPU T4 de Colab el entrenamiento toma del orden de minutos por época (estimado, sin medir)."
+  },
+  p3b: {
+    kind: "llm", chip: "Paso 3b", title: "LLM con prompt optimizado",
+    lead: "El mismo problema resuelto por un LLM abierto, con un prompt que DSPy optimiza automáticamente.",
+    what: [
+      "Qwen2.5-7B (versión de 4 bits) se sirve con vLLM en Colab, como una API local.",
+      "Se define en DSPy qué entra y qué sale: el texto numerado entra; sale si hay error, el número de la oración y una confianza.",
+      "<strong>Compilar</strong>: DSPy prueba ejemplos del train dentro del prompt y se queda con los que dan mejor resultado en validación. El modelo no cambia, cambia el prompt.",
+      "Se compila con un subconjunto pequeño (p. ej. 50 + 50 textos) para que quepa en el tiempo de Colab."
+    ],
+    input: "Texto numerado por oraciones (paso 1).",
+    output: "Vector s_dspy: la confianza en la oración elegida y 0 en las demás.",
+    functions: [
+      ["start_llm_server(model_name)", "Levanta vLLM con Qwen2.5-7B-Instruct-AWQ."],
+      ["configure_dspy_lm(api_base)", "Conecta DSPy al servidor local."],
+      ["DetectErrorSignature", "numbered_text -> has_error, error_sentence_id, confidence."],
+      ["build_dspy_detector()", "Módulo dspy.ChainOfThought con esa firma."],
+      ["detection_metric(example, pred)", "1 si acierta flag y oración, 0,5 si solo el flag."],
+      ["compile_dspy_detector(trainset, valset)", "Compila con BootstrapFewShot."],
+      ["predict_dspy_scores(text_sentences)", "Convierte la salida en el vector s_dspy."]
+    ],
+    hf: ["Qwen/Qwen2.5-7B-Instruct-AWQ (Hub)", "DSPy (no es de HF)", "vLLM (no es de HF)"],
+    example: "Salida del LLM:\n  { has_error: true, error_sentence_id: 6, confidence: 0.80 }\n\nComo vector:\n  s_dspy: 0  0  0  0  0  0  0.80  0",
+    note: "La confianza la escribe el LLM; no es una probabilidad calibrada como la de BERT. Por eso el peso del paso 3c se ajusta con datos."
+  },
+  p3c: {
+    kind: "model", chip: "Paso 3c", title: "Combinar las dos respuestas",
+    lead: "Promediar las dos opiniones, con más peso para el modelo entrenado.",
+    what: [
+      "Para cada oración: puntaje = w · p_bert + (1 - w) · s_dspy. Por defecto w = 0,7.",
+      "El peso w y el umbral se ajustan en validación probando valores de 0 a 1.",
+      "Con w = 1 queda solo BERT y con w = 0 solo DSPy, así que la misma búsqueda sirve para comparar los dos detectores.",
+      "Si el puntaje más alto supera el umbral, hay error (subtarea A) y esa oración es la errónea (subtarea B)."
+    ],
+    input: "Vectores p_bert (3a) y s_dspy (3b).",
+    output: "Flag de error y número de la oración (o -1).",
+    functions: [
+      ["combine_scores(p_bert, s_dspy, w)", "Puntaje final por oración."],
+      ["tune_weight_and_threshold(val_scores, val_labels)", "Búsqueda en grilla de w y del umbral."],
+      ["decide_error_flag(scores, threshold)", "Subtarea A: 1 si max(scores) > umbral."],
+      ["select_error_sentence(scores, flag)", "Subtarea B: argmax(scores) o -1."]
+    ],
+    hf: [],
+    example: "Oración 6:\n  p_bert = 0.85   s_dspy = 0.80   w = 0.7\n  puntaje = 0.7 · 0.85 + 0.3 · 0.80 = 0.835\n\nmax = 0.835 > umbral 0.5  ->  flag 1, oración 6",
+    note: "Baselines a superar: clase mayoritaria (55,7% en A) y \"siempre la última oración\" (62,5% en B, sobre textos con error)."
+  },
+  dec: {
+    kind: "decision", chip: "Decisión", title: "¿Hay error?",
+    lead: "Separa los textos que se corrigen de los que se dan por correctos.",
+    what: [
+      "Si el puntaje más alto del paso 3c supera el umbral, el texto pasa al corrector (paso 4).",
+      "Si no, el texto se considera correcto y no se llama al LLM, lo que ahorra tiempo.",
+      "El umbral se elige en validación para maximizar la accuracy de la subtarea A."
+    ],
+    input: "Puntajes combinados por oración.",
+    output: "Rama Sí (corregir) o rama No (texto correcto).",
+    functions: [["decide_error_flag(scores, threshold)", "Implementa esta decisión."]],
+    hf: [],
+    example: "max(scores) = 0.835 > 0.5  ->  Sí\nmax(scores) = 0.21  < 0.5  ->  No"
+  },
+  ok: {
+    kind: "data", chip: "Salida directa", title: "Texto correcto",
+    lead: "Cuando no hay error, la salida sigue el formato del shared task.",
+    what: [
+      "Error flag = 0.",
+      "Error sentence ID = -1.",
+      "Corrected sentence = NA."
+    ],
+    input: "Textos que no pasaron el umbral.",
+    output: "Fila de predicción lista para evaluar.",
+    functions: [["format_prediction(text_id, flag, sentence_id, correction)", "Arma la fila de salida."]],
+    hf: [],
+    example: "ms-train-1, 0, -1, NA"
+  },
+  p4: {
+    kind: "llm", chip: "Paso 4", title: "Corregir la oración",
+    lead: "El LLM reescribe la oración con error cambiando la entidad incorrecta (subtarea C).",
+    what: [
+      "Solo se ejecuta cuando hay error. Reutiliza el mismo servidor vLLM del paso 3b.",
+      "Se buscan en el train textos parecidos (por embeddings) y se usan sus correcciones como ejemplos en el prompt.",
+      "El prompt pide devolver solo la oración corregida; se genera con temperatura baja y pocos tokens.",
+      "En el dataset, el 82,5% de las correcciones cambia un solo bloque (mediana de 2 palabras)."
+    ],
+    input: "Texto completo + oración marcada como errónea.",
+    output: "Oración corregida.",
+    functions: [
+      ["select_few_shot_examples(train_df, query, k)", "Ejemplos parecidos del train."],
+      ["build_correction_prompt(text, error_sentence, examples)", "Arma el prompt."],
+      ["generate_correction(prompt, api_base)", "Llama al servidor vLLM."],
+      ["extract_corrected_sentence(output)", "Limpia explicaciones, comillas y prefijos."]
+    ],
+    hf: ["Qwen/Qwen2.5-7B-Instruct-AWQ", "sentence-transformers", "NeuML/pubmedbert-base-embeddings"],
+    example: "Oración con error:\n  After reviewing imaging, the causal pathogen was\n  determined to be Haemophilus influenzae.\n\nCorrección esperada:\n  After reviewing imaging, the causal pathogen was\n  determined to be Streptococcus pneumoniae."
+  },
+  p5: {
+    kind: "data", chip: "Paso 5", title: "Revisar la corrección",
+    lead: "Detectar correcciones sospechosas antes de evaluar.",
+    what: [
+      "Se compara la oración original con la corregida usando ROUGE-L.",
+      "Si quedó idéntica, o si cambió demasiado (ROUGE-L menor a 0,7), se marca como dudosa. La idea viene de WangLab.",
+      "Las dudosas se revisan en el análisis de errores del paso 6."
+    ],
+    input: "Oración original y oración corregida.",
+    output: "Predicción final + marca de dudosa.",
+    functions: [
+      ["quality_check_correction(error_sentence, correction, min_rouge)", "Marca correcciones dudosas."],
+      ["format_prediction(text_id, flag, sentence_id, correction)", "Arma la fila de salida."]
+    ],
+    hf: ["evaluate (ROUGE)"],
+    example: "ROUGE-L(original, corregida) = 0.88  ->  aceptada\nROUGE-L(original, corregida) = 0.41  ->  dudosa\ncorregida == original               ->  dudosa"
+  },
+  p6: {
+    kind: "data", chip: "Paso 6", title: "Evaluar y comparar",
+    lead: "Medir cada sistema con las métricas del shared task y compararlos entre sí.",
+    what: [
+      "<strong>Accuracy</strong> para las subtareas A (flag) y B (oración).",
+      "<strong>ROUGE-1</strong> (palabras en común) y <strong>BERTScore</strong> (similitud de significado) para la corrección C.",
+      "Se comparan: baselines, BERT solo, DSPy sin compilar, DSPy compilado, la combinación, la referencia con Claude y el experimento con MedQA.",
+      "Análisis de errores por posición de la oración, por tipo de error aproximado y casos donde los detectores no coinciden."
+    ],
+    input: "Predicciones de todos los sistemas sobre validación.",
+    output: "Tablas comparativas y análisis de errores.",
+    functions: [
+      ["compute_flag_accuracy(y_true, y_pred)", "Accuracy de A."],
+      ["compute_sentence_accuracy(y_true, y_pred)", "Accuracy de B."],
+      ["compute_correction_scores(refs, preds)", "ROUGE-1 y BERTScore de C."],
+      ["compare_detectors(val_df)", "Tabla de A y B por sistema."],
+      ["compare_correctors(val_df)", "Tabla de C: Qwen frente a Claude."],
+      ["error_analysis(df_pred)", "Errores por posición y por tipo."]
+    ],
+    hf: ["evaluate (rouge, bertscore)", "microsoft/deberta-xlarge-mnli (BERTScore)"],
+    example: "Sistema                 A       B       ROUGE-1  BERTScore\nClase mayoritaria       0.557   -       -        -\nSiempre la última       -       0.625   -        -\nBERT (w = 1)            ...     ...\nDSPy compilado (w = 0)  ...     ...\nCombinación             ...     ...     ...      ...\nClaude Opus 5.5         ...     ...     ...      ...\n\nReferencia WangLab: ROUGE-1 0.776, BERTScore 0.809",
+    note: "Sin la pista de MedQA se esperan resultados cercanos a la tabla de MEDEC (60-70% en A), más bajos que el 86,5% de WangLab pero honestos."
+  },
+  ref: {
+    kind: "side", chip: "Referencia externa", title: "LLM grande vía API",
+    lead: "Claude Opus 5.5 resuelve las tres subtareas sin entrenamiento, para saber qué tan lejos queda nuestro pipeline.",
+    what: [
+      "Usa el mismo tipo de prompt que MEDEC (zero-shot o con un ejemplo), sin MedQA ni DSPy.",
+      "Una sola llamada por texto devuelve un JSON con has_error, error_sentence_id y corrected_sentence (structured outputs).",
+      "Se envían los ~440 textos de validación en un lote con la Batch API, que cuesta 50% menos.",
+      "No entra en la combinación del paso 3c; solo se compara en el paso 6."
+    ],
+    input: "Texto numerado de validación.",
+    output: "Flag, oración y corrección en el mismo formato del pipeline.",
+    functions: [
+      ["load_api_key()", "Lee la key desde .env o Secrets de Colab."],
+      ["build_claude_request(text_id, numbered_text, example)", "Prompt de MEDEC + esquema de salida."],
+      ["submit_claude_batch(requests)", "Envía el lote."],
+      ["collect_claude_results(batch_id)", "Lee resultados por custom_id y guarda en disco."],
+      ["to_prediction_format(results)", "Convierte al formato del pipeline."]
+    ],
+    hf: ["No usa Hugging Face: API de Anthropic (SDK anthropic)"],
+    example: "Costo estimado (sin medir):\n  ~2.000 tokens de entrada + ~1.000 de salida por texto\n  440 textos  ->  ~$12 USD, o ~$6 con Batch API",
+    note: "Es probable que los LLMs grandes hayan visto MedQA al entrenarse, así que sus resultados en MS pueden ser optimistas. La API key nunca va en el notebook: el repositorio es público."
+  },
+  exp: {
+    kind: "side", chip: "Experimento", title: "Pista de MedQA",
+    lead: "Medir cuánto sube el resultado si los modelos consultan la pregunta de examen de la que salió cada texto.",
+    what: [
+      "Los textos MS se fabricaron desde preguntas de MedQA: los anotadores insertaron una opción de respuesta en el caso clínico.",
+      "Buscar la pregunta original equivale a consultar la hoja de respuestas. WangLab lo usó y ganó, pero no sirve para notas clínicas reales.",
+      "Por eso queda fuera del pipeline principal. Aquí se repiten los pasos 3 a 5 agregando la pregunta más parecida y su respuesta.",
+      "La diferencia con el pipeline principal muestra cuánto del resultado viene de encontrar la respuesta."
+    ],
+    input: "Textos + índice de ~12.700 preguntas de MedQA.",
+    output: "Las mismas métricas, con y sin MedQA.",
+    functions: [
+      ["load_medqa()", "Descarga MedQA desde el Hub."],
+      ["build_medqa_index(questions, encoder)", "Embeddings + índice FAISS."],
+      ["retrieve_similar_questions(text, index, k)", "Las k preguntas más parecidas."],
+      ["format_retrieved_options(hits)", "Opciones y respuesta como texto corto."],
+      ["add_medqa_context(inputs, options)", "Agrega la pista a BERT, DSPy y al corrector."],
+      ["fallback_correction(error_sentence, options)", "Reemplazo directo con la respuesta recuperada."],
+      ["compare_with_without_medqa(base, medqa)", "Tabla con y sin MedQA."]
+    ],
+    hf: ["GBaker/MedQA-USMLE-4-options", "NeuML/pubmedbert-base-embeddings", "datasets", "sentence-transformers"],
+    example: "Texto ms-train-0  ->  pregunta de MedQA casi idéntica\n  Opciones: H. influenzae, S. pneumoniae, Legionella, Mycoplasma\n  Respuesta correcta: S. pneumoniae",
+    note: "Las respuestas de validación están dentro del índice, así que estas métricas son un techo optimista, no un resultado comparable."
+  }
+};
+
+const ORDER = ["p1", "p2", "p3a", "p3b", "p3c", "dec", "ok", "p4", "p5", "p6", "ref", "exp"];
+const panel = document.getElementById("panel");
+const buttons = document.querySelectorAll("[data-id]");
+const narrow = window.matchMedia("(max-width: 920px)");
+
+function render(id) {
+  const s = STEPS[id];
+  const i = ORDER.indexOf(id);
+  const fnRows = s.functions.map(([name, desc]) => `<tr><td><code>${name}</code></td><td>${desc}</td></tr>`).join("");
+  const hf = s.hf.length
+    ? `<div class="tags">${s.hf.map(t => `<span>${t}</span>`).join("")}</div>`
+    : `<p>No usa Hugging Face en este paso.</p>`;
+
+  panel.innerHTML = `
+    <span class="chip ${s.kind}">${s.chip}</span>
+    <h2>${s.title}</h2>
+    <p class="lead">${s.lead}</p>
+
+    <h3>Qué hace</h3>
+    <ol>${s.what.map(w => `<li>${w}</li>`).join("")}</ol>
+
+    <h3>Entrada y salida</h3>
+    <div class="io">
+      <div><strong>Recibe</strong>${s.input}</div>
+      <div><strong>Entrega</strong>${s.output}</div>
+    </div>
+
+    <h3>Funciones a programar</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Función</th><th>Descripción</th></tr></thead>
+      <tbody>${fnRows}</tbody>
+    </table></div>
+
+    <h3>Hugging Face</h3>
+    ${hf}
+
+    <h3>Ejemplo</h3>
+    <pre>${s.example}</pre>
+
+    ${s.note ? `<div class="note">${s.note}</div>` : ""}
+
+    <div class="nav">
+      <button type="button" id="prev" ${i === 0 ? "disabled" : ""}>Anterior</button>
+      <button type="button" id="next" ${i === ORDER.length - 1 ? "disabled" : ""}>Siguiente</button>
+    </div>`;
+
+  buttons.forEach(b => b.setAttribute("aria-pressed", b.dataset.id === id ? "true" : "false"));
+  document.getElementById("prev").addEventListener("click", () => select(ORDER[i - 1], true));
+  document.getElementById("next").addEventListener("click", () => select(ORDER[i + 1], true));
+}
+
+function select(id, fromNav) {
+  render(id);
+  panel.scrollTop = 0;
+  if (narrow.matches) {
+    panel.scrollIntoView({ behavior: "smooth", block: "start" });
+  } else if (fromNav) {
+    const b = document.querySelector(`[data-id="${id}"]`);
+    if (b) b.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+}
+
+buttons.forEach(b => b.addEventListener("click", () => select(b.dataset.id, false)));
+render("p1");
+</script>
+</body>
+</html>
