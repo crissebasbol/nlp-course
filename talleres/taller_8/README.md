@@ -12,6 +12,8 @@ El proyecto incluye el código del pipeline, los scripts que lo ejecutan paso a 
 
 > **Resumen:** el diseño original del taller 7 (BiomedBERT + Qwen2.5-7B con DSPy) se implementó tal cual y se evaluó. Después se iteró sobre él; la versión final usa **BiomedBERT para elegir la oración y Claude Haiku 5.5 para decidir si es correcta y corregirla**, y pasa de A = 0,57 a **0,83** en test. El recorrido completo está en [Iteraciones](#iteraciones-qué-probamos-después-del-pipeline-original) y el diagrama final en [Pipeline final](#pipeline-final).
 
+> **Modelo publicado en Hugging Face:** el BiomedBERT afinado de este taller está disponible públicamente en [huggingface.co/crissebasbol/medec-biomedbert-detector](https://huggingface.co/crissebasbol/medec-biomedbert-detector), con su ficha (uso, entrenamiento, resultados y limitaciones). La app y los scripts lo descargan de ahí cuando no está entrenado localmente, así que para desplegar o probar el pipeline no hace falta reentrenarlo ni pasar el archivo a mano.
+
 ## Arquitectura
 
 Diagrama del pipeline **original** (diseño del taller 7) y de su despliegue. La versión final, después de iterar, está en [Pipeline final](#pipeline-final).
