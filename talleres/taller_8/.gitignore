@@ -1,0 +1,7 @@
+outputs/
+.env
+deploy/hosts.env
+docker/certs/*.crt
+outputs_smoke/
+PLAN.md
+docker/certs/

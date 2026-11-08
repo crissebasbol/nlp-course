@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Detector de errores médicos</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>Detector de errores médicos</h1>
+      <p class="subtitle">MEDEC / MEDIQA-CORR 2024 · BiomedBERT + Qwen2.5-7B con DSPy</p>
+    </div>
+    <div id="status" class="status" aria-live="polite"></div>
+  </header>
+
+  <nav class="tabs" role="tablist">
+    <button class="tab active" data-tab="analyze" role="tab">Analizar texto</button>
+    <button class="tab" data-tab="metrics" role="tab">Resultados del test</button>
+  </nav>
+
+  <main>
+    <section id="tab-analyze" class="tab-panel">
+      <div class="layout">
+        <div class="card input-card">
+          <h2>1. Texto clínico</h2>
+          <label for="example">Ejemplo del conjunto de prueba</label>
+          <div class="row">
+            <select id="example"><option value="">Cargando ejemplos...</option></select>
+            <button id="random" class="secondary" type="button">Aleatorio</button>
+          </div>
+          <label for="text">O escribe / pega un texto (prosa o una oración por línea con su número)</label>
+          <textarea id="text" rows="11" placeholder="A 53-year-old man comes to the physician because of..."></textarea>
+
+          <h2>2. Opciones</h2>
+          <div class="options">
+            <label class="check"><input type="checkbox" id="use_bert" checked> BiomedBERT (3a)</label>
+            <label class="check"><input type="checkbox" id="use_dspy" checked> Qwen + DSPy (3b)</label>
+            <label class="check"><input type="checkbox" id="correct" checked> Corregir (4)</label>
+          </div>
+          <label for="weight">Peso de BERT <b>w</b> = <span id="weight-value"></span>
+            <small>(puntaje = w · p_bert + (1 - w) · s_dspy)</small></label>
+          <input type="range" id="weight" min="0" max="1" step="0.05">
+          <label for="threshold">Umbral = <span id="threshold-value"></span></label>
+          <input type="range" id="threshold" min="0.05" max="0.95" step="0.025">
+          <button id="reset" class="link" type="button">Restaurar valores ajustados en validación</button>
+          <button id="run" class="primary" type="button">Analizar</button>
+          <p class="hint">En los servidores (solo CPU) el LLM tarda varios minutos por paso. BiomedBERT solo tarda segundos.</p>
+        </div>
+
+        <div class="results">
+          <div class="card">
+            <h2>Progreso del pipeline</h2>
+            <ol id="steps" class="steps"></ol>
+            <p id="job-info" class="hint"></p>
+          </div>
+          <div id="result" class="card hidden"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-metrics" class="tab-panel hidden">
+      <div id="metrics" class="card"><p>Cargando...</p></div>
+    </section>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

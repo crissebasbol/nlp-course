@@ -1,0 +1,58 @@
+seed: 42
+
+paths:
+  data_csv: ../taller_7/data/MEDIQA-CORR-2024-MS-TrainingData.csv
+  output_dir: outputs
+
+split:
+  val_size: 0.15
+  test_size: 0.15
+
+models:
+  detector: microsoft/BiomedNLP-BiomedBERT-base-uncased-abstract-fulltext
+  embeddings: NeuML/pubmedbert-base-embeddings
+  # Name exposed by llama-server (any string works, llama-server serves one model)
+  llm_name: qwen2.5-7b-instruct
+  llm_api_base: http://localhost:8001/v1
+  gguf_repo: bartowski/Qwen2.5-7B-Instruct-GGUF
+  gguf_file: Qwen2.5-7B-Instruct-Q4_K_M.gguf
+
+bert:
+  max_length: 512
+  epochs: 2
+  batch_size: 16
+  learning_rate: 2.0e-5
+  weight_decay: 0.01
+  warmup_ratio: 0.1
+  eval_batch_size: 32
+
+dspy:
+  compile_train_size: 60
+  max_bootstrapped_demos: 3
+  max_labeled_demos: 3
+  temperature: 0.0
+  max_tokens: 600
+  num_threads: 4
+  timeout: 900
+
+combine:
+  default_weight: 0.7
+  default_threshold: 0.5
+
+corrector:
+  k_examples: 3
+  temperature: 0.0
+  max_tokens: 160
+  timeout: 900
+
+quality:
+  min_rouge: 0.7
+
+claude:
+  model: claude-opus-5-5
+  effort: medium
+  max_tokens: 4000
+  n_examples: 1
+
+evaluation:
+  bertscore_model: microsoft/deberta-xlarge-mnli

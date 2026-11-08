@@ -1,0 +1,14 @@
+# Dependencies to serve the pipeline (Docker image, CPU only).
+# torch is installed separately from the CPU index in the Dockerfile.
+pandas
+pyarrow
+numpy
+pyyaml
+python-dotenv
+httpx
+transformers
+sentence-transformers
+dspy
+rouge-score
+fastapi
+uvicorn[standard]
