@@ -23,7 +23,8 @@ push "$HOST" docker-compose.yml docker src configs pyproject.toml requirements-s
   "${ARTIFACTS[@]}" ${REPORTS[@]+"${REPORTS[@]}"}
 
 log "Construyendo la imagen y levantando el contenedor app (puerto $APP_PORT)"
-remote "$HOST" "$(compose_cmd) build app && LLM_API_BASE=http://$M1_HOST:$LLM_PORT/v1 APP_PORT=$APP_PORT OUTPUTS_DIR=./outputs \$C up -d --no-deps app"
+set_remote_env "$HOST" LLM_API_BASE="http://$M1_HOST:$LLM_PORT/v1" APP_PORT="$APP_PORT" OUTPUTS_DIR=./outputs
+remote "$HOST" "$(compose_cmd) build app && \$C up -d --no-deps app"
 
 log "Liberando espacio de builds anteriores"
 remote "$HOST" "$DOCKER image prune -f >/dev/null; $DOCKER builder prune -f >/dev/null || true; df -h ~ | tail -1"

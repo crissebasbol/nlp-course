@@ -22,7 +22,8 @@ ls -lh $GGUF_FILE
 REMOTE
 
 log "Levantando el contenedor llm (puerto $LLM_PORT)"
-remote "$HOST" "$(compose_cmd) pull llm && GGUF_DIR=./models/gguf LLM_PORT=$LLM_PORT LLM_THREADS=$LLM_THREADS LLM_CTX=$LLM_CTX \$C up -d llm"
+set_remote_env "$HOST" GGUF_DIR=./models/gguf LLM_PORT="$LLM_PORT" LLM_THREADS="$LLM_THREADS" LLM_CTX="$LLM_CTX"
+remote "$HOST" "$(compose_cmd) pull llm && \$C up -d llm"
 
 log "Esperando a que cargue el modelo"
 wait_http "$HOST" "http://localhost:$LLM_PORT/health" 900

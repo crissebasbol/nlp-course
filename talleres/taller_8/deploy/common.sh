@@ -39,6 +39,17 @@ push() {  # push <host> <paths relative to the project...>: copies with tar over
     | remote "$host" "mkdir -p $REMOTE_DIR && tar -xzf - -C $REMOTE_DIR"
 }
 
+set_remote_env() {  # set_remote_env <host> KEY=VALUE...
+  # Writes the deploy values into $REMOTE_DIR/.env on the server, which docker compose always reads
+  # (also with "sudo docker", which drops variables passed before the command). Other lines of that
+  # file, such as ANTHROPIC_API_KEY added by hand, are kept.
+  local host=$1; shift
+  local keys="" lines="" kv
+  for kv in "$@"; do keys="$keys|${kv%%=*}"; lines="$lines$kv\\n"; done
+  remote "$host" "mkdir -p $REMOTE_DIR && cd $REMOTE_DIR && touch .env && \
+    { grep -vE '^(${keys#|})=' .env || true; } > .env.tmp && printf '$lines' >> .env.tmp && mv .env.tmp .env && chmod 600 .env"
+}
+
 compose_cmd() {  # docker compose v2 or legacy docker-compose, detected on the server
   echo "if $DOCKER compose version >/dev/null 2>&1; then C='$DOCKER compose'; else C='${DOCKER/docker/docker-compose}'; fi; cd $REMOTE_DIR && \$C"
 }

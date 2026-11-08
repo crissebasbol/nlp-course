@@ -121,6 +121,8 @@ Levanta los mismos dos contenedores que irán a los servidores:
 
 ### 3. Desplegar en los servidores
 
+Guía completa paso a paso, incluida la activación de Claude Haiku con la API key: [`DESPLIEGUE.md`](DESPLIEGUE.md).
+
 ```bash
 cp deploy/hosts.env.example deploy/hosts.env   # poner IPs, usuario y puertos (no se sube a git)
 ssh-copy-id estudiante@<IP_M1>           # opcional: evita escribir la contraseña
