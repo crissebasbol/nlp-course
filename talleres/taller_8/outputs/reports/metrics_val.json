@@ -1,0 +1,105 @@
+{
+  "split": "val",
+  "n_texts": 334,
+  "detection": [
+    {
+      "system": "Baseline: siempre error en la última oración",
+      "flag_acc": 0.5419,
+      "sentence_acc": 0.3174,
+      "sentence_acc_on_errors": 0.5856,
+      "n": 334
+    },
+    {
+      "system": "BiomedBERT fine-tuneado (w = 1)",
+      "flag_acc": 0.5479,
+      "sentence_acc": 0.5269,
+      "sentence_acc_on_errors": 0.9392,
+      "n": 334
+    },
+    {
+      "system": "Qwen2.5-7B + DSPy sin compilar",
+      "flag_acc": 0.5479,
+      "sentence_acc": 0.3683,
+      "sentence_acc_on_errors": 0.4917,
+      "n": 334
+    },
+    {
+      "system": "Qwen2.5-7B + DSPy compilado (w = 0)",
+      "flag_acc": 0.5749,
+      "sentence_acc": 0.4042,
+      "sentence_acc_on_errors": 0.6022,
+      "n": 334
+    },
+    {
+      "system": "Combinación ponderada",
+      "flag_acc": 0.5479,
+      "sentence_acc": 0.5419,
+      "sentence_acc_on_errors": 0.6575,
+      "n": 334
+    },
+    {
+      "system": "Pipeline completo (combinación + corrector)",
+      "flag_acc": 0.5479,
+      "sentence_acc": 0.5419,
+      "sentence_acc_on_errors": 0.6575,
+      "n": 334
+    }
+  ],
+  "correction": [
+    {
+      "system": "Pipeline completo (combinación + corrector)",
+      "rouge1_official": 0.4232,
+      "rouge1_pairs": 0.6557,
+      "n_pairs": 121,
+      "bertscore_official": 0.4963,
+      "bertscore_pairs": 0.8575
+    }
+  ],
+  "error_analysis": {
+    "by_position": [
+      {
+        "position": "last",
+        "mean": 0.736,
+        "count": 106
+      },
+      {
+        "position": "not_last",
+        "mean": 0.547,
+        "count": 75
+      }
+    ],
+    "by_error_type": [
+      {
+        "error_type": "CausalOrganism",
+        "mean": 0.706,
+        "count": 17
+      },
+      {
+        "error_type": "Diagnosis",
+        "mean": 0.659,
+        "count": 44
+      },
+      {
+        "error_type": "Management",
+        "mean": 0.667,
+        "count": 36
+      },
+      {
+        "error_type": "Other",
+        "mean": 0.559,
+        "count": 34
+      },
+      {
+        "error_type": "Pharmacotherapy",
+        "mean": 0.7,
+        "count": 40
+      },
+      {
+        "error_type": "Treatment",
+        "mean": 0.7,
+        "count": 10
+      }
+    ]
+  },
+  "doubtful_corrections": 80
+}
