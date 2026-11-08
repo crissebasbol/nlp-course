@@ -23,3 +23,15 @@ def test_format_prediction():
 def test_extract_corrected_sentence():
     assert extract_corrected_sentence('Corrected sentence: "He takes aspirin."\nBecause...') == "He takes aspirin."
     assert extract_corrected_sentence("6 The pathogen was S. pneumoniae.") == "The pathogen was S. pneumoniae."
+
+
+def test_compare_with_reference():
+    from medec.quality import compare_with_reference
+
+    orig = "Suspected of infection with clostridium botulinum."
+    ref = "Suspected of infection with Streptococcus pyogenes."
+    right = compare_with_reference(orig, "Suspected infection with Streptococcus pyogenes (group A).", ref)
+    wrong = compare_with_reference(orig, "Suspected of infection with clostridium perfringens.", ref)
+    assert right["key_terms"] == ["streptococcus", "pyogenes"] and right["verdict"] == "key_terms"
+    assert wrong["verdict"] == "different" and wrong["key_found"] == []
+    assert compare_with_reference(orig, ref, ref)["verdict"] == "exact"

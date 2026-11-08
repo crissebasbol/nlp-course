@@ -34,6 +34,10 @@ services:
     image: medec-app:latest
     environment:
       LLM_API_BASE: "${LLM_API_BASE:-http://llm:8080/v1}"
+      # Optional Claude reference in the UI. Compose reads taller_8/.env locally; the deploy
+      # scripts do not copy .env, so on the servers it stays off unless set on purpose.
+      ANTHROPIC_API_KEY: "${ANTHROPIC_API_KEY:-}"
+      CLAUDE_MAX_CALLS_PER_HOUR: "${CLAUDE_MAX_CALLS_PER_HOUR:-20}"
     volumes:
       - "${OUTPUTS_DIR:-./outputs}:/data/outputs:ro"
       - "hf_cache:/data/hf_cache"

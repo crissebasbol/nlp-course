@@ -6,6 +6,13 @@
     "sentence_acc": 0.5419161676646707,
     "objective": 1.089820359281437
   },
+  "hybrid": {
+    "w": 0.4,
+    "threshold": 0.4,
+    "flag_acc": 0.5748502994011976,
+    "sentence_acc": 0.5508982035928144,
+    "objective": 1.125748502994012
+  },
   "bert": {
     "w": 1.0,
     "threshold": 0.2,

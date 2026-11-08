@@ -1,6 +1,6 @@
 """Steps 4 and 5: correct the flagged sentence with Qwen + few-shot, then quality check.
 
-Reads the detection predictions of --system (default: combined) and writes
+Reads the detection predictions of --system (default: hybrid) and writes
 predictions/pipeline_<split>.jsonl with A, B and C. Needs the LLM server running.
 """
 
@@ -14,11 +14,11 @@ from medec.corrector import Corrector, build_example_index, load_encoder, load_e
 from medec.data import load_split
 from medec.llm_server import wait_until_ready
 from medec.quality import quality_check_correction
-from medec.schemas import Prediction, append_jsonl, load_jsonl, load_predictions
+from medec.schemas import Prediction, append_jsonl, load_jsonl, load_predictions, save_jsonl
 
 
 def extra(parser):
-    parser.add_argument("--system", default="combined", help="Detection predictions to correct")
+    parser.add_argument("--system", default="hybrid", help="Detection predictions to correct")
     parser.add_argument("--output-name", default="pipeline")
 
 
@@ -44,7 +44,15 @@ def main() -> None:
         if args.limit:
             detections = detections[: args.limit]
         out_path = output_path(cfg, "predictions", f"{args.output_name}_{split}.jsonl")
-        done = {r["text_id"] for r in load_jsonl(out_path)} if out_path.exists() else set()
+        # Resume only texts whose saved detection (flag, sentence) still matches the current one;
+        # if the detector changed, stale rows are dropped and those texts are corrected again.
+        current = {d.text_id: (d.error_flag, d.error_sentence_id) for d in detections}
+        saved = load_jsonl(out_path) if out_path.exists() else []
+        valid = [r for r in saved if current.get(r["text_id"]) == (r["error_flag"], r["error_sentence_id"])]
+        if len(valid) != len(saved):
+            save_jsonl(valid, out_path)
+            print(f"{split}: {len(saved) - len(valid)} correcciones viejas descartadas (cambió la detección)")
+        done = {r["text_id"] for r in valid}
         todo = [d for d in detections if d.text_id not in done]
 
         def run(det: Prediction) -> None:

@@ -16,12 +16,14 @@ SYSTEMS = {
     "bert": "BiomedBERT fine-tuneado (w = 1)",
     "dspy_zeroshot": "Qwen2.5-7B + DSPy sin compilar",
     "dspy": "Qwen2.5-7B + DSPy compilado (w = 0)",
-    "combined": "Combinación ponderada",
-    "pipeline": "Pipeline completo (combinación + corrector)",
+    "combined": "Combinación ponderada (la combinación elige la oración)",
+    "hybrid": "Combinación decide A, BERT elige la oración",
+    "pipeline_v1": "Pipeline v1 (combinación elige la oración + corrector)",
+    "pipeline": "Pipeline final (combinación decide A, BERT elige B + corrector)",
     "claude": "Referencia: Claude Opus 5.5",
     "pipeline_medqa": "Experimento: pipeline + pista de MedQA",
 }
-CORRECTORS = ["pipeline", "claude", "pipeline_medqa"]
+CORRECTORS = ["pipeline_v1", "pipeline", "claude", "pipeline_medqa"]
 
 
 def extra(parser):

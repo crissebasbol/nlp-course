@@ -33,13 +33,26 @@ def select_error_sentence(scores: list[float], flag: int) -> int:
     return int(np.argmax(scores)) if flag else -1
 
 
-def detection_objective(records: list[dict[str, Any]], w: float, threshold: float) -> dict[str, float]:
+def locator_scores(scores: list[float], p_bert: list[float] | None, sentence_from: str) -> list[float]:
+    """Scores used to pick the sentence (subtask B).
+
+    "combined": the same combined scores that decide the flag (original design).
+    "bert": BERT's own scores; the combination only decides whether there is an error.
+    """
+    if sentence_from == "bert" and p_bert is not None:
+        return list(map(float, p_bert))
+    return scores
+
+
+def detection_objective(
+    records: list[dict[str, Any]], w: float, threshold: float, sentence_from: str = "combined"
+) -> dict[str, float]:
     """Accuracy of A and B for one (w, threshold) on records with p_bert, s_dspy and gold labels."""
     flag_hits, sentence_hits = 0, 0
     for rec in records:
         scores = combine_scores(rec.get("p_bert"), rec.get("s_dspy"), w)
         flag = decide_error_flag(scores, threshold)
-        sid = select_error_sentence(scores, flag)
+        sid = select_error_sentence(locator_scores(scores, rec.get("p_bert"), sentence_from), flag)
         flag_hits += flag == rec["error_flag"]
         sentence_hits += sid == (rec["error_sentence_id"] if rec["error_flag"] else -1)
     n = max(len(records), 1)
@@ -50,6 +63,7 @@ def tune_weight_and_threshold(
     records: list[dict[str, Any]],
     weights: list[float] | None = None,
     thresholds: list[float] | None = None,
+    sentence_from: str = "combined",
 ) -> dict[str, Any]:
     """Grid search on validation; maximizes accuracy(A) + accuracy(B).
 
@@ -60,7 +74,7 @@ def tune_weight_and_threshold(
     grid = []
     for w in weights:
         for t in thresholds:
-            res = detection_objective(records, w, t)
+            res = detection_objective(records, w, t, sentence_from)
             grid.append({"w": w, "threshold": t, **res, "objective": res["flag_acc"] + res["sentence_acc"]})
     best = max(grid, key=lambda g: (g["objective"], g["w"]))
     best_by_w = {}

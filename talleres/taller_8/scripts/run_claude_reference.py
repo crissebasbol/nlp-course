@@ -49,7 +49,9 @@ def main() -> None:
         df = load_split(splits_dir, split)
         if args.limit:
             df = df.head(args.limit)
-        raw_path = output_path(cfg, "claude", f"results_{split}.jsonl")
+        # A --limit run is a sample: it gets its own file so the full run does not reuse it
+        suffix = f"_limit{args.limit}" if args.limit else ""
+        raw_path = output_path(cfg, "claude", f"results_{split}{suffix}.jsonl")
         if args.batch_id:
             batch_id = args.batch_id
         elif raw_path.exists():
@@ -74,12 +76,21 @@ def main() -> None:
         if not raw_path.exists():
             continue
         results = load_jsonl(raw_path)
-        save_predictions(to_prediction_format(results, df), output_path(cfg, "predictions", f"claude_{split}.jsonl"))
+        if not args.limit:
+            save_predictions(to_prediction_format(results, df), output_path(cfg, "predictions", f"claude_{split}.jsonl"))
         refused = sum(r.get("stop_reason") == "refusal" for r in results)
         tokens_in = sum(r.get("usage", {}).get("input_tokens", 0) for r in results)
         tokens_out = sum(r.get("usage", {}).get("output_tokens", 0) for r in results)
         real = (tokens_in * PRICE_IN + tokens_out * PRICE_OUT) / 1e6 / 2
         print(f"{split}: {len(results)} resultados, {refused} rechazos, costo real ~${real:.2f}")
+        if results:
+            print(f"  promedio por texto: {tokens_in / len(results):.0f} tokens de entrada, {tokens_out / len(results):.0f} de salida")
+            full = len(load_split(splits_dir, split))
+            print(f"  proyección para los {full} textos de {split}: ~${real / len(results) * full:.2f}")
+        if args.limit and results:
+            gold = dict(zip(df["text_id"], df["error_flag"].astype(int)))
+            hits = sum(p.error_flag == gold[p.text_id] for p in to_prediction_format(results, df))
+            print(f"  muestra: {hits}/{len(results)} aciertos en A (orientativo)")
 
 
 if __name__ == "__main__":

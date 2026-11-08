@@ -139,3 +139,21 @@ td.num { text-align: right; font-variant-numeric: tabular-nums; }
 .layout > * { min-width: 0; }
 .row select { flex: 1; min-width: 0; }
 .subtitle { overflow-wrap: anywhere; }
+.claude-opt { margin-top: .4rem; }
+.claude-opt:has(input:disabled) { color: var(--muted); }
+
+/* Answer key and comparison with the reference correction */
+.answer-key { padding: .6rem .8rem; margin-bottom: .8rem; border: 1px dashed var(--ok); border-radius: 8px; font-size: .9rem; }
+.answer-key .diff { margin: .4rem 0; background: var(--surface); }
+.ref-check { font-size: .85rem; margin: .4rem 0; }
+.ref-check.hit b { color: var(--ok); }
+.ref-check.miss b { color: var(--error); }
+.kw { padding: 0 .3rem; border-radius: 4px; background: var(--del-bg); }
+.kw.found { background: var(--ins-bg); }
+
+/* Score bars with their value */
+.sentence { grid-template-columns: 2rem 1fr 190px; }
+.barrow { display: grid; grid-template-columns: 1fr 2.2rem; gap: .35rem; align-items: center; }
+.barrow small { font-size: .7rem; color: var(--muted); text-align: right; font-variant-numeric: tabular-nums; }
+.scores-help { margin: .2rem 0 .6rem; line-height: 1.45; }
+@media (max-width: 560px) { .sentence { grid-template-columns: 1.6rem 1fr; } }

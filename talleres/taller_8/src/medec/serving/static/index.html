@@ -39,6 +39,8 @@
             <label class="check"><input type="checkbox" id="use_dspy" checked> Qwen + DSPy (3b)</label>
             <label class="check"><input type="checkbox" id="correct" checked> Corregir (4)</label>
           </div>
+          <label class="check claude-opt"><input type="checkbox" id="use_claude" disabled>
+            Comparar con Claude Opus 5.5 <small id="claude-note">(no habilitado)</small></label>
           <label for="weight">Peso de BERT <b>w</b> = <span id="weight-value"></span>
             <small>(puntaje = w · p_bert + (1 - w) · s_dspy)</small></label>
           <input type="range" id="weight" min="0" max="1" step="0.05">

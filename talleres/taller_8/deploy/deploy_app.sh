@@ -10,6 +10,7 @@ ARTIFACTS=(
   outputs/models/dspy_detector.json
   outputs/artifacts
   outputs/splits/test.parquet
+  outputs/splits/train.parquet
 )
 for path in "${ARTIFACTS[@]}"; do
   [ -e "$path" ] || { echo "Falta $path: corre primero scripts/run_local_experiments.sh" >&2; exit 1; }

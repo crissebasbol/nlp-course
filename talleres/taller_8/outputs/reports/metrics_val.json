@@ -31,75 +31,97 @@
       "n": 334
     },
     {
-      "system": "Combinación ponderada",
+      "system": "Combinación ponderada (la combinación elige la oración)",
       "flag_acc": 0.5479,
       "sentence_acc": 0.5419,
       "sentence_acc_on_errors": 0.6575,
       "n": 334
     },
     {
-      "system": "Pipeline completo (combinación + corrector)",
+      "system": "Combinación decide A, BERT elige la oración",
+      "flag_acc": 0.5749,
+      "sentence_acc": 0.5509,
+      "sentence_acc_on_errors": 0.8729,
+      "n": 334
+    },
+    {
+      "system": "Pipeline v1 (combinación elige la oración + corrector)",
       "flag_acc": 0.5479,
       "sentence_acc": 0.5419,
       "sentence_acc_on_errors": 0.6575,
+      "n": 334
+    },
+    {
+      "system": "Pipeline final (combinación decide A, BERT elige B + corrector)",
+      "flag_acc": 0.5749,
+      "sentence_acc": 0.5509,
+      "sentence_acc_on_errors": 0.8729,
       "n": 334
     }
   ],
   "correction": [
     {
-      "system": "Pipeline completo (combinación + corrector)",
+      "system": "Pipeline v1 (combinación elige la oración + corrector)",
       "rouge1_official": 0.4232,
       "rouge1_pairs": 0.6557,
       "n_pairs": 121,
       "bertscore_official": 0.4963,
       "bertscore_pairs": 0.8575
+    },
+    {
+      "system": "Pipeline final (combinación decide A, BERT elige B + corrector)",
+      "rouge1_official": 0.3868,
+      "rouge1_pairs": 0.6216,
+      "n_pairs": 166,
+      "bertscore_official": 0.4983,
+      "bertscore_pairs": 0.846
     }
   ],
   "error_analysis": {
     "by_position": [
       {
         "position": "last",
-        "mean": 0.736,
+        "mean": 0.906,
         "count": 106
       },
       {
         "position": "not_last",
-        "mean": 0.547,
+        "mean": 0.827,
         "count": 75
       }
     ],
     "by_error_type": [
       {
         "error_type": "CausalOrganism",
-        "mean": 0.706,
+        "mean": 0.882,
         "count": 17
       },
       {
         "error_type": "Diagnosis",
-        "mean": 0.659,
+        "mean": 0.909,
         "count": 44
       },
       {
         "error_type": "Management",
-        "mean": 0.667,
+        "mean": 0.806,
         "count": 36
       },
       {
         "error_type": "Other",
-        "mean": 0.559,
+        "mean": 0.794,
         "count": 34
       },
       {
         "error_type": "Pharmacotherapy",
-        "mean": 0.7,
+        "mean": 0.925,
         "count": 40
       },
       {
         "error_type": "Treatment",
-        "mean": 0.7,
+        "mean": 1.0,
         "count": 10
       }
     ]
   },
-  "doubtful_corrections": 80
+  "doubtful_corrections": 109
 }

@@ -129,8 +129,9 @@ ssh-copy-id estudiante@<IP_M2>
 
 En `http://<máquina 2>:8000`:
 
-- **Analizar texto:** elige un ejemplo del test (o pega un texto propio), activa o desactiva cada detector y la corrección, y mueve el peso `w` y el umbral. Muestra el avance paso a paso, los puntajes de cada oración (`p_bert`, `s_dspy` y el puntaje final), la oración marcada, la corrección con las palabras cambiadas, el control de calidad, los ejemplos usados en el prompt y el razonamiento del LLM. En los ejemplos del test también compara con la etiqueta real.
+- **Analizar texto:** elige un ejemplo del test (o pega un texto propio), activa o desactiva cada detector y la corrección, y mueve el peso `w` y el umbral. Muestra el avance paso a paso, los puntajes de cada oración (`p_bert`, `s_dspy` y el puntaje final), la oración marcada, la corrección con las palabras cambiadas, el control de calidad, los ejemplos usados en el prompt y el razonamiento del LLM. En los ejemplos del test también compara con la etiqueta real: muestra la **respuesta correcta** (oración con error y corrección de referencia, con las palabras cambiadas resaltadas) y, para la corrección del pipeline y la de Claude, si **contiene el cambio clave** de la referencia (las palabras que la referencia agrega a la oración original, por ejemplo el organismo o el fármaco correcto) además del ROUGE-1. El cambio clave es más informativo que ROUGE: una corrección que cambia "clostridium botulinum" por "clostridium perfringens" saca ROUGE-1 0,67 y está mal, mientras que una reescrita con "Streptococcus pyogenes" saca 0,50 y está bien.
 - **Resultados del test:** tablas de las métricas de todos los sistemas, la búsqueda de `w` en validación y el análisis de errores.
+- **Comparar con Claude Opus 5.5 (opcional):** casilla que, además del pipeline local, envía el mismo texto a Claude con el prompt de la referencia (MEDEC P#1 y un ejemplo) y muestra su respuesta, si coincide con el pipeline y con la etiqueta real, la corrección, el tiempo y el costo (unos US$0,006 por texto). También se puede usar sola, desmarcando los detectores locales. Solo se habilita si el contenedor tiene `ANTHROPIC_API_KEY`: localmente Docker Compose la toma de `taller_8/.env`; los scripts de despliegue no copian `.env`, así que en los servidores queda apagada salvo que se configure a propósito. Como el puerto 8000 es público, hay un tope de llamadas por hora (`CLAUDE_MAX_CALLS_PER_HOUR`, 20 por defecto).
 
 En los servidores el LLM corre en CPU: BiomedBERT responde en segundos, pero cada paso con Qwen (detección y corrección) tarda del orden de minutos. La app atiende un análisis a la vez y deja los demás en cola.
 
@@ -140,38 +141,54 @@ API (la usa la interfaz):
 |---|---|---|
 | GET | `/api/health` | Qué componentes están cargados y si el LLM responde. |
 | GET | `/api/examples` | Lista de textos del test. |
-| POST | `/api/analyze` | Inicia un análisis (`text` o `text_id`, `use_bert`, `use_dspy`, `correct`, `weight`, `threshold`) y devuelve `job_id`. |
+| POST | `/api/analyze` | Inicia un análisis (`text` o `text_id`, `use_bert`, `use_dspy`, `correct`, `use_claude`, `weight`, `threshold`) y devuelve `job_id`. |
 | GET | `/api/jobs/{job_id}` | Estado de cada paso y resultado. |
 | GET | `/api/metrics` | Reportes de evaluación. |
 
 ## Resultados
 
-Medido en el Mac con `scripts/run_local_experiments.sh` (Qwen2.5-7B Q4_K_M, el mismo modelo del servidor). Los parámetros se ajustaron en val (`w = 0.8`, umbral 0,775 para la combinación; umbral 0,2 para BERT solo) y aquí se reporta **test (327 textos, casos no vistos)**. Reportes completos: `outputs/reports/results_test.md` y `results_val.md`.
+Medido en el Mac con `scripts/run_local_experiments.sh` (Qwen2.5-7B Q4_K_M, el mismo modelo del servidor). Todos los parámetros se ajustaron en val y aquí se reporta **test (327 textos, casos no vistos)**. Reportes completos: `outputs/reports/results_test.md` y `results_val.md`.
 
 ### Detección (subtareas A y B)
 
 | Sistema | A: flag acc | B: sentence acc | B solo en textos con error | % textos marcados con error |
 |---|---:|---:|---:|---:|
 | Baseline: siempre error en la última oración | 0,560 | 0,346 | 0,618 | 100 % |
-| BiomedBERT fine-tuneado (`w = 1`) | 0,566 | **0,554** | **0,951** | 96 % |
+| BiomedBERT fine-tuneado (`w = 1`, umbral 0,2) | 0,566 | **0,554** | **0,951** | 96 % |
 | Qwen2.5-7B + DSPy sin compilar | **0,581** | 0,370 | 0,514 | 86 % |
 | Qwen2.5-7B + DSPy compilado (`w = 0`) | 0,566 | 0,355 | 0,557 | 92 % |
-| Combinación ponderada (`w = 0.8`) | 0,520 | 0,514 | 0,656 | 67 % |
+| v1: combinación elige la oración (`w = 0.8`, umbral 0,775) | 0,520 | 0,514 | 0,656 | 67 % |
+| **Final: combinación decide A, BERT elige la oración** (`w = 0.4`, umbral 0,4) | 0,566 | 0,547 | 0,902 | 92 % |
+| *Referencia externa: Claude Opus 5.5 (sin entrenamiento)* | *0,948* | *0,942* | *0,951* | *57 %* |
 
-### Corrección (subtarea C, pipeline completo)
+### Corrección (subtarea C)
 
-| Métrica | Oficial (todos los textos) | Solo pares con error detectado y corregido (122) |
-|---|---:|---:|
-| ROUGE-1 | 0,371 | 0,602 |
-| BERTScore (deberta-xlarge-mnli) | 0,464 | 0,849 |
+"Oficial" sigue las reglas de MEDIQA-CORR (si la referencia y la predicción son "sin error" vale 1; si solo una lo es, vale 0). "Pares" promedia solo los textos donde ambas tienen una corrección.
+
+| Sistema | ROUGE-1 oficial | BERTScore oficial | ROUGE-1 pares | BERTScore pares | Pares |
+|---|---:|---:|---:|---:|---:|
+| Pipeline v1 | 0,371 | 0,464 | 0,602 | 0,849 | 122 |
+| **Pipeline final** | 0,341 | 0,479 | 0,569 | 0,834 | 171 |
+| *Claude Opus 5.5* | *0,799* | *0,884* | *0,722* | *0,880* | *176* |
 
 ### Lectura de los resultados
 
-- **Ningún sistema separa bien los textos con y sin error (A).** El 56 % de los textos de test tiene error, y todos los sistemas quedan entre 0,52 y 0,58. BERT y Qwen marcan casi todo como error. Esto coincide con MEDEC, donde la subtarea A fue la más difícil también para modelos grandes.
-- **BERT sí ubica muy bien la oración (B):** cuando el texto tiene error, acierta la oración en el 95 % de los casos. Por eso es el mejor sistema en B.
-- **La combinación no mejoró en test.** En val ganaba por poco a BERT (B 0,542 frente a 0,527), pero en test pierde, porque el puntaje de DSPy mueve la oración elegida hacia oraciones equivocadas (B en textos con error baja de 0,95 a 0,66). La ganancia en val era ruido del ajuste sobre 334 textos.
+- **Ningún sistema local separa bien los textos con y sin error (A).** El 56 % de los textos de test tiene error, y todos quedan entre 0,52 y 0,58, porque BERT y Qwen marcan casi todo como error. Esto coincide con MEDEC, donde la subtarea A fue la más difícil.
+- **BERT sí ubica muy bien la oración (B):** cuando el texto tiene error, acierta la oración en el 95 % de los casos.
 - **Compilar DSPy no ayudó en test** (0,355 frente a 0,370 sin compilar), aunque en val sí mejoraba (0,404 frente a 0,368). Con 60 textos de entrenamiento y 3 ejemplos, el efecto es pequeño e inestable.
-- **La corrección es razonable cuando la oración es la correcta:** BERTScore de 0,85 en los pares, pero la métrica oficial baja a 0,46 porque arrastra los errores de detección.
+- **La corrección es razonable cuando la oración es la correcta** (BERTScore de 0,83 a 0,85 en los pares), pero la métrica oficial cae a menos de 0,5 porque arrastra los errores de detección.
+- **Claude Opus 5.5 resuelve casi toda la tarea sin entrenamiento** (A 0,95, B 0,94, BERTScore oficial 0,88), con un costo de US$1,40 por los 327 textos usando la Batch API. Hay que leerlo con cuidado: los textos MS se construyeron desde preguntas de MedQA (USMLE), que son públicas y probablemente están en los datos de entrenamiento de un modelo así, de modo que parte del resultado puede ser memoria y no razonamiento clínico. De todas formas marca la distancia entre un LLM de 7B cuantizado en CPU y un modelo comercial grande.
+
+### Ajuste posterior: BERT elige la oración
+
+El diseño original del taller 7 (pipeline v1) usa el mismo puntaje combinado `w · p_bert + (1 - w) · s_dspy` para dos cosas: decidir si hay error (A) y elegir la oración (argmax, B). Al ver los resultados de test de v1 notamos dos cosas:
+
+1. En v1, B en los textos con error baja de 0,95 (BERT solo) a 0,66: el puntaje de DSPy mueve el argmax hacia oraciones equivocadas, porque Qwen ubica la oración mucho peor que BERT (0,51 a 0,56).
+2. Lo que podría aportar el LLM es otra señal para decidir **si** hay error, no **dónde** está.
+
+Por eso separamos las dos decisiones: la combinación decide A y la oración la elige siempre el argmax de `p_bert`. `w` y el umbral se volvieron a ajustar en val para esta regla (`combine.py: locator_scores`, sistema `hybrid` en `run_combine.py`), y luego se corrió de nuevo la corrección y la evaluación. Para ser transparentes: el cambio se nos ocurrió al mirar los resultados de v1 en test, así que test ya no es del todo "no visto" para esta decisión de diseño. El mismo patrón aparece en val (B en textos con error 0,66 con la combinación frente a 0,94 con BERT), de modo que la decisión se podía tomar solo con val, y los parámetros (`w`, umbral) se ajustaron únicamente en val.
+
+Resultado en test frente a v1: B sube de 0,514 a 0,547 y A de 0,520 a 0,566; la corrección encuentra 171 pares en vez de 122. Sin embargo, **el pipeline final no supera a BERT solo** (B 0,547 frente a 0,554, A igual): la señal de Qwen todavía no ayuda a decidir A. Ambas versiones quedan en los reportes (`pipeline_v1_*` y `pipeline_*`) para compararlas.
 
 ## Decisiones y limitaciones
 
@@ -179,5 +196,5 @@ Medido en el Mac con `scripts/run_local_experiments.sh` (Qwen2.5-7B Q4_K_M, el m
 - **El LLM es el mismo en el Mac y en los servidores** (Qwen2.5-7B-Instruct Q4_K_M con llama.cpp), así que los resultados medidos en el Mac corresponden a lo que se despliega. La única diferencia es la velocidad.
 - **DSPy:** `BootstrapFewShot` con 60 textos de train y hasta 3 ejemplos en el prompt. La "confianza" que devuelve el LLM no es una probabilidad calibrada; por eso `w` se ajusta en validación.
 - **Corrección "dudosa":** si queda igual a la original o su ROUGE-L es menor a 0,7, solo se marca para el análisis de errores; la predicción se mantiene.
-- **Referencia con Claude:** solo se envía el subset MS (público). La API key va en `taller_8/.env` (ignorado por git). La Batch API no admite el parámetro de *fallback* ante rechazos, así que los rechazos se registran y cuentan como "sin error".
+- **Referencia con Claude:** solo se envía el subset MS (público); para probar el costo primero se corre `--limit 20`, que guarda la muestra en un archivo aparte. La API key va en `taller_8/.env` (ignorado por git). La Batch API no admite el parámetro de *fallback* ante rechazos, así que los rechazos se registran y cuentan como "sin error".
 - **MedQA** queda como experimento aparte: equivale a consultar la respuesta, porque los textos MS se construyeron desde MedQA.

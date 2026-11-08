@@ -27,3 +27,12 @@ def test_tuning_finds_perfect_setting():
     ]
     best = tune_weight_and_threshold(records)["best"]
     assert best["flag_acc"] == 1 and best["sentence_acc"] == 1
+
+
+def test_hybrid_uses_bert_to_pick_the_sentence():
+    # The combination flags the text, but the sentence comes from BERT's argmax
+    records = [{"p_bert": [0.1, 0.9, 0.2], "s_dspy": [0.0, 0.0, 1.0], "error_flag": 1, "error_sentence_id": 1}]
+    from medec.combine import detection_objective
+
+    assert detection_objective(records, 0.5, 0.4, "combined")["sentence_acc"] == 0  # argmax of combined = 2
+    assert detection_objective(records, 0.5, 0.4, "bert")["sentence_acc"] == 1

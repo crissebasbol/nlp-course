@@ -31,40 +31,77 @@
       "n": 327
     },
     {
-      "system": "Combinación ponderada",
+      "system": "Combinación ponderada (la combinación elige la oración)",
       "flag_acc": 0.5199,
       "sentence_acc": 0.5138,
       "sentence_acc_on_errors": 0.6557,
       "n": 327
     },
     {
-      "system": "Pipeline completo (combinación + corrector)",
+      "system": "Combinación decide A, BERT elige la oración",
+      "flag_acc": 0.5657,
+      "sentence_acc": 0.5474,
+      "sentence_acc_on_errors": 0.9016,
+      "n": 327
+    },
+    {
+      "system": "Pipeline v1 (combinación elige la oración + corrector)",
       "flag_acc": 0.5199,
       "sentence_acc": 0.5138,
       "sentence_acc_on_errors": 0.6557,
+      "n": 327
+    },
+    {
+      "system": "Pipeline final (combinación decide A, BERT elige B + corrector)",
+      "flag_acc": 0.5657,
+      "sentence_acc": 0.5474,
+      "sentence_acc_on_errors": 0.9016,
+      "n": 327
+    },
+    {
+      "system": "Referencia: Claude Opus 5.5",
+      "flag_acc": 0.948,
+      "sentence_acc": 0.9419,
+      "sentence_acc_on_errors": 0.9508,
       "n": 327
     }
   ],
   "correction": [
     {
-      "system": "Pipeline completo (combinación + corrector)",
+      "system": "Pipeline v1 (combinación elige la oración + corrector)",
       "rouge1_official": 0.3712,
       "rouge1_pairs": 0.6015,
       "n_pairs": 122,
       "bertscore_official": 0.4635,
       "bertscore_pairs": 0.8489
+    },
+    {
+      "system": "Pipeline final (combinación decide A, BERT elige B + corrector)",
+      "rouge1_official": 0.3405,
+      "rouge1_pairs": 0.5693,
+      "n_pairs": 171,
+      "bertscore_official": 0.4788,
+      "bertscore_pairs": 0.8336
+    },
+    {
+      "system": "Referencia: Claude Opus 5.5",
+      "rouge1_official": 0.7986,
+      "rouge1_pairs": 0.7224,
+      "n_pairs": 176,
+      "bertscore_official": 0.8836,
+      "bertscore_pairs": 0.8803
     }
   ],
   "error_analysis": {
     "by_position": [
       {
         "position": "last",
-        "mean": 0.752,
+        "mean": 0.929,
         "count": 113
       },
       {
         "position": "not_last",
-        "mean": 0.5,
+        "mean": 0.857,
         "count": 70
       }
     ],
@@ -76,30 +113,30 @@
       },
       {
         "error_type": "Diagnosis",
-        "mean": 0.609,
+        "mean": 0.935,
         "count": 46
       },
       {
         "error_type": "Management",
-        "mean": 0.556,
+        "mean": 0.917,
         "count": 36
       },
       {
         "error_type": "Other",
-        "mean": 0.613,
+        "mean": 0.806,
         "count": 31
       },
       {
         "error_type": "Pharmacotherapy",
-        "mean": 0.737,
+        "mean": 0.921,
         "count": 38
       },
       {
         "error_type": "Treatment",
-        "mean": 0.684,
+        "mean": 0.895,
         "count": 19
       }
     ]
   },
-  "doubtful_corrections": 69
+  "doubtful_corrections": 110
 }

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import logging
+import os
 import threading
 import time
 import uuid
@@ -14,16 +15,17 @@ from typing import Any, Callable
 
 import pandas as pd
 
-from medec.combine import combine_scores, decide_error_flag, select_error_sentence
+from medec.combine import combine_scores, decide_error_flag, locator_scores, select_error_sentence
 from medec.config import get_output_dir
 from medec.data import split_free_text
 from medec.llm_server import is_llm_ready
-from medec.quality import quality_check_correction
+from medec.quality import compare_with_reference, quality_check_correction
 
 logger = logging.getLogger(__name__)
 
 STEPS = [
     ("prepare", "1-2. Preparar oraciones"),
+    ("claude", "Referencia: Claude Opus 5.5 (opcional)"),
     ("bert", "3a. BiomedBERT"),
     ("dspy", "3b. Qwen + DSPy"),
     ("combine", "3c. Combinar y decidir"),
@@ -47,6 +49,25 @@ def word_diff(before: str, after: str) -> list[dict[str, str]]:
     return out
 
 
+def reference_check(gold: dict | None, sentences: list[str], sid: int, correction: str | None) -> dict | None:
+    """Compare one system's answer with the label of a test example (None for free text)."""
+    if not gold or not gold["error_flag"] or sid < 0:
+        return None
+    if sid != gold["error_sentence_id"]:
+        return {"verdict": "wrong_sentence"}
+    if not correction:
+        return None
+    return compare_with_reference(sentences[sid], correction, gold["corrected_sentence"])
+
+
+def add_gold_view(gold: dict | None) -> None:
+    """Adds the original error sentence and the word diff of the reference correction."""
+    if gold and gold["error_flag"] and gold.get("corrected_sentence"):
+        original = gold["sentences"][gold["error_sentence_id"]]
+        gold["error_sentence"] = original
+        gold["diff"] = word_diff(original, gold["corrected_sentence"])
+
+
 class MedecService:
     """Holds BERT, the DSPy program and the corrector; each part is optional."""
 
@@ -63,6 +84,7 @@ class MedecService:
         self._load_bert()
         self._load_dspy()
         self._load_corrector()
+        self._load_claude()
 
     @staticmethod
     def _load_json(path: Path) -> dict | None:
@@ -108,9 +130,36 @@ class MedecService:
         encoder = load_encoder(self.cfg["models"]["embeddings"])
         self.corrector = Corrector(load_example_index(art), encoder, self.api_base, self.cfg["models"]["llm_name"], self.cfg["corrector"])
 
+    def _load_claude(self) -> None:
+        """Optional reference. Enabled only when ANTHROPIC_API_KEY is set; calls are capped per hour
+        because the app may be reachable from the internet and every call costs money."""
+        self.claude = None
+        self.claude_calls: list[float] = []
+        self.claude_max_per_hour = int(os.environ.get("CLAUDE_MAX_CALLS_PER_HOUR", "20"))
+        self.claude_example = None
+        if not os.environ.get("ANTHROPIC_API_KEY"):
+            return
+        import anthropic
+
+        from medec.claude_reference import format_example
+
+        self.claude = anthropic.Anthropic()
+        train = self.out / "splits" / "train.parquet"
+        if self.cfg["claude"].get("n_examples") and train.exists():
+            df = pd.read_parquet(train)
+            df["sentences"] = df["sentences"].map(list)
+            self.claude_example = format_example(df.query("error_flag == 1").iloc[0])
+        logger.info("Claude reference enabled (max %d calls per hour)", self.claude_max_per_hour)
+
+    def _claude_quota_left(self) -> int:
+        now = time.time()
+        self.claude_calls = [t for t in self.claude_calls if now - t < 3600]
+        return self.claude_max_per_hour - len(self.claude_calls)
+
     # ------------------------------------------------------------------ status
     def status(self) -> dict[str, Any]:
-        combined = self.combine_cfg.get("combined", {})
+        # Final design: the combination decides A and BERT picks the sentence ("hybrid" in combine.json)
+        combined = self.combine_cfg.get("hybrid") or self.combine_cfg.get("combined", {})
         bert = self.combine_cfg.get("bert", {})
         return {
             "bert": self.bert is not None,
@@ -119,6 +168,9 @@ class MedecService:
             "dspy_compiled": self.dspy_compiled,
             "corrector": self.corrector is not None,
             "examples": len(self.examples),
+            "claude": self.claude is not None,
+            "claude_model": self.cfg["claude"]["model"],
+            "claude_calls_left": self._claude_quota_left() if self.claude is not None else 0,
             "defaults": {
                 "weight": combined.get("w", self.cfg["combine"]["default_weight"]),
                 "threshold": combined.get("threshold", self.cfg["combine"]["default_threshold"]),
@@ -171,8 +223,34 @@ class MedecService:
 
         use_bert = payload.get("use_bert", True) and self.bert is not None
         use_dspy = payload.get("use_dspy", True)
-        if not use_bert and not use_dspy:
+        use_claude = bool(payload.get("use_claude", False))
+        if use_claude and self.claude is None:
+            raise ValueError("Claude no está habilitado en este servidor (falta ANTHROPIC_API_KEY)")
+        if not use_bert and not use_dspy and not use_claude:
             raise ValueError("Elige al menos un detector")
+        if use_claude and self._claude_quota_left() <= 0:
+            raise ValueError(f"Se alcanzó el límite de {self.claude_max_per_hour} llamadas a Claude por hora")
+
+        claude_out = None
+        if use_claude:
+            from medec.claude_reference import ask_claude
+
+            self.claude_calls.append(time.time())  # counted before the call, so failures also count
+            claude_out = timed("claude", lambda: ask_claude(self.claude, sentences, self.cfg["claude"], self.claude_example))
+            ans = claude_out.get("answer") or {}
+            if ans.get("corrected_sentence") and ans["error_sentence_id"] >= 0:
+                claude_out["diff"] = word_diff(sentences[ans["error_sentence_id"]], ans["corrected_sentence"])
+            if ans:
+                claude_out["reference_check"] = reference_check(
+                    gold, sentences, ans["error_sentence_id"], ans.get("corrected_sentence"))
+        else:
+            report("claude", "skipped", None)
+
+        add_gold_view(gold)
+        if not use_bert and not use_dspy:  # Claude only: the local pipeline is skipped
+            for step in ("bert", "dspy", "combine", "correct", "quality"):
+                report(step, "skipped", None)
+            return {"sentences": sentences, "local": False, "claude": claude_out, "gold": gold}
 
         p_bert = timed("bert", lambda: self.bert.predict_bert_scores(sentences)) if use_bert else None
         if not use_bert:
@@ -194,7 +272,8 @@ class MedecService:
                 t = float(payload.get("threshold", defaults["threshold"]))
                 scores = combine_scores(p_bert, dspy_out["scores"], w)
                 flag = decide_error_flag(scores, t)
-                return scores, flag, select_error_sentence(scores, flag), {"mode": "combined", "weight": w, "threshold": t}
+                sid = select_error_sentence(locator_scores(scores, p_bert, "bert"), flag)
+                return scores, flag, sid, {"mode": "combined", "sentence_from": "bert", "weight": w, "threshold": t}
             if use_bert:
                 t = float(payload.get("threshold", defaults["bert_threshold"]))
                 flag = decide_error_flag(p_bert, t)
@@ -226,6 +305,9 @@ class MedecService:
             "quality": qc,
             "few_shot_examples": examples,
             "gold": gold,
+            "reference_check": reference_check(gold, sentences, sid, correction) if flag else None,
+            "local": True,
+            "claude": claude_out,
         }
 
 

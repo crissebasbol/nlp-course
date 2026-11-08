@@ -43,6 +43,7 @@ class AnalyzeRequest(BaseModel):
     use_bert: bool = True
     use_dspy: bool = True
     correct: bool = True
+    use_claude: bool = Field(default=False, description="Also ask Claude Opus 5.5 (costs money; needs ANTHROPIC_API_KEY)")
     weight: float | None = Field(default=None, ge=0, le=1)
     threshold: float | None = Field(default=None, ge=0, le=1)
 

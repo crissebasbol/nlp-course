@@ -4,13 +4,15 @@ Systems written to predictions/:
   bert            BERT alone (w = 1, threshold tuned on val)
   dspy, dspy_zeroshot   the LLM's own decision (has_error, sentence)
   combined        w * p_bert + (1 - w) * s_dspy with the best (w, threshold) of val
+  hybrid          the combination decides the flag (A), BERT alone picks the sentence (B);
+                  w and the threshold are tuned again for this rule. Used by the final pipeline.
 """
 
 import json
 
 from _common import parse_args
 
-from medec.combine import combine_scores, decide_error_flag, select_error_sentence, tune_weight_and_threshold
+from medec.combine import combine_scores, decide_error_flag, locator_scores, select_error_sentence, tune_weight_and_threshold
 from medec.config import output_path
 from medec.data import load_split
 from medec.schemas import Prediction, load_jsonl, save_predictions
@@ -34,14 +36,15 @@ def records_for(cfg, split):
     return recs, bert, dspy
 
 
-def decide(records, w, threshold):
+def decide(records, w, threshold, sentence_from="combined"):
     preds = []
     for rec in records:
         if rec["p_bert"] is None and rec["s_dspy"] is None:
             continue
         scores = combine_scores(rec["p_bert"], rec["s_dspy"], w)
         flag = decide_error_flag(scores, threshold)
-        preds.append(Prediction(rec["text_id"], flag, select_error_sentence(scores, flag), scores=[round(s, 4) for s in scores]))
+        sid = select_error_sentence(locator_scores(scores, rec["p_bert"], sentence_from), flag)
+        preds.append(Prediction(rec["text_id"], flag, sid, scores=[round(s, 4) for s in scores]))
     return preds
 
 
@@ -58,6 +61,7 @@ def main() -> None:
     tuning = {}
     if complete:
         tuning["combined"] = tune_weight_and_threshold(complete)
+        tuning["hybrid"] = tune_weight_and_threshold(complete, sentence_from="bert")
     if bert_only:
         tuning["bert"] = tune_weight_and_threshold(bert_only, weights=[1.0])
     artifacts = {k: v["best"] for k, v in tuning.items()}
@@ -79,6 +83,10 @@ def main() -> None:
             c = artifacts["combined"]
             both = [r for r in records if r["p_bert"] is not None and r["s_dspy"] is not None]
             save_predictions(decide(both, c["w"], c["threshold"]), output_path(cfg, "predictions", f"combined_{split}.jsonl"))
+        if "hybrid" in artifacts:
+            h = artifacts["hybrid"]
+            save_predictions(decide(both, h["w"], h["threshold"], sentence_from="bert"),
+                             output_path(cfg, "predictions", f"hybrid_{split}.jsonl"))
         for name in ("dspy", "dspy_zeroshot"):
             scores = load_scores(cfg, name, split)
             if scores:

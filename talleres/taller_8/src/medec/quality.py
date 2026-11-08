@@ -32,3 +32,35 @@ def format_prediction(text_id: str, flag: int, sentence_id: int, correction: str
 
 def to_official_lines(preds: list[Prediction]) -> list[str]:
     return [format_prediction(p.text_id, p.error_flag, p.error_sentence_id, p.corrected_sentence) for p in preds]
+
+
+_ROUGE_1 = rouge_scorer.RougeScorer(["rouge1"], use_stemmer=False)
+
+
+def _words(text: str) -> list[str]:
+    return [w.strip(".,;:()[]\"'").lower() for w in normalize_text(text).split() if w.strip(".,;:()[]\"'")]
+
+
+def compare_with_reference(original: str, correction: str, reference: str) -> dict[str, Any]:
+    """How close a correction is to the reference one (only possible on labeled examples).
+
+    key_terms are the words the reference adds to the original sentence (the actual fix, e.g. the
+    right organism or drug); key_coverage is the fraction of them that the correction contains.
+    """
+    orig_words, corr_words = set(_words(original)), set(_words(correction))
+    key_terms = [w for w in dict.fromkeys(_words(reference)) if w not in orig_words]
+    found = [w for w in key_terms if w in corr_words]
+    coverage = len(found) / len(key_terms) if key_terms else None
+    if _words(correction) == _words(reference):
+        verdict = "exact"
+    elif coverage is not None and coverage >= 0.5:
+        verdict = "key_terms"
+    else:
+        verdict = "different"
+    return {
+        "rouge1": round(_ROUGE_1.score(reference, correction)["rouge1"].fmeasure, 4),
+        "key_terms": key_terms,
+        "key_found": found,
+        "key_coverage": None if coverage is None else round(coverage, 2),
+        "verdict": verdict,
+    }

@@ -81,6 +81,45 @@ def build_claude_request(text_id: str, sentences: list[str], cfg: dict[str, Any]
     )
 
 
+def parse_claude_message(msg, n_sentences: int) -> dict[str, Any]:
+    """Answer of one message (thinking blocks are skipped); invalid sentence IDs count as "no error"."""
+    out: dict[str, Any] = {
+        "stop_reason": msg.stop_reason,
+        "usage": {"input_tokens": msg.usage.input_tokens, "output_tokens": msg.usage.output_tokens},
+        "answer": None,
+    }
+    if msg.stop_reason == "refusal":
+        return out
+    text = next((b.text for b in msg.content if b.type == "text"), "")
+    try:
+        ans = json.loads(text)
+    except json.JSONDecodeError:
+        out["raw"] = text
+        return out
+    sid = int(ans.get("error_sentence_id", -1))
+    flag = bool(ans.get("has_error")) and 0 <= sid < n_sentences
+    out["answer"] = {
+        "has_error": flag,
+        "error_sentence_id": sid if flag else -1,
+        "corrected_sentence": (ans.get("corrected_sentence") or None) if flag else None,
+    }
+    return out
+
+
+def ask_claude(client: anthropic.Anthropic, sentences: list[str], cfg: dict[str, Any], example: str | None = None,
+               price_in: float = 4.0, price_out: float = 20.0) -> dict[str, Any]:
+    """One synchronous call (used by the web interface). Same prompt and schema as the batch run."""
+    params = build_claude_request("ui", sentences, cfg, example)["params"]
+    start = time.time()
+    msg = client.messages.create(**params)
+    out = parse_claude_message(msg, len(sentences))
+    out["seconds"] = round(time.time() - start, 2)
+    u = out["usage"]
+    out["cost_usd"] = round((u["input_tokens"] * price_in + u["output_tokens"] * price_out) / 1e6, 4)
+    out["model"] = msg.model
+    return out
+
+
 def count_prompt_tokens(client: anthropic.Anthropic, request: Request) -> int:
     params = request["params"]
     return client.messages.count_tokens(model=params["model"], system=params["system"], messages=params["messages"]).input_tokens

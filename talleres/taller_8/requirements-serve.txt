@@ -12,3 +12,4 @@ dspy
 rouge-score
 fastapi
 uvicorn[standard]
+anthropic
