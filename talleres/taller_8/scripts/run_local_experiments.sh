@@ -22,9 +22,7 @@ step "3a. BiomedBERT"
 
 step "LLM: llama-server con Qwen2.5-7B (Metal)"
 if [ ! -f "$GGUF" ]; then
-  $PY -m huggingface_hub.commands.huggingface_cli download bartowski/Qwen2.5-7B-Instruct-GGUF \
-    Qwen2.5-7B-Instruct-Q4_K_M.gguf --local-dir outputs/models/gguf 2>/dev/null \
-    || .venv/bin/hf download bartowski/Qwen2.5-7B-Instruct-GGUF Qwen2.5-7B-Instruct-Q4_K_M.gguf --local-dir outputs/models/gguf
+  .venv/bin/hf download bartowski/Qwen2.5-7B-Instruct-GGUF Qwen2.5-7B-Instruct-Q4_K_M.gguf --local-dir outputs/models/gguf
 fi
 STARTED_LLM=0
 if ! curl -sf "http://127.0.0.1:$LLM_PORT/health" >/dev/null; then

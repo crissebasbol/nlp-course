@@ -3,6 +3,7 @@
 source "$(dirname "$0")/common.sh"
 HOST="$M2_HOST"
 cd "$PROJECT_DIR"
+mkdir -p docker/certs  # optional extra CAs for the build (folder is git-ignored)
 
 ARTIFACTS=(
   outputs/models/bert/final

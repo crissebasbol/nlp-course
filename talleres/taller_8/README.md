@@ -146,7 +146,32 @@ API (la usa la interfaz):
 
 ## Resultados
 
-Pendiente: se completa con `outputs/reports/results_test.md` al terminar `run_local_experiments.sh`.
+Medido en el Mac con `scripts/run_local_experiments.sh` (Qwen2.5-7B Q4_K_M, el mismo modelo del servidor). Los parámetros se ajustaron en val (`w = 0.8`, umbral 0,775 para la combinación; umbral 0,2 para BERT solo) y aquí se reporta **test (327 textos, casos no vistos)**. Reportes completos: `outputs/reports/results_test.md` y `results_val.md`.
+
+### Detección (subtareas A y B)
+
+| Sistema | A: flag acc | B: sentence acc | B solo en textos con error | % textos marcados con error |
+|---|---:|---:|---:|---:|
+| Baseline: siempre error en la última oración | 0,560 | 0,346 | 0,618 | 100 % |
+| BiomedBERT fine-tuneado (`w = 1`) | 0,566 | **0,554** | **0,951** | 96 % |
+| Qwen2.5-7B + DSPy sin compilar | **0,581** | 0,370 | 0,514 | 86 % |
+| Qwen2.5-7B + DSPy compilado (`w = 0`) | 0,566 | 0,355 | 0,557 | 92 % |
+| Combinación ponderada (`w = 0.8`) | 0,520 | 0,514 | 0,656 | 67 % |
+
+### Corrección (subtarea C, pipeline completo)
+
+| Métrica | Oficial (todos los textos) | Solo pares con error detectado y corregido (122) |
+|---|---:|---:|
+| ROUGE-1 | 0,371 | 0,602 |
+| BERTScore (deberta-xlarge-mnli) | 0,464 | 0,849 |
+
+### Lectura de los resultados
+
+- **Ningún sistema separa bien los textos con y sin error (A).** El 56 % de los textos de test tiene error, y todos los sistemas quedan entre 0,52 y 0,58. BERT y Qwen marcan casi todo como error. Esto coincide con MEDEC, donde la subtarea A fue la más difícil también para modelos grandes.
+- **BERT sí ubica muy bien la oración (B):** cuando el texto tiene error, acierta la oración en el 95 % de los casos. Por eso es el mejor sistema en B.
+- **La combinación no mejoró en test.** En val ganaba por poco a BERT (B 0,542 frente a 0,527), pero en test pierde, porque el puntaje de DSPy mueve la oración elegida hacia oraciones equivocadas (B en textos con error baja de 0,95 a 0,66). La ganancia en val era ruido del ajuste sobre 334 textos.
+- **Compilar DSPy no ayudó en test** (0,355 frente a 0,370 sin compilar), aunque en val sí mejoraba (0,404 frente a 0,368). Con 60 textos de entrenamiento y 3 ejemplos, el efecto es pequeño e inestable.
+- **La corrección es razonable cuando la oración es la correcta:** BERTScore de 0,85 en los pares, pero la métrica oficial baja a 0,46 porque arrastra los errores de detección.
 
 ## Decisiones y limitaciones
 

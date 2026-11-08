@@ -4,6 +4,7 @@
 #   deploy/local_up.sh --native-llm    only app in Docker; the LLM is llama-server on the host (port 8001)
 set -euo pipefail
 cd "$(dirname "$0")/.."
+mkdir -p docker/certs  # optional extra CAs for the build (folder is git-ignored)
 
 # Corporate TLS inspection (e.g. Zscaler): the CA is copied into the build context, never committed.
 for ca in "$HOME/.certs/zscaler-root.pem"; do

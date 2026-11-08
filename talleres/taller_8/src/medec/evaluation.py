@@ -33,9 +33,32 @@ def compute_sentence_accuracy(y_true, y_pred) -> float:
     return compute_flag_accuracy(y_true, y_pred)
 
 
+def _patch_bert_score_tokenizer(max_length: int = 512) -> None:
+    """bert_score passes tokenizer.model_max_length to truncation; with transformers 5 some
+    tokenizers (deberta-xlarge-mnli) report a huge value that overflows. Cap it at 512."""
+    from importlib import import_module
+
+    # bert_score/__init__ re-exports the function `score`, which hides the submodule of the same name
+    bs_score, bs_utils = import_module("bert_score.score"), import_module("bert_score.utils")
+
+    if getattr(bs_utils, "_medec_patched", False):
+        return
+    original = bs_utils.get_tokenizer
+
+    def get_tokenizer(model_type, use_fast=False):
+        tok = original(model_type, use_fast)
+        if tok.model_max_length > max_length:
+            tok.model_max_length = max_length
+        return tok
+
+    bs_utils.get_tokenizer = bs_score.get_tokenizer = get_tokenizer
+    bs_utils._medec_patched = True
+
+
 def compute_bertscore(refs: list[str], cands: list[str], model_type: str) -> list[float]:
     if not refs:
         return []
+    _patch_bert_score_tokenizer()
     from bert_score import score
 
     _, _, f1 = score(cands, refs, model_type=model_type, lang="en", verbose=False, batch_size=16)

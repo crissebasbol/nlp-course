@@ -1,4 +1,9 @@
-outputs/
+# outputs/: only the light results are versioned (reports, predictions, scores, splits,
+# DSPy program, few-shot index). Heavy models are re-trained or downloaded.
+outputs/models/bert/
+outputs/models/gguf/
+outputs/*.log
+outputs/claude/raw/
 .env
 deploy/hosts.env
 docker/certs/*.crt
