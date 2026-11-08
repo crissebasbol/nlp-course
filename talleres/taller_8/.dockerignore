@@ -1,0 +1,9 @@
+.venv
+outputs
+outputs_smoke
+notebooks
+tests
+deploy
+**/__pycache__
+.env
+*.log

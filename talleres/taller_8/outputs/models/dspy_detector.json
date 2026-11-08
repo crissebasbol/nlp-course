@@ -1,0 +1,65 @@
+{
+  "predict": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "numbered_text": "0 A 71-year-old man comes to the physician for routine health maintenance examination.\n1 He feels well.\n2 He has hypertension and gastroesophageal reflux disease.\n3 Current medications include metoprolol and pantoprazole.\n4 He does not smoke or drink alcohol.\n5 Temperature is 37.3 C (99.1 F), pulse is 75/min, and blood pressure\n6 135/87\n7 mm\n8 Hg.\n9 Examination shows no abnormalities.\n10 Laboratory studies show:\n11 Hematocrit 43%\n12 Leukocyte count 32,000/mm3 Segmented neutrophils 22%\n13 Basophils 1%\n14 Eosinophils 2%\n15 Lymphocytes 74%\n16 Monocytes 1%\n17 Platelet count 190,000/mm3\n18 Blood smear shows small, mature lymphocytes and several smudge cells.\n19 Chemotherapy with Fludarabine, cyclophosphamide, and rituximab is prescribed to the patient.\n20 Immunophenotypic analysis with flow cytometry shows B-cells that express CD19, CD20 and CD23.",
+        "reasoning": "The patient has a leukocyte count of 32,000/mm3, which is significantly elevated. This could indicate a leukemoid reaction or other conditions, and chemotherapy with Fludarabine, cyclophosphamide, and rituximab is not typically the first-line treatment for such a condition. The presence of smudge cells in the blood smear also suggests a hematological disorder, but the prescription of chemotherapy without further investigation or a definitive diagnosis is inappropriate.",
+        "has_error": true,
+        "error_sentence_id": 19,
+        "confidence": 0.95
+      },
+      {
+        "augmented": true,
+        "numbered_text": "0 A 76-year-old woman is brought to the physician because of lesions on her left arm.\n1 She first noticed them 3 months ago and they have grown larger since that time.\n2 She has not had any pain or pruritus in the area.\n3 She has a history of invasive ductal carcinoma of the left breast, which was treated with mastectomy and radiation therapy 27 years ago.\n4 Since that time, she has had lymphedema of the left arm.\n5 Physical examination shows extensive edema of the left arm.\n6 There are four coalescing, firm, purple-blue nodules on the left lateral axillary region and swelling of the surrounding skin.\n7 Patient was diagnosed with Kaposi sarcoma.",
+        "reasoning": "The patient has a history of invasive ductal carcinoma of the left breast, which was treated 27 years ago. She now has Kaposi sarcoma, which is unusual in a patient with a history of breast cancer. Kaposi sarcoma is more commonly associated with immunosuppression, such as in HIV/AIDS patients or those on immunosuppressive therapy.",
+        "has_error": true,
+        "error_sentence_id": 7,
+        "confidence": 0.9
+      },
+      {
+        "augmented": true,
+        "numbered_text": "0 A 56-year-old woman comes to the physician because of a 6-month history of difficulty swallowing food.\n1 Initially, only solid food was problematic, but liquids have also become more difficult to swallow over the last 2 months.\n2 She also reports occasional regurgitation of food when she lies down.\n3 The patient is an avid birdwatcher and returned from a 3-week trip to the Amazon rainforest 3 months ago.\n4 She has had a 3.5-kg (7.7-lb) weight loss over the past 6 months.\n5 She has not had abdominal pain, blood in her stools, or fever.\n6 She underwent an abdominal hysterectomy for fibroid uterus 6 years ago.\n7 She has smoked a pack of cigarettes daily for 25 years.\n8 Current medications include metformin and sitagliptin.\n9 The examination shows no abnormalities.\n10 Her hemoglobin concentration is 12.2 g/\n11 dL. A barium esophagram is shown.\n12 Esophageal manometry monitoring shows the lower esophageal sphincter fails to relax during swallowing.\n13 Proceed with first botulinum toxin injection today.",
+        "reasoning": "The note suggests that the patient's symptoms are related to a motility disorder of the esophagus, specifically a failure of the lower esophageal sphincter to relax during swallowing. Botulinum toxin injection is not a standard first-line treatment for this condition. The standard first-line treatment is typically prokinetic agents or proton pump inhibitors.",
+        "has_error": true,
+        "error_sentence_id": 13,
+        "confidence": 0.95
+      }
+    ],
+    "signature": {
+      "instructions": "You are a physician reviewing a clinical note. The note is either fully correct or\ncontains exactly one medical error (a wrong diagnosis, management step, treatment,\npharmacotherapy or causal organism). Sentences are numbered from 0. Decide whether the\nnote has an error and, if it does, which sentence contains it.",
+      "fields": [
+        {
+          "prefix": "Numbered Text:",
+          "description": "Clinical note, one numbered sentence per line"
+        },
+        {
+          "prefix": "Reasoning:",
+          "description": "${reasoning}"
+        },
+        {
+          "prefix": "Has Error:",
+          "description": "True if the note contains a medical error"
+        },
+        {
+          "prefix": "Error Sentence Id:",
+          "description": "Number of the sentence with the error, or -1 if there is none"
+        },
+        {
+          "prefix": "Confidence:",
+          "description": "Confidence in the answer, between 0 and 1"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "metadata": {
+    "dependency_versions": {
+      "python": "3.11",
+      "dspy": "3.4.1",
+      "cloudpickle": "3.1"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+# outputs/: only the light results are versioned (reports, predictions, scores, splits,
+# DSPy program, few-shot index). Heavy models are re-trained or downloaded.
+outputs/models/bert/
+outputs/models/gguf/
+outputs/**/*.log
+# MedQA copies / embeddings used by the experiments (third-party data, regenerable with the scripts)
+outputs/experiments/**/medqa_*.npy
+outputs/experiments/**/medqa_filtered.jsonl
+outputs/claude/raw/
+.env
+deploy/hosts.env
+docker/certs/*.crt
+outputs_smoke/
+PLAN.md
+docker/certs/

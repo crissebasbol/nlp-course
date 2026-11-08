@@ -1,0 +1,149 @@
+{
+  "split": "val",
+  "n_texts": 334,
+  "detection": [
+    {
+      "system": "Baseline: siempre error en la última oración",
+      "flag_acc": 0.5419,
+      "sentence_acc": 0.3174,
+      "sentence_acc_on_errors": 0.5856,
+      "n": 334
+    },
+    {
+      "system": "BiomedBERT fine-tuneado (w = 1)",
+      "flag_acc": 0.5479,
+      "sentence_acc": 0.5269,
+      "sentence_acc_on_errors": 0.9392,
+      "n": 334
+    },
+    {
+      "system": "Qwen2.5-7B + DSPy sin compilar",
+      "flag_acc": 0.5479,
+      "sentence_acc": 0.3683,
+      "sentence_acc_on_errors": 0.4917,
+      "n": 334
+    },
+    {
+      "system": "Qwen2.5-7B + DSPy compilado (w = 0)",
+      "flag_acc": 0.5749,
+      "sentence_acc": 0.4042,
+      "sentence_acc_on_errors": 0.6022,
+      "n": 334
+    },
+    {
+      "system": "Combinación ponderada (la combinación elige la oración)",
+      "flag_acc": 0.5479,
+      "sentence_acc": 0.5419,
+      "sentence_acc_on_errors": 0.6575,
+      "n": 334
+    },
+    {
+      "system": "Combinación decide A, BERT elige la oración",
+      "flag_acc": 0.5749,
+      "sentence_acc": 0.5509,
+      "sentence_acc_on_errors": 0.8729,
+      "n": 334
+    },
+    {
+      "system": "Pipeline v1 (combinación elige la oración + corrector)",
+      "flag_acc": 0.5479,
+      "sentence_acc": 0.5419,
+      "sentence_acc_on_errors": 0.6575,
+      "n": 334
+    },
+    {
+      "system": "Pipeline final (combinación decide A, BERT elige B + corrector)",
+      "flag_acc": 0.5749,
+      "sentence_acc": 0.5509,
+      "sentence_acc_on_errors": 0.8729,
+      "n": 334
+    },
+    {
+      "system": "BERT elige B + Claude Haiku 5.5 decide A y corrige",
+      "flag_acc": 0.8353,
+      "sentence_acc": 0.8353,
+      "sentence_acc_on_errors": 0.8508,
+      "n": 334
+    },
+    {
+      "system": "BERT elige B + Claude Haiku 5.5 compilado decide A y corrige",
+      "flag_acc": 0.8263,
+      "sentence_acc": 0.8263,
+      "sentence_acc_on_errors": 0.8453,
+      "n": 334
+    }
+  ],
+  "correction": [
+    {
+      "system": "Pipeline v1 (combinación elige la oración + corrector)",
+      "rouge1_official": 0.4232,
+      "rouge1_pairs": 0.6557,
+      "n_pairs": 121
+    },
+    {
+      "system": "Pipeline final (combinación decide A, BERT elige B + corrector)",
+      "rouge1_official": 0.3868,
+      "rouge1_pairs": 0.6216,
+      "n_pairs": 166
+    },
+    {
+      "system": "BERT elige B + Claude Haiku 5.5 decide A y corrige",
+      "rouge1_official": 0.7035,
+      "rouge1_pairs": 0.714,
+      "n_pairs": 154
+    },
+    {
+      "system": "BERT elige B + Claude Haiku 5.5 compilado decide A y corrige",
+      "rouge1_official": 0.7061,
+      "rouge1_pairs": 0.7375,
+      "n_pairs": 153
+    }
+  ],
+  "error_analysis": {
+    "by_position": [
+      {
+        "position": "last",
+        "mean": 0.906,
+        "count": 106
+      },
+      {
+        "position": "not_last",
+        "mean": 0.827,
+        "count": 75
+      }
+    ],
+    "by_error_type": [
+      {
+        "error_type": "CausalOrganism",
+        "mean": 0.882,
+        "count": 17
+      },
+      {
+        "error_type": "Diagnosis",
+        "mean": 0.909,
+        "count": 44
+      },
+      {
+        "error_type": "Management",
+        "mean": 0.806,
+        "count": 36
+      },
+      {
+        "error_type": "Other",
+        "mean": 0.794,
+        "count": 34
+      },
+      {
+        "error_type": "Pharmacotherapy",
+        "mean": 0.925,
+        "count": 40
+      },
+      {
+        "error_type": "Treatment",
+        "mean": 1.0,
+        "count": 10
+      }
+    ]
+  },
+  "doubtful_corrections": 109
+}

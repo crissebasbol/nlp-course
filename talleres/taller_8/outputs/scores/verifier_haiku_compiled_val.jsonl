@@ -1,0 +1,334 @@
+{"text_id": "ms-train-8", "k": 4, "is_correct": false, "corrected_sentence": "Sporothrix schenckii was determined as the causal organism.", "failed": false, "seconds": 2.28}
+{"text_id": "ms-train-2", "k": 10, "is_correct": false, "corrected_sentence": "Suspected of infection with Enterobius vermicularis.", "failed": false, "seconds": 2.28}
+{"text_id": "ms-train-3", "k": 9, "is_correct": true, "corrected_sentence": "Suspected of infection with Enterobius vermicularis.", "failed": false, "seconds": 4.12}
+{"text_id": "ms-train-26", "k": 2, "is_correct": true, "corrected_sentence": "Pathology reports indicate Neisseria species.", "failed": false, "seconds": 2.75}
+{"text_id": "ms-train-42", "k": 5, "is_correct": true, "corrected_sentence": "Cultures grew Vibrio parahaemolyticus.", "failed": false, "seconds": 2.75}
+{"text_id": "ms-train-32", "k": 13, "is_correct": false, "corrected_sentence": "Symptoms caused by herpes simplex virus.", "failed": false, "seconds": 2.75}
+{"text_id": "ms-train-41", "k": 2, "is_correct": false, "corrected_sentence": "Cultures grew Vibrio parahaemolyticus.", "failed": false, "seconds": 2.96}
+{"text_id": "ms-train-43", "k": 14, "is_correct": false, "corrected_sentence": "Pathology report indicates infection by Bartonella quintana.", "failed": false, "seconds": 3.64}
+{"text_id": "ms-train-31", "k": 20, "is_correct": false, "corrected_sentence": "Diagnosis was caused by group B streptococcus.", "failed": false, "seconds": 3.86}
+{"text_id": "ms-train-66", "k": 19, "is_correct": false, "corrected_sentence": "The causal pathogen is Epstein-Barr virus.", "failed": false, "seconds": 0.92}
+{"text_id": "ms-train-44", "k": 13, "is_correct": false, "corrected_sentence": "Pathology report indicates infection by Bartonella quintana.", "failed": false, "seconds": 1.13}
+{"text_id": "ms-train-25", "k": 2, "is_correct": true, "corrected_sentence": "Serum CH50 assay shows inappropriately low erythrocyte lysis and further workup confirms C8 deficiency.", "failed": false, "seconds": 4.55}
+{"text_id": "ms-train-54", "k": 7, "is_correct": false, "corrected_sentence": "The causal organism is Streptococcus pneumoniae.", "failed": false, "seconds": 2.71}
+{"text_id": "ms-train-107", "k": 9, "is_correct": false, "corrected_sentence": "The causal organism is Streptococcus agalactiae.", "failed": false, "seconds": 1.94}
+{"text_id": "ms-train-94", "k": 10, "is_correct": true, "corrected_sentence": "Pathology report shows Streptococcus pneumoniae.", "failed": false, "seconds": 2.21}
+{"text_id": "ms-train-108", "k": 7, "is_correct": true, "corrected_sentence": "An organism is isolated from the blood, and is determined to be Streptococcus agalactiae after, when grown together on sheep agar, the isolated organism enlarges the area of clear hemolysis formed by Staphylococcus aureus.", "failed": false, "seconds": 1.72}
+{"text_id": "ms-train-93", "k": 5, "is_correct": false, "corrected_sentence": "Pathology report shows Streptococcus pneumoniae.", "failed": false, "seconds": 2.6}
+{"text_id": "ms-train-109", "k": 10, "is_correct": false, "corrected_sentence": "Bacillus cereus is the causal organism.", "failed": false, "seconds": 1.03}
+{"text_id": "ms-train-29", "k": 0, "is_correct": false, "corrected_sentence": "A previously healthy 5-year-old boy with a suspected rubella infection is brought to the physician because of increasing weakness and a retroauricular rash that started 2 days ago.", "failed": false, "seconds": 6.57}
+{"text_id": "ms-train-67", "k": 9, "is_correct": true, "corrected_sentence": "Based on the following findings, the causal pathogen was determined to be Epstein-Barr virus.", "failed": false, "seconds": 3.87}
+{"text_id": "ms-train-111", "k": 4, "is_correct": false, "corrected_sentence": "Blood cultures show Listeria monocytogenes.", "failed": false, "seconds": 1.55}
+{"text_id": "ms-train-121", "k": 11, "is_correct": false, "corrected_sentence": "Diagnosis is cervical radiculopathy.", "failed": false, "seconds": 2.07}
+{"text_id": "ms-train-65", "k": 17, "is_correct": false, "corrected_sentence": "Patient is suspected of having a periprosthetic joint infection of the right knee, and the causal organism is pending synovial fluid culture.", "failed": false, "seconds": 6.01}
+{"text_id": "ms-train-117", "k": 9, "is_correct": false, "corrected_sentence": "Patient was diagnosed with olfactory groove meningioma.", "failed": false, "seconds": 2.64}
+{"text_id": "ms-train-118", "k": 7, "is_correct": true, "corrected_sentence": "Based on the following exam, patient was diagnosed with meningioma.", "failed": false, "seconds": 3.02}
+{"text_id": "ms-train-195", "k": 3, "is_correct": true, "corrected_sentence": "Patient was diagnosed with eczematous dermatitis.", "failed": false, "seconds": 1.33}
+{"text_id": "ms-train-110", "k": 3, "is_correct": false, "corrected_sentence": "Blood cultures show Candida albicans.", "failed": false, "seconds": 5.26}
+{"text_id": "ms-train-126", "k": 10, "is_correct": false, "corrected_sentence": "Suspected of metastatic carcinoma.", "failed": false, "seconds": 3.44}
+{"text_id": "ms-train-125", "k": 12, "is_correct": false, "corrected_sentence": "Diagnosis is multiple myeloma.", "failed": false, "seconds": 3.67}
+{"text_id": "ms-train-199", "k": 24, "is_correct": false, "corrected_sentence": "Suspected of autoimmune hemolytic anemia.", "failed": false, "seconds": 0.85}
+{"text_id": "ms-train-194", "k": 2, "is_correct": false, "corrected_sentence": "Patient was diagnosed with eczematous dermatitis based on a skin biopsy of the rash showing intraepidermal accumulation of edematous fluid and widening of intercellular spaces between keratinocytes.", "failed": false, "seconds": 2.97}
+{"text_id": "ms-train-122", "k": 10, "is_correct": false, "corrected_sentence": "Suspected of C6 radiculopathy.", "failed": false, "seconds": 5.52}
+{"text_id": "ms-train-153", "k": 14, "is_correct": true, "corrected_sentence": "The patient is diagnosed with malingering.", "failed": false, "seconds": 3.63}
+{"text_id": "ms-train-241", "k": 11, "is_correct": false, "corrected_sentence": "Suspected of primary open-angle glaucoma.", "failed": false, "seconds": 0.88}
+{"text_id": "ms-train-264", "k": 6, "is_correct": false, "corrected_sentence": "Patient was diagnosed with oppositional defiant disorder.", "failed": false, "seconds": 0.94}
+{"text_id": "ms-train-202", "k": 7, "is_correct": true, "corrected_sentence": "Suspected of pancreatic pseudocyst.", "failed": false, "seconds": 2.04}
+{"text_id": "ms-train-201", "k": 8, "is_correct": false, "corrected_sentence": "Suspected of chronic pancreatitis.", "failed": false, "seconds": 2.42}
+{"text_id": "ms-train-242", "k": 10, "is_correct": true, "corrected_sentence": "Suspected of open-angle glaucoma.", "failed": false, "seconds": 1.95}
+{"text_id": "ms-train-200", "k": 25, "is_correct": true, "corrected_sentence": "Suspected of autoimmune hemolytic anemia.", "failed": false, "seconds": 2.81}
+{"text_id": "ms-train-277", "k": 11, "is_correct": false, "corrected_sentence": "Diagnosis is trichotillomania.", "failed": false, "seconds": 2.11}
+{"text_id": "ms-train-265", "k": 5, "is_correct": true, "corrected_sentence": "After further examination, patient was diagnosed with oppositional defiant disorder.", "failed": false, "seconds": 2.65}
+{"text_id": "ms-train-152", "k": 12, "is_correct": false, "corrected_sentence": "Malingering is suspected when the physician is planning to discharge the patient, and the patient reports numbness in his arm and insists on being admitted to the ward.", "failed": false, "seconds": 6.52}
+{"text_id": "ms-train-284", "k": 3, "is_correct": false, "corrected_sentence": "Suspected of Cushing ulcer.", "failed": false, "seconds": 1.92}
+{"text_id": "ms-train-278", "k": 9, "is_correct": true, "corrected_sentence": "Suspected of trichotillomania.", "failed": false, "seconds": 2.58}
+{"text_id": "ms-train-290", "k": 7, "is_correct": true, "corrected_sentence": "Suspected of constitutional growth delay.", "failed": false, "seconds": 2.31}
+{"text_id": "ms-train-289", "k": 6, "is_correct": false, "corrected_sentence": "Suspected of constitutional growth delay.", "failed": false, "seconds": 3.0}
+{"text_id": "ms-train-293", "k": 4, "is_correct": false, "corrected_sentence": "He is diagnosed with brain abscess after the following evaluation.", "failed": false, "seconds": 2.41}
+{"text_id": "ms-train-317", "k": 35, "is_correct": false, "corrected_sentence": "The patient is diagnosed with a pancreatic pseudocyst.", "failed": false, "seconds": 0.82}
+{"text_id": "ms-train-342", "k": 9, "is_correct": false, "corrected_sentence": "Her hemoglobin concentration is 11.9 g/dL. Suspected of anorexia nervosa.", "failed": false, "seconds": 1.71}
+{"text_id": "ms-train-285", "k": 4, "is_correct": false, "corrected_sentence": "Diagnosis is stress gastropathy.", "failed": false, "seconds": 5.59}
+{"text_id": "ms-train-300", "k": 10, "is_correct": true, "corrected_sentence": "To confirm, the transvaginal ultrasound machine is being prepared.", "failed": false, "seconds": 4.33}
+{"text_id": "ms-train-316", "k": 34, "is_correct": false, "corrected_sentence": "Abdominal ultrasound confirms the patient's diagnosis of pancreatic abscess, showing a complex cystic fluid collection with irregular walls and septations in the pancreas.", "failed": false, "seconds": 3.3}
+{"text_id": "ms-train-353", "k": 8, "is_correct": true, "corrected_sentence": "Patient was diagnosed with pre-B-cell acute lymphoblastic leukemia.", "failed": false, "seconds": 0.91}
+{"text_id": "ms-train-358", "k": 8, "is_correct": false, "corrected_sentence": "Diagnosis is bulimia nervosa.", "failed": false, "seconds": 0.8}
+{"text_id": "ms-train-352", "k": 7, "is_correct": false, "corrected_sentence": "Patient was diagnosed with acute lymphoblastic leukemia, based on a bone marrow aspirate predominantly showing immature leukocytes that stain positive for CD10, CD19, and terminal deoxynucleotidyl transferase (TdT), and negative for myeloperoxidase.", "failed": false, "seconds": 1.6}
+{"text_id": "ms-train-301", "k": 10, "is_correct": false, "corrected_sentence": "Suspected of placenta previa.", "failed": false, "seconds": 5.24}
+{"text_id": "ms-train-359", "k": 4, "is_correct": true, "corrected_sentence": "Suspected of bulimia nervosa.", "failed": false, "seconds": 0.93}
+{"text_id": "ms-train-343", "k": 8, "is_correct": true, "corrected_sentence": "Suspected of anorexia nervosa.", "failed": false, "seconds": 2.98}
+{"text_id": "ms-train-315", "k": 34, "is_correct": true, "corrected_sentence": "Suspected of acute hepatitis B infection.", "failed": false, "seconds": 5.37}
+{"text_id": "ms-train-412", "k": 7, "is_correct": false, "corrected_sentence": "Suspected of chronic obstructive pulmonary disease.", "failed": false, "seconds": 0.87}
+{"text_id": "ms-train-413", "k": 5, "is_correct": true, "corrected_sentence": "Suspected of chronic obstructive pulmonary disease.", "failed": false, "seconds": 0.94}
+{"text_id": "ms-train-371", "k": 5, "is_correct": false, "corrected_sentence": "Her diagnosis is dissociative fugue.", "failed": false, "seconds": 1.33}
+{"text_id": "ms-train-372", "k": 12, "is_correct": true, "corrected_sentence": "Her diagnosis is dissociative amnesia with dissociative fugue.", "failed": false, "seconds": 1.78}
+{"text_id": "ms-train-439", "k": 6, "is_correct": false, "corrected_sentence": "Patient's condition is due to allergic rhinitis.", "failed": false, "seconds": 1.72}
+{"text_id": "ms-train-470", "k": 11, "is_correct": false, "corrected_sentence": "Diagnosis is placenta previa.", "failed": false, "seconds": 0.93}
+{"text_id": "ms-train-474", "k": 5, "is_correct": true, "corrected_sentence": "Patient was diagnosed with adenomyosis.", "failed": false, "seconds": 0.98}
+{"text_id": "ms-train-471", "k": 8, "is_correct": true, "corrected_sentence": "Suspected of placenta previa.", "failed": false, "seconds": 1.77}
+{"text_id": "ms-train-294", "k": 11, "is_correct": true, "corrected_sentence": "He is diagnosed with pyogenic brain abscess.", "failed": false, "seconds": 8.61}
+{"text_id": "ms-train-455", "k": 11, "is_correct": false, "corrected_sentence": "Patient was diagnosed with pregnancy after her lab results showed:", "failed": false, "seconds": 2.67}
+{"text_id": "ms-train-440", "k": 5, "is_correct": true, "corrected_sentence": "Nasal sputum cytology reveals eosinophilia and boggy turbinates.", "failed": false, "seconds": 3.34}
+{"text_id": "ms-train-485", "k": 22, "is_correct": false, "corrected_sentence": "Patient was diagnosed with slipped capital femoral epiphysis of the left hip.", "failed": false, "seconds": 1.1}
+{"text_id": "ms-train-477", "k": 10, "is_correct": false, "corrected_sentence": "Based on exam, patient was diagnosed with pyoderma gangrenosum.", "failed": false, "seconds": 2.62}
+{"text_id": "ms-train-454", "k": 12, "is_correct": false, "corrected_sentence": "Thyroid stimulating hormone (TSH): 1.2 µIU/L Patient was diagnosed with molar pregnancy.", "failed": false, "seconds": 4.23}
+{"text_id": "ms-train-480", "k": 0, "is_correct": false, "corrected_sentence": "A 28-year-old woman, gravida 3, para 2, at 34 weeks' gestation with possible pulmonary embolism comes to the physician because of a 1-day history of dyspnea, dry cough, and chest pain.", "failed": false, "seconds": 2.21}
+{"text_id": "ms-train-487", "k": 14, "is_correct": false, "corrected_sentence": "Suspected of Charcot arthropathy.", "failed": false, "seconds": 1.39}
+{"text_id": "ms-train-489", "k": 5, "is_correct": false, "corrected_sentence": "Patient was diagnosed with superficial thrombophlebitis.", "failed": false, "seconds": 0.78}
+{"text_id": "ms-train-486", "k": 14, "is_correct": true, "corrected_sentence": "Based on exam and the following lab findings, patient was diagnosed with slipped capital femoral epiphysis.", "failed": false, "seconds": 1.96}
+{"text_id": "ms-train-478", "k": 14, "is_correct": true, "corrected_sentence": "Patient was diagnosed with pyoderma gangrenosum.", "failed": false, "seconds": 2.94}
+{"text_id": "ms-train-502", "k": 5, "is_correct": true, "corrected_sentence": "Patient was diagnosed with a hordeolum.", "failed": false, "seconds": 0.92}
+{"text_id": "ms-train-501", "k": 3, "is_correct": false, "corrected_sentence": "After examining the patient, she was diagnosed with a hordeolum.", "failed": false, "seconds": 1.45}
+{"text_id": "ms-train-488", "k": 15, "is_correct": true, "corrected_sentence": "Suspected of diabetic arthropathy.", "failed": false, "seconds": 2.64}
+{"text_id": "ms-train-507", "k": 11, "is_correct": true, "corrected_sentence": "Patient was diagnosed with post-traumatic stress disorder.", "failed": false, "seconds": 0.91}
+{"text_id": "ms-train-490", "k": 4, "is_correct": true, "corrected_sentence": "Patient was diagnosed with superficial thrombophlebitis after duplex ultrasound showed vascular wall thickening and subcutaneous edema.", "failed": false, "seconds": 3.25}
+{"text_id": "ms-train-505", "k": 3, "is_correct": false, "corrected_sentence": "Suspected of breast milk jaundice.", "failed": false, "seconds": 2.56}
+{"text_id": "ms-train-493", "k": 8, "is_correct": true, "corrected_sentence": "Patient was diagnosed with aromatase deficiency.", "failed": false, "seconds": 3.09}
+{"text_id": "ms-train-508", "k": 10, "is_correct": true, "corrected_sentence": "After examining the patient, she was diagnosed with acute stress disorder.", "failed": false, "seconds": 1.67}
+{"text_id": "ms-train-526", "k": 7, "is_correct": true, "corrected_sentence": "The patient is diagnosed with hypovolemic shock.", "failed": false, "seconds": 1.5}
+{"text_id": "ms-train-520", "k": 4, "is_correct": false, "corrected_sentence": "Patient was diagnosed with acute cholangitis after laboratory evaluation was notable for a leukocytosis and a total bilirubin of 6.4 mg/dL.", "failed": false, "seconds": 2.05}
+{"text_id": "ms-train-539", "k": 17, "is_correct": false, "corrected_sentence": "Patient was diagnosed with Wiskott-Aldrich syndrome.", "failed": false, "seconds": 1.61}
+{"text_id": "ms-train-475", "k": 2, "is_correct": true, "corrected_sentence": "Based on exam, patient was diagnosed with leiomyoma.", "failed": false, "seconds": 8.06}
+{"text_id": "ms-train-521", "k": 4, "is_correct": true, "corrected_sentence": "Laboratory evaluation is notable for a leukocytosis and a total bilirubin of 6.4 mg/dL. Patient was diagnosed with acute cholangitis.", "failed": false, "seconds": 1.8}
+{"text_id": "ms-train-492", "k": 7, "is_correct": false, "corrected_sentence": "Patient was diagnosed with congenital adrenal hyperplasia, which was confirmed with elevated serum 17-hydroxyprogesterone and a pelvic ultrasound showing a normal uterus.", "failed": false, "seconds": 5.4}
+{"text_id": "ms-train-540", "k": 8, "is_correct": true, "corrected_sentence": "After reviewing the labs, patient was diagnosed with Wiskott-Aldrich syndrome.", "failed": false, "seconds": 1.9}
+{"text_id": "ms-train-561", "k": 11, "is_correct": false, "corrected_sentence": "Patient was diagnosed with staphylococcal scalded skin syndrome.", "failed": false, "seconds": 1.66}
+{"text_id": "ms-train-565", "k": 9, "is_correct": false, "corrected_sentence": "Patient sustained a right posterior hip dislocation.", "failed": false, "seconds": 1.49}
+{"text_id": "ms-train-556", "k": 9, "is_correct": false, "corrected_sentence": "He was diagnosed with obstructive jaundice due to carcinoma of the head of the pancreas based on the following serum studies and imaging findings.", "failed": false, "seconds": 2.91}
+{"text_id": "ms-train-551", "k": 11, "is_correct": false, "corrected_sentence": "After examining the patient, she was diagnosed with factitious disorder imposed on another (Munchausen syndrome by proxy).", "failed": false, "seconds": 2.94}
+{"text_id": "ms-train-566", "k": 6, "is_correct": true, "corrected_sentence": "Based on exam, she was diagnosed with a posterior hip dislocation.", "failed": false, "seconds": 1.18}
+{"text_id": "ms-train-550", "k": 15, "is_correct": false, "corrected_sentence": "Patient was diagnosed with cyclic vomiting syndrome.", "failed": false, "seconds": 3.32}
+{"text_id": "ms-train-562", "k": 8, "is_correct": false, "corrected_sentence": "Based on exam, patient was diagnosed with staphylococcal scalded skin syndrome.", "failed": false, "seconds": 2.98}
+{"text_id": "ms-train-557", "k": 19, "is_correct": true, "corrected_sentence": "She was diagnosed with a pancreatic adenocarcinoma.", "failed": false, "seconds": 3.65}
+{"text_id": "ms-train-592", "k": 11, "is_correct": true, "corrected_sentence": "After examining the patient, she was diagnosed with social anxiety disorder.", "failed": false, "seconds": 0.97}
+{"text_id": "ms-train-591", "k": 13, "is_correct": false, "corrected_sentence": "Patient was diagnosed with social anxiety disorder.", "failed": false, "seconds": 1.38}
+{"text_id": "ms-train-506", "k": 18, "is_correct": true, "corrected_sentence": "Diagnosis is breast milk jaundice.", "failed": false, "seconds": 7.69}
+{"text_id": "ms-train-599", "k": 10, "is_correct": true, "corrected_sentence": "Suspected of placental abruption.", "failed": false, "seconds": 0.78}
+{"text_id": "ms-train-598", "k": 9, "is_correct": false, "corrected_sentence": "Suspected of placental abruption.", "failed": false, "seconds": 1.6}
+{"text_id": "ms-train-633", "k": 5, "is_correct": false, "corrected_sentence": "Patient was diagnosed with acute lymphoblastic leukemia after tests revealed the following.", "failed": false, "seconds": 0.86}
+{"text_id": "ms-train-576", "k": 24, "is_correct": false, "corrected_sentence": "A pelvic ultrasound shows a postvoid residual urine is 25 mL. Suspected of interstitial cystitis.", "failed": false, "seconds": 2.54}
+{"text_id": "ms-train-634", "k": 11, "is_correct": true, "corrected_sentence": "TdT. The patient was diagnosed with acute lymphoblastic leukemia.", "failed": false, "seconds": 1.05}
+{"text_id": "ms-train-670", "k": 7, "is_correct": false, "corrected_sentence": "Patient was diagnosed with borderline personality disorder.", "failed": false, "seconds": 1.26}
+{"text_id": "ms-train-683", "k": 7, "is_correct": false, "corrected_sentence": "Based on exam, patient was diagnosed with cervicitis.", "failed": false, "seconds": 0.88}
+{"text_id": "ms-train-690", "k": 6, "is_correct": false, "corrected_sentence": "Patient is diagnosed with Staphylococcus aureus infectious arthritis when a Gram stain of the joint fluid aspirate demonstrates purple cocci in clusters.", "failed": false, "seconds": 0.87}
+{"text_id": "ms-train-691", "k": 9, "is_correct": true, "corrected_sentence": "Patient is diagnosed with Staphylococcus infectious arthritis.", "failed": false, "seconds": 0.93}
+{"text_id": "ms-train-731", "k": 3, "is_correct": true, "corrected_sentence": "Renal bladder ultrasound is recommended.", "failed": false, "seconds": 0.94}
+{"text_id": "ms-train-577", "k": 26, "is_correct": true, "corrected_sentence": "Suspected of interstitial cystitis.", "failed": false, "seconds": 4.09}
+{"text_id": "ms-train-682", "k": 9, "is_correct": false, "corrected_sentence": "Patient was diagnosed with pelvic inflammatory disease.", "failed": false, "seconds": 2.69}
+{"text_id": "ms-train-730", "k": 2, "is_correct": true, "corrected_sentence": "Follow-up of the urine culture reveals the causal bacteria was E. coli, without any concerning resistance patterns and was susceptible to ceftriaxone.", "failed": false, "seconds": 1.49}
+{"text_id": "ms-train-614", "k": 8, "is_correct": true, "corrected_sentence": "Patient is diagnosed with schizophreniform disorder.", "failed": false, "seconds": 3.68}
+{"text_id": "ms-train-717", "k": 9, "is_correct": false, "corrected_sentence": "Patient was diagnosed with a femoral arteriovenous fistula.", "failed": false, "seconds": 2.5}
+{"text_id": "ms-train-758", "k": 5, "is_correct": true, "corrected_sentence": "She was recommended an oral glucose challenge test.", "failed": false, "seconds": 0.89}
+{"text_id": "ms-train-716", "k": 5, "is_correct": false, "corrected_sentence": "Based on exam, patient was diagnosed with a femoral arteriovenous fistula.", "failed": false, "seconds": 3.02}
+{"text_id": "ms-train-738", "k": 12, "is_correct": true, "corrected_sentence": "Recommended to adhere to a regular sleep schedule.", "failed": false, "seconds": 2.18}
+{"text_id": "ms-train-747", "k": 6, "is_correct": false, "corrected_sentence": "Azithromycin and ceftriaxone were administered.", "failed": false, "seconds": 2.05}
+{"text_id": "ms-train-737", "k": 17, "is_correct": false, "corrected_sentence": "Recommended non-pharmacologic management of sundowning with increased daytime activity, sleep hygiene measures, and caregiver education.", "failed": false, "seconds": 3.25}
+{"text_id": "ms-train-748", "k": 7, "is_correct": true, "corrected_sentence": "Arthrocentesis was performed.", "failed": false, "seconds": 2.19}
+{"text_id": "ms-train-765", "k": 8, "is_correct": true, "corrected_sentence": "A core needle biopsy is scheduled.", "failed": false, "seconds": 1.02}
+{"text_id": "ms-train-757", "k": 9, "is_correct": false, "corrected_sentence": "A 1-hour glucose challenge test was recommended.", "failed": false, "seconds": 2.54}
+{"text_id": "ms-train-784", "k": 11, "is_correct": false, "corrected_sentence": "Intravenous normal saline is required.", "failed": false, "seconds": 0.83}
+{"text_id": "ms-train-764", "k": 7, "is_correct": false, "corrected_sentence": "Core needle biopsy is scheduled.", "failed": false, "seconds": 1.8}
+{"text_id": "ms-train-791", "k": 12, "is_correct": true, "corrected_sentence": "Carbamazepine is prescribed.", "failed": false, "seconds": 0.85}
+{"text_id": "ms-train-790", "k": 3, "is_correct": false, "corrected_sentence": "Carbamazepine is recommended.", "failed": false, "seconds": 1.19}
+{"text_id": "ms-train-779", "k": 13, "is_correct": true, "corrected_sentence": "Bronchoscopy is ordered.", "failed": false, "seconds": 2.15}
+{"text_id": "ms-train-778", "k": 12, "is_correct": false, "corrected_sentence": "Rigid bronchoscopy was performed on the patient.", "failed": false, "seconds": 2.63}
+{"text_id": "ms-train-785", "k": 7, "is_correct": true, "corrected_sentence": "Hemodialysis is required.", "failed": false, "seconds": 2.05}
+{"text_id": "ms-train-792", "k": 8, "is_correct": false, "corrected_sentence": "Diazepam is prescribed.", "failed": false, "seconds": 1.62}
+{"text_id": "ms-train-793", "k": 3, "is_correct": true, "corrected_sentence": "Lorazepam is prescribed.", "failed": false, "seconds": 1.62}
+{"text_id": "ms-train-798", "k": 8, "is_correct": true, "corrected_sentence": "Abdominal ultrasonography is ordered.", "failed": false, "seconds": 1.7}
+{"text_id": "ms-train-810", "k": 12, "is_correct": false, "corrected_sentence": "Patient was recommended a radical cystectomy.", "failed": false, "seconds": 1.49}
+{"text_id": "ms-train-818", "k": 14, "is_correct": false, "corrected_sentence": "Prophylactic antibiotic therapy is not needed.", "failed": false, "seconds": 0.98}
+{"text_id": "ms-train-811", "k": 13, "is_correct": true, "corrected_sentence": "Patient was recommended a radical cystectomy.", "failed": false, "seconds": 0.99}
+{"text_id": "ms-train-819", "k": 18, "is_correct": true, "corrected_sentence": "Adequate analgesia and conservative management is needed.", "failed": false, "seconds": 1.55}
+{"text_id": "ms-train-856", "k": 10, "is_correct": true, "corrected_sentence": "Administering oral amoxicillin 1 hour before the procedure was recommended.", "failed": false, "seconds": 1.94}
+{"text_id": "ms-train-888", "k": 9, "is_correct": false, "corrected_sentence": "Anticoagulant therapy with low-molecular-weight heparin was started.", "failed": false, "seconds": 1.51}
+{"text_id": "ms-train-855", "k": 7, "is_correct": false, "corrected_sentence": "Patient was recommended taking oral amoxicillin 1 hour before the procedure.", "failed": false, "seconds": 2.76}
+{"text_id": "ms-train-797", "k": 10, "is_correct": false, "corrected_sentence": "An abdominal ultrasound is ordered.", "failed": false, "seconds": 4.31}
+{"text_id": "ms-train-889", "k": 28, "is_correct": false, "corrected_sentence": "Anticoagulation therapy with low-molecular-weight heparin was initiated.", "failed": false, "seconds": 2.57}
+{"text_id": "ms-train-860", "k": 11, "is_correct": true, "corrected_sentence": "An oral dose of acetaminophen is administered.", "failed": false, "seconds": 2.63}
+{"text_id": "ms-train-892", "k": 9, "is_correct": false, "corrected_sentence": "Corticosteroid therapy may be indicated.", "failed": false, "seconds": 2.41}
+{"text_id": "ms-train-894", "k": 11, "is_correct": false, "corrected_sentence": "Removal of the foreign body from the nose is required.", "failed": false, "seconds": 1.62}
+{"text_id": "ms-train-897", "k": 6, "is_correct": false, "corrected_sentence": "A diagnosis of pulmonary tuberculosis is made from culture of the sputum.", "failed": false, "seconds": 0.94}
+{"text_id": "ms-train-857", "k": 16, "is_correct": true, "corrected_sentence": "In addition to fluid resuscitation, a CT abdomen with IV contrast was completed.", "failed": false, "seconds": 3.77}
+{"text_id": "ms-train-895", "k": 2, "is_correct": true, "corrected_sentence": "Foreign body extraction is required.", "failed": false, "seconds": 2.35}
+{"text_id": "ms-train-896", "k": 6, "is_correct": true, "corrected_sentence": "A diagnosis of pulmonary tuberculosis is made from PCR testing of the sputum.", "failed": false, "seconds": 2.37}
+{"text_id": "ms-train-893", "k": 11, "is_correct": false, "corrected_sentence": "High-resolution CT of the temporal bone may be indicated.", "failed": false, "seconds": 3.46}
+{"text_id": "ms-train-922", "k": 13, "is_correct": true, "corrected_sentence": "Ultrasound of the neck is obtained.", "failed": false, "seconds": 1.83}
+{"text_id": "ms-train-921", "k": 12, "is_correct": false, "corrected_sentence": "Carotid duplex ultrasound is obtained.", "failed": false, "seconds": 2.81}
+{"text_id": "ms-train-928", "k": 14, "is_correct": false, "corrected_sentence": "Intravenous cefazolin therapy is recommended.", "failed": false, "seconds": 2.31}
+{"text_id": "ms-train-963", "k": 10, "is_correct": true, "corrected_sentence": "Notified Child Protective Services.", "failed": false, "seconds": 0.85}
+{"text_id": "ms-train-936", "k": 3, "is_correct": false, "corrected_sentence": "Patient is informed to wrap thumb in sterile gauze moistened with saline, place it in a sealed plastic bag, and keep the bag on ice.", "failed": false, "seconds": 2.02}
+{"text_id": "ms-train-929", "k": 13, "is_correct": true, "corrected_sentence": "Intravenous cefazolin therapy is recommended.", "failed": false, "seconds": 2.62}
+{"text_id": "ms-train-977", "k": 22, "is_correct": true, "corrected_sentence": "Patient is scheduled for an appendectomy in 6-8 weeks and will continue conservative management.", "failed": false, "seconds": 1.64}
+{"text_id": "ms-train-962", "k": 9, "is_correct": true, "corrected_sentence": "Arrange for boy to be hospitalized for further evaluation.", "failed": false, "seconds": 2.33}
+{"text_id": "ms-train-1013", "k": 7, "is_correct": false, "corrected_sentence": "Hyperbaric oxygen therapy is required.", "failed": false, "seconds": 1.43}
+{"text_id": "ms-train-1009", "k": 11, "is_correct": false, "corrected_sentence": "Abdominal radiography is obtained to evaluate for toxic megacolon.", "failed": false, "seconds": 2.11}
+{"text_id": "ms-train-1010", "k": 8, "is_correct": false, "corrected_sentence": "Urgent abdominal x-ray is ordered to evaluate for toxic megacolon.", "failed": false, "seconds": 2.27}
+{"text_id": "ms-train-976", "k": 24, "is_correct": true, "corrected_sentence": "Electrolyte imbalances were corrected and she is being prepared for a laparoscopic appendectomy.", "failed": false, "seconds": 3.17}
+{"text_id": "ms-train-1027", "k": 10, "is_correct": true, "corrected_sentence": "Spirometry is recommended.", "failed": false, "seconds": 0.84}
+{"text_id": "ms-train-992", "k": 14, "is_correct": true, "corrected_sentence": "Intraarticular triamcinolone is administered.", "failed": false, "seconds": 2.97}
+{"text_id": "ms-train-991", "k": 14, "is_correct": false, "corrected_sentence": "The interphalangeal joint of the right great toe is aspirated, with the synovial fluid aspirate shown under polarized light microscopy in Figure A. Prednisone is administered.", "failed": false, "seconds": 3.86}
+{"text_id": "ms-train-1014", "k": 5, "is_correct": true, "corrected_sentence": "Hyperbaric oxygen therapy is required.", "failed": false, "seconds": 2.98}
+{"text_id": "ms-train-1061", "k": 10, "is_correct": true, "corrected_sentence": "Lid hygiene and warm compresses was recommended to the patient.", "failed": false, "seconds": 1.92}
+{"text_id": "ms-train-1100", "k": 9, "is_correct": false, "corrected_sentence": "Sertraline was continued and the dose was increased.", "failed": false, "seconds": 0.99}
+{"text_id": "ms-train-1026", "k": 9, "is_correct": false, "corrected_sentence": "Spirometry with bronchodilator reversibility testing is recommended.", "failed": false, "seconds": 4.09}
+{"text_id": "ms-train-1066", "k": 14, "is_correct": true, "corrected_sentence": "A gonococcal culture is ordered.", "failed": false, "seconds": 2.66}
+{"text_id": "ms-train-1051", "k": 11, "is_correct": true, "corrected_sentence": "Chest compressions were required.", "failed": false, "seconds": 3.39}
+{"text_id": "ms-train-1105", "k": 16, "is_correct": true, "corrected_sentence": "Inpatient treatment with intravenous ceftriaxone is required.", "failed": false, "seconds": 0.92}
+{"text_id": "ms-train-1060", "k": 7, "is_correct": true, "corrected_sentence": "After examining the patient, topical erythromycin was prescribed.", "failed": false, "seconds": 3.62}
+{"text_id": "ms-train-1104", "k": 11, "is_correct": true, "corrected_sentence": "Inpatient treatment with intravenous ampicillin and gentamicin is required.", "failed": false, "seconds": 1.64}
+{"text_id": "ms-train-1140", "k": 27, "is_correct": false, "corrected_sentence": "Colonoscopy with decompression is required.", "failed": false, "seconds": 0.91}
+{"text_id": "ms-train-1067", "k": 13, "is_correct": true, "corrected_sentence": "A HIV test is ordered to rule out other STI infections and the patient is started on ceftriaxone and doxycycline.", "failed": false, "seconds": 3.78}
+{"text_id": "ms-train-1050", "k": 6, "is_correct": true, "corrected_sentence": "Coronary angiography is required.", "failed": false, "seconds": 5.73}
+{"text_id": "ms-train-1119", "k": 27, "is_correct": true, "corrected_sentence": "Outpatient treatment with oral doxycycline is prescribed.", "failed": false, "seconds": 2.48}
+{"text_id": "ms-train-1135", "k": 6, "is_correct": true, "corrected_sentence": "An estrogen-progestin contraceptive was prescribed after examining the patient.", "failed": false, "seconds": 2.43}
+{"text_id": "ms-train-1141", "k": 29, "is_correct": true, "corrected_sentence": "Neostigmine therapy is started.", "failed": false, "seconds": 2.06}
+{"text_id": "ms-train-1134", "k": 10, "is_correct": false, "corrected_sentence": "A combined oral contraceptive was prescribed.", "failed": false, "seconds": 3.41}
+{"text_id": "ms-train-1153", "k": 16, "is_correct": true, "corrected_sentence": "Patient is advised to avoid drinking alcohol for the next 2 weeks.", "failed": false, "seconds": 0.83}
+{"text_id": "ms-train-1148", "k": 5, "is_correct": false, "corrected_sentence": "Serum FSH and LH concentrations are measured.", "failed": false, "seconds": 2.55}
+{"text_id": "ms-train-1161", "k": 7, "is_correct": true, "corrected_sentence": "Naproxen and activity as tolerated were recommended.", "failed": false, "seconds": 0.94}
+{"text_id": "ms-train-1152", "k": 15, "is_correct": false, "corrected_sentence": "Patient will have a follow-up urea breath test in 4 weeks.", "failed": false, "seconds": 2.07}
+{"text_id": "ms-train-1150", "k": 10, "is_correct": false, "corrected_sentence": "Radiographs of the sacroiliac joints are ordered.", "failed": false, "seconds": 2.73}
+{"text_id": "ms-train-1151", "k": 9, "is_correct": false, "corrected_sentence": "Radiography of the sacroiliac joints is ordered.", "failed": false, "seconds": 2.91}
+{"text_id": "ms-train-1160", "k": 6, "is_correct": false, "corrected_sentence": "Ibuprofen and activity as tolerated were recommended.", "failed": false, "seconds": 1.74}
+{"text_id": "ms-train-1149", "k": 7, "is_correct": true, "corrected_sentence": "Serum FSH level is obtained.", "failed": false, "seconds": 3.59}
+{"text_id": "ms-train-1164", "k": 7, "is_correct": false, "corrected_sentence": "Vitamin A was administered.", "failed": false, "seconds": 1.57}
+{"text_id": "ms-train-1118", "k": 11, "is_correct": true, "corrected_sentence": "Ceftriaxone and oral azithromycin were administered.", "failed": false, "seconds": 6.03}
+{"text_id": "ms-train-1208", "k": 13, "is_correct": true, "corrected_sentence": "Bedside ultrasound confirms that the fetus is still in breech presentation.", "failed": false, "seconds": 1.96}
+{"text_id": "ms-train-1223", "k": 10, "is_correct": false, "corrected_sentence": "Hysterosalpingography was recommended.", "failed": false, "seconds": 1.67}
+{"text_id": "ms-train-1252", "k": 8, "is_correct": false, "corrected_sentence": "Breast ultrasonography is ordered.", "failed": false, "seconds": 0.86}
+{"text_id": "ms-train-1224", "k": 7, "is_correct": true, "corrected_sentence": "Hysterosalpingogram was recommended based on the following exam.", "failed": false, "seconds": 1.65}
+{"text_id": "ms-train-1209", "k": 13, "is_correct": false, "corrected_sentence": "Rhogam was administered following the procedure.", "failed": false, "seconds": 2.68}
+{"text_id": "ms-train-1260", "k": 14, "is_correct": true, "corrected_sentence": "Arthrocentesis of the left knee is performed to determine presence of bacteria.", "failed": false, "seconds": 0.93}
+{"text_id": "ms-train-1259", "k": 13, "is_correct": true, "corrected_sentence": "A blood culture is performed to determine presence of bacteria.", "failed": false, "seconds": 1.02}
+{"text_id": "ms-train-1246", "k": 21, "is_correct": false, "corrected_sentence": "20 U/L Patient was started on labetalol therapy.", "failed": false, "seconds": 2.3}
+{"text_id": "ms-train-1247", "k": 10, "is_correct": true, "corrected_sentence": "Patient is started on magnesium sulfate and labetalol.", "failed": false, "seconds": 2.28}
+{"text_id": "ms-train-1285", "k": 25, "is_correct": false, "corrected_sentence": "A peripheral intravenous line is established and 0.9% saline is administered.", "failed": false, "seconds": 1.93}
+{"text_id": "ms-train-1231", "k": 11, "is_correct": false, "corrected_sentence": "On mental status examination, he describes his mood as \"\"good.â€ Paroxetine therapy was recommended for 2 years.", "failed": false, "seconds": 4.46}
+{"text_id": "ms-train-1287", "k": 11, "is_correct": true, "corrected_sentence": "Operative treatment is scheduled.", "failed": false, "seconds": 2.38}
+{"text_id": "ms-train-1301", "k": 9, "is_correct": true, "corrected_sentence": "High-resolution computed tomography was performed.", "failed": false, "seconds": 2.27}
+{"text_id": "ms-train-1288", "k": 10, "is_correct": true, "corrected_sentence": "Operative treatment is scheduled.", "failed": false, "seconds": 2.4}
+{"text_id": "ms-train-1253", "k": 9, "is_correct": true, "corrected_sentence": "Cold compresses and analgesia is advised.", "failed": false, "seconds": 4.47}
+{"text_id": "ms-train-1281", "k": 8, "is_correct": true, "corrected_sentence": "Vancomycin, cefepime, and clindamycin were administered, and surgical debridement was performed.", "failed": false, "seconds": 3.61}
+{"text_id": "ms-train-1271", "k": 8, "is_correct": false, "corrected_sentence": "Patient is recommended reassurance and psychosocial evaluation for possible functional abdominal pain.", "failed": false, "seconds": 4.43}
+{"text_id": "ms-train-1311", "k": 14, "is_correct": true, "corrected_sentence": "Her fingerstick blood glucose concentration is 122 mg/dL. Checking serum electrolytes is necessary.", "failed": false, "seconds": 1.88}
+{"text_id": "ms-train-1325", "k": 9, "is_correct": false, "corrected_sentence": "Intravenous adenosine is administered.", "failed": false, "seconds": 3.01}
+{"text_id": "ms-train-1337", "k": 6, "is_correct": true, "corrected_sentence": "Pelvic floor physical therapy was ordered after examining the patient.", "failed": false, "seconds": 3.25}
+{"text_id": "ms-train-1336", "k": 10, "is_correct": false, "corrected_sentence": "Vaginal dilator therapy was recommended.", "failed": false, "seconds": 3.54}
+{"text_id": "ms-train-1366", "k": 8, "is_correct": false, "corrected_sentence": "After examining the patient, oral acyclovir was recommended in addition to supportive therapy.", "failed": false, "seconds": 2.32}
+{"text_id": "ms-train-1310", "k": 12, "is_correct": false, "corrected_sentence": "Serum electrolyte, BUN, and creatinine concentrations are necessary.", "failed": false, "seconds": 4.45}
+{"text_id": "ms-train-1344", "k": 20, "is_correct": true, "corrected_sentence": "In addition to recommending dietary and exercise counseling, pulsatile gonadotropin-releasing hormone therapy was prescribed for the patient.", "failed": false, "seconds": 3.05}
+{"text_id": "ms-train-1367", "k": 10, "is_correct": true, "corrected_sentence": "In addition to supportive therapy, oral acyclovir was recommended.", "failed": false, "seconds": 3.56}
+{"text_id": "ms-train-1343", "k": 16, "is_correct": false, "corrected_sentence": "Based on the following findings, dietary and exercise counseling was recommended and no pharmacotherapy was prescribed to the patient.", "failed": false, "seconds": 4.36}
+{"text_id": "ms-train-1405", "k": 7, "is_correct": false, "corrected_sentence": "High-dose intravenous methylprednisolone is administered to the patient.", "failed": false, "seconds": 1.84}
+{"text_id": "ms-train-1382", "k": 11, "is_correct": true, "corrected_sentence": "Disclosed the diagnosis to the patient.", "failed": false, "seconds": 2.11}
+{"text_id": "ms-train-1374", "k": 12, "is_correct": true, "corrected_sentence": "After reviewing the pelvis x-ray, retrograde cystography was done to further evaluate.", "failed": false, "seconds": 2.4}
+{"text_id": "ms-train-1373", "k": 13, "is_correct": false, "corrected_sentence": "Retrograde cystourethrography was done to further evaluate.", "failed": false, "seconds": 2.93}
+{"text_id": "ms-train-1429", "k": 7, "is_correct": false, "corrected_sentence": "Abdominal CT scan is required.", "failed": false, "seconds": 1.0}
+{"text_id": "ms-train-1408", "k": 18, "is_correct": false, "corrected_sentence": "Tube thoracostomy (chest tube insertion) is needed.", "failed": false, "seconds": 3.0}
+{"text_id": "ms-train-1417", "k": 9, "is_correct": true, "corrected_sentence": "Labetalol is administered.", "failed": false, "seconds": 2.0}
+{"text_id": "ms-train-1409", "k": 10, "is_correct": true, "corrected_sentence": "Insertion of a chest tube is needed.", "failed": false, "seconds": 3.47}
+{"text_id": "ms-train-1430", "k": 12, "is_correct": true, "corrected_sentence": "A CT scan of the abdomen is required.", "failed": false, "seconds": 2.0}
+{"text_id": "ms-train-1418", "k": 33, "is_correct": false, "corrected_sentence": "Intravenous calcium gluconate is begun.", "failed": false, "seconds": 2.7}
+{"text_id": "ms-train-1438", "k": 5, "is_correct": true, "corrected_sentence": "Bimanual uterine massage was performed.", "failed": false, "seconds": 1.64}
+{"text_id": "ms-train-1419", "k": 16, "is_correct": true, "corrected_sentence": "Calcium gluconate is administered.", "failed": false, "seconds": 2.83}
+{"text_id": "ms-train-1416", "k": 7, "is_correct": false, "corrected_sentence": "CT angiography of the chest is ordered to evaluate for aortic dissection after an ECG shows sinus tachycardia and left ventricular hypertrophy.", "failed": false, "seconds": 3.66}
+{"text_id": "ms-train-1484", "k": 12, "is_correct": true, "corrected_sentence": "Echocardiography was ordered.", "failed": false, "seconds": 0.89}
+{"text_id": "ms-train-1443", "k": 7, "is_correct": false, "corrected_sentence": "Reassurance was recommended.", "failed": false, "seconds": 1.8}
+{"text_id": "ms-train-1444", "k": 4, "is_correct": true, "corrected_sentence": "Parents were reassured after examining the patient.", "failed": false, "seconds": 2.01}
+{"text_id": "ms-train-1483", "k": 7, "is_correct": false, "corrected_sentence": "An echocardiogram was ordered based on the following findings.", "failed": false, "seconds": 1.93}
+{"text_id": "ms-train-1538", "k": 18, "is_correct": false, "corrected_sentence": "Tidal volume was decreased to reduce the risk of ventilator-induced lung injury.", "failed": false, "seconds": 1.05}
+{"text_id": "ms-train-1437", "k": 3, "is_correct": false, "corrected_sentence": "Over the next hour, she continues to experience vaginal bleeding, with an estimated blood loss of 1150 mL. Oxytocin was administered to the patient.", "failed": false, "seconds": 3.9}
+{"text_id": "ms-train-1525", "k": 7, "is_correct": true, "corrected_sentence": "Patient was treated with metronidazole.", "failed": false, "seconds": 1.73}
+{"text_id": "ms-train-1524", "k": 4, "is_correct": false, "corrected_sentence": "Based on the following exam, patient was diagnosed with bacterial vaginosis and treated with oral metronidazole.", "failed": false, "seconds": 1.82}
+{"text_id": "ms-train-1494", "k": 24, "is_correct": false, "corrected_sentence": "Epinephrine is administered.", "failed": false, "seconds": 2.72}
+{"text_id": "ms-train-1493", "k": 8, "is_correct": false, "corrected_sentence": "Long-term supplemental oxygen therapy is initiated.", "failed": false, "seconds": 2.85}
+{"text_id": "ms-train-1545", "k": 8, "is_correct": true, "corrected_sentence": "Patient was recommended to begin folate supplementation.", "failed": false, "seconds": 0.89}
+{"text_id": "ms-train-1500", "k": 6, "is_correct": true, "corrected_sentence": "A throat culture is performed.", "failed": false, "seconds": 2.73}
+{"text_id": "ms-train-1546", "k": 11, "is_correct": false, "corrected_sentence": "B-cell replacement therapy (immunoglobulin replacement) is required.", "failed": false, "seconds": 0.8}
+{"text_id": "ms-train-1547", "k": 9, "is_correct": true, "corrected_sentence": "Intravenous immunoglobulins are administered.", "failed": false, "seconds": 0.88}
+{"text_id": "ms-train-1544", "k": 6, "is_correct": false, "corrected_sentence": "She was recommended to begin folic acid supplementation.", "failed": false, "seconds": 2.09}
+{"text_id": "ms-train-1559", "k": 10, "is_correct": true, "corrected_sentence": "Advised patient to wear looser pants.", "failed": false, "seconds": 1.71}
+{"text_id": "ms-train-1595", "k": 5, "is_correct": true, "corrected_sentence": "The patient is started on propranolol.", "failed": false, "seconds": 1.64}
+{"text_id": "ms-train-1560", "k": 28, "is_correct": false, "corrected_sentence": "Intravenous vancomycin therapy is administered.", "failed": false, "seconds": 1.77}
+{"text_id": "ms-train-1594", "k": 2, "is_correct": false, "corrected_sentence": "The patient is started on propranolol after her pulse is 115/min and irregularly irregular, and blood pressure is 139/86", "failed": false, "seconds": 1.97}
+{"text_id": "ms-train-1637", "k": 10, "is_correct": true, "corrected_sentence": "Patient was recommended an endoscopic retrograde cholangiopancreatography to further evaluate.", "failed": false, "seconds": 0.89}
+{"text_id": "ms-train-1558", "k": 4, "is_correct": false, "corrected_sentence": "Blood work for inflammatory markers was not ordered.", "failed": false, "seconds": 3.36}
+{"text_id": "ms-train-1539", "k": 8, "is_correct": false, "corrected_sentence": "The ventilator is set at an FIO2 of 100%, tidal volume of 450 mL, respiratory rate of 20/min, and positive end-expiratory pressure (PEEP) of 5 cm H2O. Based on exam, lab, arterial blood gas, and imaging findings, positive end-expiratory pressure was increased.", "failed": false, "seconds": 4.93}
+{"text_id": "ms-train-1629", "k": 6, "is_correct": true, "corrected_sentence": "GnRH stimulation test was ordered for further evaluation after imaging and labs revealed the following.", "failed": false, "seconds": 2.53}
+{"text_id": "ms-train-1667", "k": 7, "is_correct": false, "corrected_sentence": "Patient is referred to the emergency department for immediate psychiatric evaluation.", "failed": false, "seconds": 1.99}
+{"text_id": "ms-train-1628", "k": 8, "is_correct": false, "corrected_sentence": "An ultrasound of the pelvis was ordered for further evaluation.", "failed": false, "seconds": 3.75}
+{"text_id": "ms-train-1696", "k": 35, "is_correct": false, "corrected_sentence": "The patient is a candidate for liver transplant due to acute liver failure from hepatitis B infection.", "failed": false, "seconds": 0.97}
+{"text_id": "ms-train-1638", "k": 9, "is_correct": true, "corrected_sentence": "Patient was scheduled for an contrast-enhanced abdominal CT to further evaluate based on the following findings.", "failed": false, "seconds": 2.56}
+{"text_id": "ms-train-1674", "k": 15, "is_correct": true, "corrected_sentence": "Antibiotic therapy is started.", "failed": false, "seconds": 2.15}
+{"text_id": "ms-train-1769", "k": 6, "is_correct": true, "corrected_sentence": "Albuterol was administered.", "failed": false, "seconds": 0.78}
+{"text_id": "ms-train-1673", "k": 7, "is_correct": true, "corrected_sentence": "CT scan of the head is obtained.", "failed": false, "seconds": 2.85}
+{"text_id": "ms-train-1697", "k": 36, "is_correct": false, "corrected_sentence": "The patient is not a candidate for N-acetylcysteine therapy because her acetaminophen level is within the normal range.", "failed": false, "seconds": 2.18}
+{"text_id": "ms-train-1787", "k": 10, "is_correct": false, "corrected_sentence": "Intravenous artesunate is prescribed.", "failed": false, "seconds": 1.39}
+{"text_id": "ms-train-1728", "k": 11, "is_correct": true, "corrected_sentence": "Intravenous ceftriaxone is required.", "failed": false, "seconds": 2.21}
+{"text_id": "ms-train-1727", "k": 15, "is_correct": false, "corrected_sentence": "Endoscopic variceal ligation is required.", "failed": false, "seconds": 2.3}
+{"text_id": "ms-train-1813", "k": 3, "is_correct": false, "corrected_sentence": "Patient's dosage for insulin glargine changed.", "failed": false, "seconds": 1.41}
+{"text_id": "ms-train-1819", "k": 4, "is_correct": false, "corrected_sentence": "After reviewing labs and biopsy results, paclitaxel was prescribed to the patient.", "failed": false, "seconds": 0.96}
+{"text_id": "ms-train-1788", "k": 9, "is_correct": true, "corrected_sentence": "Artesunate is prescribed.", "failed": false, "seconds": 1.55}
+{"text_id": "ms-train-1784", "k": 7, "is_correct": false, "corrected_sentence": "The physician decides to replace his current medication with bupropion.", "failed": false, "seconds": 2.23}
+{"text_id": "ms-train-1860", "k": 12, "is_correct": false, "corrected_sentence": "Pegylated interferon-alfa was prescribed.", "failed": false, "seconds": 1.12}
+{"text_id": "ms-train-1866", "k": 15, "is_correct": true, "corrected_sentence": "Acyclovir was administered to the patient.", "failed": false, "seconds": 0.89}
+{"text_id": "ms-train-1846", "k": 19, "is_correct": false, "corrected_sentence": "Intravenous pentamidine is ordered.", "failed": false, "seconds": 1.57}
+{"text_id": "ms-train-1768", "k": 5, "is_correct": false, "corrected_sentence": "Propranolol was discontinued and albuterol was administered.", "failed": false, "seconds": 3.59}
+{"text_id": "ms-train-1853", "k": 8, "is_correct": false, "corrected_sentence": "Nifedipine was prescribed to the patient.", "failed": false, "seconds": 1.77}
+{"text_id": "ms-train-1896", "k": 3, "is_correct": false, "corrected_sentence": "After examining the patient, sumatriptan was administered in addition to supplemental oxygen therapy.", "failed": false, "seconds": 0.87}
+{"text_id": "ms-train-1865", "k": 13, "is_correct": false, "corrected_sentence": "Based on the clinical findings of fever, headache, nuchal rigidity, and altered mental status, empiric ceftriaxone and vancomycin were administered to the patient.", "failed": false, "seconds": 2.17}
+{"text_id": "ms-train-1897", "k": 4, "is_correct": true, "corrected_sentence": "In addition to supplemental oxygen therapy, sumatriptan was administered to the patient.", "failed": false, "seconds": 0.98}
+{"text_id": "ms-train-1926", "k": 6, "is_correct": false, "corrected_sentence": "Patient is prescribed fluoxetine.", "failed": false, "seconds": 0.8}
+{"text_id": "ms-train-1847", "k": 15, "is_correct": true, "corrected_sentence": "Intravenous clindamycin and oral primaquine is ordered.", "failed": false, "seconds": 3.4}
+{"text_id": "ms-train-1820", "k": 6, "is_correct": false, "corrected_sentence": "Current antiretroviral therapy was continued without change.", "failed": false, "seconds": 3.7}
+{"text_id": "ms-train-1927", "k": 4, "is_correct": true, "corrected_sentence": "Patient is prescribed fluoxetine after physical examination shows calluses on the knuckles and bilateral parotid gland enlargement.", "failed": false, "seconds": 1.48}
+{"text_id": "ms-train-1941", "k": 3, "is_correct": false, "corrected_sentence": "On further questioning, the patient reports that he has been smoking opium at home to help him \"\"deal with the depression and pain.\"\" Methadone was administered.", "failed": false, "seconds": 1.9}
+{"text_id": "ms-train-1868", "k": 3, "is_correct": false, "corrected_sentence": "Sugammadex is administered.", "failed": false, "seconds": 3.36}
+{"text_id": "ms-train-1869", "k": 4, "is_correct": false, "corrected_sentence": "Rocuronium was used preoperatively in this patient.", "failed": false, "seconds": 3.48}
+{"text_id": "ms-train-1948", "k": 6, "is_correct": false, "corrected_sentence": "Based on the following finding, foscarnet was administered to the patient.", "failed": false, "seconds": 3.02}
+{"text_id": "ms-train-1940", "k": 2, "is_correct": true, "corrected_sentence": "Fentanyl was administered.", "failed": false, "seconds": 3.57}
+{"text_id": "ms-train-1966", "k": 8, "is_correct": false, "corrected_sentence": "Combined oral contraceptive therapy is prescribed.", "failed": false, "seconds": 3.03}
+{"text_id": "ms-train-1949", "k": 7, "is_correct": true, "corrected_sentence": "Cidofovir was administered to the patient.", "failed": false, "seconds": 3.68}
+{"text_id": "ms-train-1969", "k": 7, "is_correct": true, "corrected_sentence": "Bupropion was prescribed.", "failed": false, "seconds": 2.44}
+{"text_id": "ms-train-1967", "k": 9, "is_correct": false, "corrected_sentence": "Metformin is prescribed.", "failed": false, "seconds": 4.3}
+{"text_id": "ms-train-1997", "k": 4, "is_correct": true, "corrected_sentence": "Leuprolide is prescribed to the patient.", "failed": false, "seconds": 1.26}
+{"text_id": "ms-train-1982", "k": 8, "is_correct": true, "corrected_sentence": "Fluoxetine therapy is required.", "failed": false, "seconds": 3.5}
+{"text_id": "ms-train-1996", "k": 3, "is_correct": false, "corrected_sentence": "Leuprolide is prescribed to the patient given that thyroid function tests and an MRI of the head were both within normal limits.", "failed": false, "seconds": 1.85}
+{"text_id": "ms-train-2002", "k": 17, "is_correct": false, "corrected_sentence": "All-trans retinoic acid is recommended.", "failed": false, "seconds": 1.26}
+{"text_id": "ms-train-1991", "k": 8, "is_correct": false, "corrected_sentence": "Thrombolytic therapy with alteplase was initiated.", "failed": false, "seconds": 2.58}
+{"text_id": "ms-train-1968", "k": 9, "is_correct": false, "corrected_sentence": "Bupropion was prescribed.", "failed": false, "seconds": 4.64}
+{"text_id": "ms-train-2006", "k": 10, "is_correct": true, "corrected_sentence": "Patient was treated with all-trans retinoic acid.", "failed": false, "seconds": 0.89}
+{"text_id": "ms-train-2003", "k": 16, "is_correct": true, "corrected_sentence": "All-trans retinoic acid is recommended.", "failed": false, "seconds": 1.18}
+{"text_id": "ms-train-2025", "k": 6, "is_correct": false, "corrected_sentence": "A radiograph is obtained as seen in Figure A. Patient is scheduled for hemiarthroplasty.", "failed": false, "seconds": 0.97}
+{"text_id": "ms-train-1983", "k": 10, "is_correct": true, "corrected_sentence": "Cognitive behavioral therapy is required.", "failed": false, "seconds": 4.18}
+{"text_id": "ms-train-2045", "k": 5, "is_correct": false, "corrected_sentence": "Sling immobilization was done.", "failed": false, "seconds": 0.86}
+{"text_id": "ms-train-2044", "k": 4, "is_correct": false, "corrected_sentence": "Patient is scheduled for a sling immobilization after radiographs revealed a non-displaced fracture of the middle third of the clavicle.", "failed": false, "seconds": 1.0}
+{"text_id": "ms-train-2005", "k": 5, "is_correct": false, "corrected_sentence": "Based on the following findings, patient was treated with all-trans retinoic acid.", "failed": false, "seconds": 2.08}
+{"text_id": "ms-train-2024", "k": 6, "is_correct": true, "corrected_sentence": "Patient is scheduled to have a hip prosthesis after a radiograph is obtained as seen in Figure A.", "failed": false, "seconds": 1.73}
+{"text_id": "ms-train-2065", "k": 5, "is_correct": false, "corrected_sentence": "Nitroglycerin sublingual was prescribed.", "failed": false, "seconds": 0.96}
+{"text_id": "ms-train-2022", "k": 9, "is_correct": false, "corrected_sentence": "Intravenous acyclovir therapy is provided.", "failed": false, "seconds": 2.75}
+{"text_id": "ms-train-2023", "k": 8, "is_correct": true, "corrected_sentence": "Acyclovir therapy is provided.", "failed": false, "seconds": 2.91}
+{"text_id": "ms-train-2066", "k": 9, "is_correct": true, "corrected_sentence": "Patient was recommended to avoid isosorbide dinitrate at night.", "failed": false, "seconds": 1.46}
+{"text_id": "ms-train-2069", "k": 13, "is_correct": false, "corrected_sentence": "Olanzapine was prescribed.", "failed": false, "seconds": 1.94}
+{"text_id": "ms-train-2075", "k": 7, "is_correct": false, "corrected_sentence": "The patient is started on risperidone.", "failed": false, "seconds": 1.87}
+{"text_id": "ms-train-2076", "k": 6, "is_correct": true, "corrected_sentence": "The patient is started on risperidone after physical examination does not reveal any abnormalities.", "failed": false, "seconds": 1.52}
+{"text_id": "ms-train-2053", "k": 23, "is_correct": false, "corrected_sentence": "Negative Patient agrees to a myomectomy.", "failed": false, "seconds": 2.75}
+{"text_id": "ms-train-2085", "k": 11, "is_correct": false, "corrected_sentence": "Sodium bicarbonate was administered to the patient.", "failed": false, "seconds": 1.64}
+{"text_id": "ms-train-2128", "k": 11, "is_correct": false, "corrected_sentence": "Cyclobenzaprine was given.", "failed": false, "seconds": 0.8}
+{"text_id": "ms-train-2097", "k": 11, "is_correct": true, "corrected_sentence": "Patient was prescribed fluoxetine.", "failed": false, "seconds": 0.85}
+{"text_id": "ms-train-2070", "k": 15, "is_correct": true, "corrected_sentence": "Valproate was prescribed.", "failed": false, "seconds": 3.1}
+{"text_id": "ms-train-2086", "k": 11, "is_correct": false, "corrected_sentence": "The patient's EKG can be seen in Figure A. Sodium bicarbonate was administered to the patient.", "failed": false, "seconds": 2.56}
+{"text_id": "ms-train-2135", "k": 9, "is_correct": true, "corrected_sentence": "Patient was treated with topical clobetasol.", "failed": false, "seconds": 1.1}
+{"text_id": "ms-train-2134", "k": 5, "is_correct": false, "corrected_sentence": "Patient was treated with topical clobetasol based on exam and biopsy results.", "failed": false, "seconds": 1.66}
+{"text_id": "ms-train-2096", "k": 10, "is_correct": false, "corrected_sentence": "Patient was started on fluoxetine after the physical examination showed no abnormalities.", "failed": false, "seconds": 2.88}
+{"text_id": "ms-train-2133", "k": 1, "is_correct": false, "corrected_sentence": "Phenoxybenzamine was prescribed.", "failed": false, "seconds": 2.23}
+{"text_id": "ms-train-2143", "k": 6, "is_correct": true, "corrected_sentence": "She is subsequently started on BiPAP, given furosemide, and admitted to the hospital.", "failed": false, "seconds": 0.93}
+{"text_id": "ms-train-2129", "k": 26, "is_correct": true, "corrected_sentence": "Amitriptyline was prescribed.", "failed": false, "seconds": 2.65}
+{"text_id": "ms-train-2136", "k": 9, "is_correct": false, "corrected_sentence": "Intravenous methylprednisolone was administered.", "failed": false, "seconds": 2.4}
+{"text_id": "ms-train-2137", "k": 8, "is_correct": true, "corrected_sentence": "Prednisone was administered.", "failed": false, "seconds": 2.24}
+{"text_id": "ms-train-2161", "k": 12, "is_correct": false, "corrected_sentence": "In addition to surgical debridement, patient will be treated with amphotericin B.", "failed": false, "seconds": 0.91}
+{"text_id": "ms-train-2154", "k": 5, "is_correct": true, "corrected_sentence": "Nasal suctioning, oxygen therapy, and IV fluids are administered.", "failed": false, "seconds": 1.98}
+{"text_id": "ms-train-2153", "k": 4, "is_correct": false, "corrected_sentence": "Supplemental oxygen and intravenous fluids are administered, and bronchodilators and corticosteroids are withheld.", "failed": false, "seconds": 2.71}
+{"text_id": "ms-train-2186", "k": 8, "is_correct": true, "corrected_sentence": "Patient is started on metronidazole therapy.", "failed": false, "seconds": 2.25}
+{"text_id": "ms-train-2142", "k": 9, "is_correct": false, "corrected_sentence": "The patient is not given any antibiotics, as the bacteriuria is asymptomatic.", "failed": false, "seconds": 4.27}
+{"text_id": "ms-train-2185", "k": 7, "is_correct": false, "corrected_sentence": "Patient is started on metronidazole therapy after microscopy of the stool reveals egg-shaped cysts with prominent two-layered cell wall and multiple nuclei.", "failed": false, "seconds": 3.75}

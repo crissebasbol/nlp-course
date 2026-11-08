@@ -1,0 +1,49 @@
+# Two services:
+#   llm  llama.cpp server with Qwen2.5-7B-Instruct Q4_K_M (Machine 1)
+#   app  FastAPI + UI + BiomedBERT + corrector (Machine 2)
+# Locally both run together. On the servers each machine starts only its service
+# (see deploy/). Values come from environment variables with local defaults.
+services:
+  llm:
+    image: ghcr.io/ggml-org/llama.cpp:server
+    command:
+      - "-m"
+      - "/models/${GGUF_FILE:-Qwen2.5-7B-Instruct-Q4_K_M.gguf}"
+      - "--alias"
+      - "qwen2.5-7b-instruct"
+      - "--host"
+      - "0.0.0.0"
+      - "--port"
+      - "8080"
+      - "-c"
+      - "${LLM_CTX:-8192}"
+      - "--parallel"
+      - "1"
+      - "-t"
+      - "${LLM_THREADS:-4}"
+    volumes:
+      - "${GGUF_DIR:-./outputs/models/gguf}:/models:ro"
+    ports:
+      - "${LLM_PORT:-8080}:8080"
+    restart: unless-stopped
+
+  app:
+    build:
+      context: .
+      dockerfile: docker/app.Dockerfile
+    image: medec-app:latest
+    environment:
+      LLM_API_BASE: "${LLM_API_BASE:-http://llm:8080/v1}"
+      # Optional Claude reference in the UI. Compose reads taller_8/.env locally; the deploy
+      # scripts do not copy .env, so on the servers it stays off unless set on purpose.
+      ANTHROPIC_API_KEY: "${ANTHROPIC_API_KEY:-}"
+      CLAUDE_MAX_CALLS_PER_HOUR: "${CLAUDE_MAX_CALLS_PER_HOUR:-20}"
+    volumes:
+      - "${OUTPUTS_DIR:-./outputs}:/data/outputs:ro"
+      - "hf_cache:/data/hf_cache"
+    ports:
+      - "${APP_PORT:-8000}:8000"
+    restart: unless-stopped
+
+volumes:
+  hf_cache:

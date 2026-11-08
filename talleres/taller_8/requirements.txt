@@ -1,0 +1,11 @@
+# Local environment (Mac): experiments, training, evaluation and tests.
+-r requirements-serve.txt
+torch
+scikit-learn
+datasets
+accelerate
+bert-score
+anthropic
+huggingface_hub
+pytest
+tabulate

@@ -1,0 +1,5 @@
+{"text_id": "ms-train-13", "error_flag": 1, "error_sentence_id": 5, "corrected_sentence": "Further evaluation reveals Chlamydia trachomatis as the causal pathogen.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-39", "error_flag": 1, "error_sentence_id": 15, "corrected_sentence": "Diagnosis caused by respiratory syncytial virus.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-40", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-37", "error_flag": 1, "error_sentence_id": 0, "corrected_sentence": "A 28-year-old woman with suspected Escherichia coli infection comes to the physician because of a 4-day history of lower abdominal pain and pain with urination.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-30", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
