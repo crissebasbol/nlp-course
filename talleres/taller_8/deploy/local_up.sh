@@ -11,7 +11,7 @@ for ca in "$HOME/.certs/zscaler-root.pem"; do
   [ -f "$ca" ] && cp "$ca" docker/certs/corporate-root.crt
 done
 
-for path in outputs/models/bert/final outputs/artifacts outputs/splits/test.parquet; do
+for path in outputs/artifacts outputs/splits/test.parquet; do  # BERT: local or from the Hugging Face Hub
   [ -e "$path" ] || { echo "Falta $path: corre primero scripts/run_local_experiments.sh" >&2; exit 1; }
 done
 

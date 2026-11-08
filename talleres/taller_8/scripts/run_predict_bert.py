@@ -4,14 +4,14 @@ from _common import parse_args
 
 from medec.config import output_path
 from medec.data import load_split
-from medec.detector_bert import BertScorer, predict_split_scores
+from medec.detector_bert import BertScorer, predict_split_scores, resolve_bert_dir
 from medec.schemas import save_jsonl
 
 
 def main() -> None:
     args, cfg = parse_args(__doc__, splits=True)
     splits_dir = output_path(cfg, "splits", "x").parent
-    scorer = BertScorer(output_path(cfg, "models", "bert", "final", "x").parent, cfg["bert"]["max_length"])
+    scorer = BertScorer(resolve_bert_dir(cfg), cfg["bert"]["max_length"])
     for split in args.splits:
         df = load_split(splits_dir, split)
         if args.limit:

@@ -102,13 +102,18 @@ class MedecService:
         return df.set_index("text_id", drop=False)
 
     def _load_bert(self) -> None:
-        model_dir = self.out / "models" / "bert" / "final"
-        if not model_dir.exists():
-            logger.warning("BERT model not found in %s", model_dir)
-            return
         import torch
 
-        from medec.detector_bert import BertScorer
+        from medec.detector_bert import BertScorer, resolve_bert_dir
+
+        try:
+            model_dir = resolve_bert_dir(self.cfg)
+        except Exception as exc:  # no local model and no access to the Hub
+            logger.warning("BERT model not available: %s", exc)
+            return
+        if model_dir is None:
+            logger.warning("BERT model not found (no local model and no models.detector_finetuned)")
+            return
 
         torch.set_num_threads(max(torch.get_num_threads(), 1))
         self.bert = BertScorer(model_dir, self.cfg["bert"]["max_length"])

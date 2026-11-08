@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# Machine 2: copies the code and the trained artifacts, builds the image and starts the app.
+# Machine 2: copies the code and the light artifacts, builds the image and starts the app.
+# The fine-tuned BiomedBERT is not copied: the app downloads it from the Hugging Face Hub on the first start.
 source "$(dirname "$0")/common.sh"
 HOST="$M2_HOST"
 cd "$PROJECT_DIR"
 mkdir -p docker/certs  # optional extra CAs for the build (folder is git-ignored)
 
 ARTIFACTS=(
-  outputs/models/bert/final
   outputs/models/dspy_detector.json
   outputs/artifacts
   outputs/splits/test.parquet
@@ -18,7 +18,7 @@ done
 REPORTS=()
 [ -d outputs/reports ] && REPORTS=(outputs/reports)
 
-log "Copiando código y artefactos a $HOST (~450 MB, BiomedBERT incluido)"
+log "Copiando código y artefactos a $HOST (pocos MB; BiomedBERT se descarga de Hugging Face en el servidor)"
 push "$HOST" docker-compose.yml docker src configs pyproject.toml requirements-serve.txt .dockerignore \
   "${ARTIFACTS[@]}" ${REPORTS[@]+"${REPORTS[@]}"}
 

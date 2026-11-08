@@ -34,7 +34,7 @@ def extra(parser):
 
 def compile_program(program, cfg, name):
     """Demos from train texts; sentence k is BERT's pick, as at inference time."""
-    from medec.detector_bert import BertScorer, predict_split_scores
+    from medec.detector_bert import BertScorer, predict_split_scores, resolve_bert_dir
 
     # BootstrapFewShot and load() return the program without its LM: it is set again afterwards
     lm = program.predictors()[0].lm
@@ -48,7 +48,7 @@ def compile_program(program, cfg, name):
     train = load_split(output_path(cfg, "splits", "x").parent, "train")
     n = vcfg.get("compile_train_size", 60) // 2
     train = pd.concat([train[train.error_flag == f].sample(n, random_state=cfg["seed"]) for f in (0, 1)])
-    scorer = BertScorer(output_path(cfg, "models", "bert", "final"), cfg["bert"]["max_length"])
+    scorer = BertScorer(resolve_bert_dir(cfg), cfg["bert"]["max_length"])
     bert = {r["text_id"]: r["scores"] for r in predict_split_scores(scorer, train, cfg["bert"]["eval_batch_size"])}
     examples = [to_verifier_example(list(r.sentences), int(np.argmax(bert[r.text_id])), r.error_flag, r.error_sentence_id,
                                     r.corrected_sentence) for r in train.itertuples()]

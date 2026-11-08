@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import logging
 from pathlib import Path
 from typing import Any
 
@@ -9,6 +10,8 @@ import numpy as np
 import pandas as pd
 import torch
 from torch import nn
+
+logger = logging.getLogger(__name__)
 
 
 def get_device() -> torch.device:
@@ -109,6 +112,23 @@ def train_detector(
     trainer.save_model(str(final_dir))
     tokenizer.save_pretrained(str(final_dir))
     return final_dir
+
+
+def resolve_bert_dir(cfg: dict[str, Any]) -> Path | None:
+    """Fine-tuned detector: the local outputs/models/bert/final if it exists (after training),
+    otherwise downloaded from the Hugging Face Hub (models.detector_finetuned) and cached."""
+    from medec.config import get_output_dir
+
+    local = get_output_dir(cfg) / "models" / "bert" / "final"
+    if local.exists():
+        return local
+    repo = cfg["models"].get("detector_finetuned")
+    if not repo:
+        return None
+    from huggingface_hub import snapshot_download
+
+    logger.info("Downloading the fine-tuned detector from the Hub: %s", repo)
+    return Path(snapshot_download(repo, allow_patterns=["*.json", "*.safetensors", "*.txt"]))
 
 
 class BertScorer:

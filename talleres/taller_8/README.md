@@ -106,7 +106,7 @@ pytest                                   # tests rápidos, sin modelos
 ./scripts/run_local_experiments.sh       # pasos 1 a 6 (descarga Qwen GGUF de 4,7 GB)
 ```
 
-Los resultados quedan en `outputs/`. Se versionan los livianos (splits, puntajes, predicciones, reportes, programas DSPy e índice de ejemplos); los modelos de BERT y Qwen, y los logs, no se suben (BERT se reentrena con `run_train_bert.py` y Qwen se descarga solo).
+Los resultados quedan en `outputs/`. Se versionan los livianos (splits, puntajes, predicciones, reportes, programas DSPy e índice de ejemplos); los modelos de BERT y Qwen, y los logs, no se suben a git: BERT entrenado está en Hugging Face ([`crissebasbol/medec-biomedbert-detector`](https://huggingface.co/crissebasbol/medec-biomedbert-detector)) y se descarga solo cuando hace falta (o se reentrena con `run_train_bert.py`), y Qwen se descarga de Hugging Face.
 
 ### 2. Probar con Docker en local
 
@@ -134,7 +134,7 @@ ssh-copy-id estudiante@<IP_M2>
 ./deploy/stop.sh all          # detener (llm | app | all)
 ```
 
-`deploy_llm.sh` descarga el GGUF directamente desde Hugging Face en la máquina 1. `deploy_app.sh` copia el código y los artefactos entrenados (~450 MB) a la máquina 2, construye la imagen allí y borra la caché de builds para ahorrar disco.
+`deploy_llm.sh` descarga el GGUF directamente desde Hugging Face en la máquina 1. `deploy_app.sh` copia el código y los artefactos livianos a la máquina 2, construye la imagen allí y borra la caché de builds para ahorrar disco. BiomedBERT entrenado está publicado en Hugging Face ([`crissebasbol/medec-biomedbert-detector`](https://huggingface.co/crissebasbol/medec-biomedbert-detector)) y la app lo descarga al arrancar si no está en `outputs/models/bert/final`.
 
 ## Interfaz
 

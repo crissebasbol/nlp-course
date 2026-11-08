@@ -10,6 +10,8 @@ split:
 
 models:
   detector: microsoft/BiomedNLP-BiomedBERT-base-uncased-abstract-fulltext
+  # Fine-tuned detector on the Hugging Face Hub; used when outputs/models/bert/final does not exist
+  detector_finetuned: crissebasbol/medec-biomedbert-detector
   embeddings: NeuML/pubmedbert-base-embeddings
   # Name exposed by llama-server (any string works, llama-server serves one model)
   llm_name: qwen2.5-7b-instruct

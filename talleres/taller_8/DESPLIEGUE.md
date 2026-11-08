@@ -13,9 +13,9 @@ Las IP reales de las máquinas no están en el repo; pídelas a quien te compart
 
 **En tu computador:** `git`, `bash`, `ssh`, `tar` y conexión a la red de las máquinas. No necesitas Docker ni Python: las imágenes se construyen en los servidores.
 
-**En cada servidor:** Docker con Compose, acceso a internet y al menos ~7 GB libres en disco (máquina 1: modelo de 4,7 GB + imagen de 1,2 GB; máquina 2: imagen de 2,7 GB + modelos de ~0,9 GB). `./deploy/check_servers.sh` lo revisa.
+**En cada servidor:** Docker con Compose, acceso a internet y al menos ~7 GB libres en disco (máquina 1: modelo de 4,7 GB + imagen de 1,2 GB; máquina 2: imagen de 2,7 GB + modelos de ~0,9 GB que descarga de Hugging Face). `./deploy/check_servers.sh` lo revisa.
 
-## 1. Código y modelo BERT
+## 1. Código
 
 ```bash
 git clone git@github.com:crissebasbol/nlp-course.git
@@ -23,14 +23,11 @@ cd nlp-course && git checkout taller_8
 cd talleres/taller_8
 ```
 
-El modelo BiomedBERT entrenado (418 MB) **no está en el repo** porque GitHub no acepta archivos tan grandes. Te lo pasan como `bert_final.zip`; descomprímelo dentro de `talleres/taller_8`:
+No hay que pasar ningún modelo a mano:
 
-```bash
-unzip ~/Downloads/bert_final.zip    # debe quedar outputs/models/bert/final/model.safetensors
-ls outputs/models/bert/final
-```
-
-Lo demás que necesita la app ya está en el repo (programa DSPy, índice de ejemplos, splits y reportes). El modelo Qwen se descarga solo en la máquina 1.
+- **BiomedBERT entrenado** (438 MB) está publicado en Hugging Face, en [`crissebasbol/medec-biomedbert-detector`](https://huggingface.co/crissebasbol/medec-biomedbert-detector). La app lo descarga en la máquina 2 la primera vez que arranca (`models.detector_finetuned` en `configs/default.yaml`).
+- **Qwen2.5-7B** (4,7 GB) se descarga de Hugging Face en la máquina 1 durante el despliegue.
+- Lo demás (programa DSPy, índice de ejemplos, splits y reportes) ya está en el repo.
 
 ## 2. Configuración
 
@@ -73,7 +70,7 @@ Muestra para cada máquina: CPU (y si tiene AVX2), RAM disponible, disco libre, 
 Hace, en orden:
 
 1. **Máquina 1** (`deploy_llm.sh`): descarga el modelo Qwen de Hugging Face (4,7 GB, retoma si se corta), levanta el contenedor `llm` y espera a que responda.
-2. **Máquina 2** (`deploy_app.sh`): copia el código y los modelos (~450 MB), construye la imagen, levanta el contenedor `app` apuntando al LLM de la máquina 1 y espera a que responda.
+2. **Máquina 2** (`deploy_app.sh`): copia el código y los artefactos livianos (pocos MB), construye la imagen, levanta el contenedor `app` apuntando al LLM de la máquina 1 y espera a que responda. Al arrancar por primera vez, la app descarga BiomedBERT de Hugging Face (unos segundos o minutos, según la red); queda guardado en un volumen de Docker para las siguientes veces.
 
 La primera vez tarda unos 15 a 30 minutos, casi todo en la descarga y en la construcción de la imagen. Las siguientes, unos minutos.
 
@@ -146,7 +143,7 @@ La pestaña **Resultados del test** muestra las métricas de todos los sistemas.
 | Síntoma | Causa probable y solución |
 |---|---|
 | `permission denied ... docker.sock` | Tu usuario no está en el grupo `docker`: pon `DOCKER="sudo docker"` en `deploy/hosts.env`. |
-| `Falta outputs/models/bert/final` | No descomprimiste `bert_final.zip` en `talleres/taller_8` (paso 1). |
+| La interfaz muestra "BiomedBERT" en rojo | La máquina 2 no pudo descargar el modelo de Hugging Face: revisa la salida a internet con `./deploy/check_servers.sh` y `./deploy/logs.sh app`. |
 | `no space left on device` | Libera espacio: `ssh <usuario>@<IP> "docker system prune -af"` (borra imágenes sin usar) y vuelve a desplegar. |
 | La interfaz muestra "LLM (Qwen)" en rojo | El LLM de la máquina 1 no responde o aún está cargando (1 a 2 minutos tras arrancar): `./deploy/logs.sh llm`. |
 | No aparece la opción de Claude Haiku | La key no está en `~/medec/.env` de la máquina 2 o no se volvió a desplegar la app (paso 5). |
