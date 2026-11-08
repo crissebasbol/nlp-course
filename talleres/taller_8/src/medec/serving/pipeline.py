@@ -13,6 +13,7 @@ from difflib import SequenceMatcher
 from pathlib import Path
 from typing import Any, Callable
 
+import numpy as np
 import pandas as pd
 
 from medec.combine import combine_scores, decide_error_flag, locator_scores, select_error_sentence
@@ -28,6 +29,7 @@ STEPS = [
     ("claude", "Referencia: Claude Opus 5.5 (opcional)"),
     ("bert", "3a. BiomedBERT"),
     ("dspy", "3b. Qwen + DSPy"),
+    ("verify", "3b. LLM verifica la oración de BERT"),
     ("combine", "3c. Combinar y decidir"),
     ("correct", "4. Corregir"),
     ("quality", "5. Revisar corrección"),
@@ -85,6 +87,7 @@ class MedecService:
         self._load_dspy()
         self._load_corrector()
         self._load_claude()
+        self.verifiers: dict[str, Any] = {}  # built on first use
 
     @staticmethod
     def _load_json(path: Path) -> dict | None:
@@ -156,14 +159,43 @@ class MedecService:
         self.claude_calls = [t for t in self.claude_calls if now - t < 3600]
         return self.claude_max_per_hour - len(self.claude_calls)
 
+    # ------------------------------------------------------------- verifiers
+    VERIFIER_LABELS = {"haiku": "Claude Haiku 5.5", "sonnet": "Claude Sonnet 5.5", "qwen": "Qwen2.5-7B local"}
+
+    def _verifier_options(self, llm_ready: bool) -> list[dict[str, Any]]:
+        """Verifiers of the config; Claude ones need ANTHROPIC_API_KEY, the local one needs the LLM server."""
+        out = []
+        for name, model in self.cfg.get("verifier", {}).get("lms", {}).items():
+            is_claude = model.startswith("anthropic/")
+            available = bool(os.environ.get("ANTHROPIC_API_KEY")) if is_claude else llm_ready
+            out.append({"name": name, "model": model, "label": self.VERIFIER_LABELS.get(name, name),
+                        "claude": is_claude, "available": available})
+        return out
+
+    def _get_verifier(self, name: str):
+        if name not in self.verifiers:
+            from medec.verifier import build_verifier, make_verifier_lm
+
+            vcfg = self.cfg["verifier"]
+            model = vcfg["lms"][name]
+            cot = vcfg.get("chain_of_thought", False) if model == "local" else False
+            self.verifiers[name] = build_verifier(make_verifier_lm(model, vcfg, self.cfg), cot)
+        return self.verifiers[name]
+
     # ------------------------------------------------------------------ status
     def status(self) -> dict[str, Any]:
         # Final design: the combination decides A and BERT picks the sentence ("hybrid" in combine.json)
         combined = self.combine_cfg.get("hybrid") or self.combine_cfg.get("combined", {})
         bert = self.combine_cfg.get("bert", {})
+        llm_ready = is_llm_ready(self.api_base)
+        verifiers = self._verifier_options(llm_ready)
+        default_v = self.cfg.get("verifier", {}).get("default")
+        default_ok = any(v["name"] == default_v and v["available"] for v in verifiers)
         return {
             "bert": self.bert is not None,
-            "llm": is_llm_ready(self.api_base),
+            "llm": llm_ready,
+            "verifiers": verifiers,
+            "default_verifier": default_v if default_ok and self.bert is not None else "none",
             "llm_api_base": self.api_base,
             "dspy_compiled": self.dspy_compiled,
             "corrector": self.corrector is not None,
@@ -228,7 +260,18 @@ class MedecService:
             raise ValueError("Claude no está habilitado en este servidor (falta ANTHROPIC_API_KEY)")
         if not use_bert and not use_dspy and not use_claude:
             raise ValueError("Elige al menos un detector")
-        if use_claude and self._claude_quota_left() <= 0:
+        verifier = payload.get("verifier") or "none"
+        if verifier != "none":
+            option = next((v for v in self._verifier_options(is_llm_ready(self.api_base)) if v["name"] == verifier), None)
+            if option is None:
+                raise ValueError(f"Verificador desconocido: {verifier}")
+            if not option["available"]:
+                raise ValueError(f"El verificador {option['label']} no está disponible en este servidor")
+            if self.bert is None:
+                raise ValueError("El verificador necesita BiomedBERT para elegir la oración")
+            use_bert, use_dspy = True, False  # BERT picks the sentence, the LLM decides A
+        claude_calls = int(use_claude) + int(verifier != "none" and self.cfg["verifier"]["lms"][verifier].startswith("anthropic/"))
+        if claude_calls and self._claude_quota_left() < claude_calls:
             raise ValueError(f"Se alcanzó el límite de {self.claude_max_per_hour} llamadas a Claude por hora")
 
         claude_out = None
@@ -256,6 +299,20 @@ class MedecService:
         if not use_bert:
             report("bert", "skipped", None)
 
+        verify_out = None
+        if verifier != "none":
+            from medec.verifier import verify_sentence
+
+            if self.cfg["verifier"]["lms"][verifier].startswith("anthropic/"):
+                self.claude_calls.append(time.time())
+            k = int(np.argmax(p_bert))
+            verify_out = timed("verify", lambda: verify_sentence(self._get_verifier(verifier), sentences, k))
+            if verify_out["failed"]:
+                raise ValueError(f"El verificador falló: {verify_out.get('error', '')}")
+            verify_out.update(name=verifier, label=self.VERIFIER_LABELS.get(verifier, verifier), k=k)
+        else:
+            report("verify", "skipped", None)
+
         dspy_out = None
         if use_dspy:
             from medec.detector_dspy import predict_dspy_scores
@@ -267,6 +324,9 @@ class MedecService:
         defaults = self.status()["defaults"]
 
         def decide():
+            if verify_out is not None:
+                flag = int(not verify_out["is_correct"])
+                return p_bert, flag, verify_out["k"] if flag else -1, {"mode": "verifier", "verifier": verify_out["label"]}
             if use_bert and use_dspy:
                 w = float(payload.get("weight", defaults["weight"]))
                 t = float(payload.get("threshold", defaults["threshold"]))
@@ -283,7 +343,13 @@ class MedecService:
         scores, flag, sid, decision = timed("combine", decide)
 
         correction, qc, examples = None, None, []
-        if flag and payload.get("correct", True) and self.corrector is not None:
+        corrector = payload.get("corrector", "verifier") if verify_out is not None else "qwen"
+        if flag and payload.get("correct", True) and corrector == "verifier" and verify_out.get("corrected_sentence"):
+            # The verifier already proposed the fix in the same call
+            correction = timed("correct", lambda: verify_out["corrected_sentence"])
+            qc = timed("quality", lambda: quality_check_correction(sentences[sid], correction, self.cfg["quality"]["min_rouge"]))
+        elif flag and payload.get("correct", True) and self.corrector is not None:
+            corrector = "qwen"
             res = timed("correct", lambda: self.corrector.correct(sentences, sid))
             correction, examples = res["corrected_sentence"], res["examples"]
             qc = timed("quality", lambda: quality_check_correction(sentences[sid], correction, self.cfg["quality"]["min_rouge"]))
@@ -300,6 +366,8 @@ class MedecService:
             "error_flag": flag,
             "error_sentence_id": sid,
             "decision": decision,
+            "verifier": verify_out,
+            "corrector": ("Qwen (few-shot)" if corrector == "qwen" else verify_out["label"]) if correction else None,
             "corrected_sentence": correction,
             "diff": word_diff(sentences[sid], correction) if correction else None,
             "quality": qc,

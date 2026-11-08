@@ -1,0 +1,327 @@
+{"text_id": "ms-train-13", "error_flag": 1, "error_sentence_id": 5, "corrected_sentence": "Further evaluation reveals Chlamydia trachomatis as the causal pathogen.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-39", "error_flag": 1, "error_sentence_id": 15, "corrected_sentence": "Diagnosis caused by respiratory syncytial virus.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-40", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-37", "error_flag": 1, "error_sentence_id": 0, "corrected_sentence": "A 28-year-old woman with suspected Escherichia coli infection comes to the physician because of a 4-day history of lower abdominal pain and pain with urination.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-30", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-103", "error_flag": 1, "error_sentence_id": 4, "corrected_sentence": "Pathology reports show infection with respiratory syncytial virus (RSV).", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-104", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-71", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-90", "error_flag": 1, "error_sentence_id": 7, "corrected_sentence": "Suspected of infection with clostridium perfringens.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-115", "error_flag": 1, "error_sentence_id": 2, "corrected_sentence": "CMV retinitis suspected.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-91", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-136", "error_flag": 1, "error_sentence_id": 14, "corrected_sentence": "Diagnosis is femoral artery pseudoaneurysm.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-95", "error_flag": 1, "error_sentence_id": 13, "corrected_sentence": "Klebsiella granulomatis is the causal organism.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-96", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-148", "error_flag": 1, "error_sentence_id": 4, "corrected_sentence": "Patient was diagnosed with chronic myeloid leukemia after a peripheral blood smear showed increased numbers of promyelocytes, myelocytes, and metamyelocytes.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-137", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-149", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-116", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-134", "error_flag": 1, "error_sentence_id": 7, "corrected_sentence": "Patient was diagnosed with a branchial cleft cyst.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-158", "error_flag": 1, "error_sentence_id": 8, "corrected_sentence": "Diagnosis is congenital cytomegalovirus infection.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-161", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-175", "error_flag": 1, "error_sentence_id": 5, "corrected_sentence": "6.3 g/dL. Patient was diagnosed with Waldenström macroglobulinemia.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-160", "error_flag": 1, "error_sentence_id": 4, "corrected_sentence": "Hepatic angiosarcoma is confirmed with a liver biopsy specimen that shows pleomorphic spindle cells that express PECAM-1 on their surface.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-135", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-198", "error_flag": 1, "error_sentence_id": 4, "corrected_sentence": "Diagnosis is beta thalassemia minor.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-177", "error_flag": 1, "error_sentence_id": 13, "corrected_sentence": "Suspected of Alzheimer disease.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-179", "error_flag": 1, "error_sentence_id": 7, "corrected_sentence": "The patient is diagnosed with narcolepsy.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-159", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-221", "error_flag": 1, "error_sentence_id": 12, "corrected_sentence": "The patient is diagnosed with a Morton neuroma.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-176", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-180", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-222", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-178", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-224", "error_flag": 1, "error_sentence_id": 11, "corrected_sentence": "Based on exam, the patient was diagnosed with schizoaffective disorder, bipolar type.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-237", "error_flag": 1, "error_sentence_id": 17, "corrected_sentence": "The patient's symptoms are the result of acute rheumatic fever.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-249", "error_flag": 1, "error_sentence_id": 11, "corrected_sentence": "Patient was diagnosed with Ménière disease.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-238", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-236", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-232", "error_flag": 1, "error_sentence_id": 6, "corrected_sentence": "Suspected breast milk jaundice.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-225", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-233", "error_flag": 1, "error_sentence_id": 18, "corrected_sentence": "Suspected of neonatal jaundice due to congenital hypothyroidism.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-282", "error_flag": 1, "error_sentence_id": 8, "corrected_sentence": "Patient is diagnosed with Marfan syndrome.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-320", "error_flag": 1, "error_sentence_id": 6, "corrected_sentence": "A supracondylar humerus fracture is suspected when the child has decreased sensation along his thumb and is unable to make the \"OK\" sign with his thumb and index finger.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-321", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-274", "error_flag": 1, "error_sentence_id": 9, "corrected_sentence": "Patient was diagnosed with serum sickness.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-253", "error_flag": 1, "error_sentence_id": 6, "corrected_sentence": "Suspected of congenital cytomegalovirus infection.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-252", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-324", "error_flag": 1, "error_sentence_id": 10, "corrected_sentence": "Suspected of hemophilia A.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-283", "error_flag": 1, "error_sentence_id": 7, "corrected_sentence": "Aortic regurgitation is suspected on cardiac examination and should be confirmed by transthoracic echocardiography.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-332", "error_flag": 1, "error_sentence_id": 9, "corrected_sentence": "Assessment and symptoms are consistent with acute myelogenous leukemia.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-330", "error_flag": 1, "error_sentence_id": 9, "corrected_sentence": "Diagnosis is schizotypal personality disorder.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-331", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-333", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-325", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-338", "error_flag": 1, "error_sentence_id": 17, "corrected_sentence": "Patient is diagnosed with a pulmonary contusion.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-380", "error_flag": 1, "error_sentence_id": 5, "corrected_sentence": "The patient is diagnosed with pemphigus vulgaris.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-336", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-375", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-381", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-337", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-386", "error_flag": 1, "error_sentence_id": 12, "corrected_sentence": "Suspected of vascular dementia.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-376", "error_flag": 1, "error_sentence_id": 14, "corrected_sentence": "Diagnosis is congenital cytomegalovirus infection.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-405", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-398", "error_flag": 1, "error_sentence_id": 9, "corrected_sentence": "Based on exam, patient was diagnosed with varicella (chickenpox).", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-431", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-418", "error_flag": 1, "error_sentence_id": 11, "corrected_sentence": "Suspected of Huntington disease.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-430", "error_flag": 1, "error_sentence_id": 13, "corrected_sentence": "Laboratory studies show an aspartate aminotransferase concentration of 100 U/L and an alanine aminotransferase concentration of 130 U/L. Patient was diagnosed with nonalcoholic steatohepatitis based on the following findings.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-387", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-437", "error_flag": 1, "error_sentence_id": 6, "corrected_sentence": "Patient is diagnosed with acute bacterial rhinosinusitis after a nasal exam reveals edematous turbinates and purulent discharge.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-419", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-463", "error_flag": 1, "error_sentence_id": 22, "corrected_sentence": "Patient was diagnosed with Waldenström macroglobulinemia.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-438", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-484", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-399", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-496", "error_flag": 1, "error_sentence_id": 5, "corrected_sentence": "Primary hyperaldosteronism explains her laboratory findings.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-483", "error_flag": 1, "error_sentence_id": 6, "corrected_sentence": "Patient is diagnosed with disseminated gonococcal infection after examination shows several painless vesiculopustular lesions on the back and one lesion on the right sole of the foot.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-476", "error_flag": 1, "error_sentence_id": 10, "corrected_sentence": "The patient is diagnosed with cyclic vomiting syndrome.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-509", "error_flag": 1, "error_sentence_id": 7, "corrected_sentence": "Suspected of bronchopulmonary dysplasia.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-464", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-497", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-525", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-558", "error_flag": 1, "error_sentence_id": 7, "corrected_sentence": "Physical exam is notable for the finding in Figure A. Patient was diagnosed with allergic conjunctivitis.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-537", "error_flag": 1, "error_sentence_id": 11, "corrected_sentence": "Suspected of multiple system atrophy.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-567", "error_flag": 1, "error_sentence_id": 9, "corrected_sentence": "Further evaluation reveals that the patient has testicular torsion of the right testicle.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-585", "error_flag": 1, "error_sentence_id": 5, "corrected_sentence": "After examining the patient, she was diagnosed with autism spectrum disorder.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-538", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-510", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-586", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-596", "error_flag": 1, "error_sentence_id": 4, "corrected_sentence": "Patient is diagnosed with erythema multiforme.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-587", "error_flag": 1, "error_sentence_id": 7, "corrected_sentence": "Microscopic examination of this density confirms small cell lung carcinoma.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-568", "error_flag": 1, "error_sentence_id": 8, "corrected_sentence": "Patient was previously diagnosed with bipolar disorder.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-569", "error_flag": 1, "error_sentence_id": 12, "corrected_sentence": "Patient was previously diagnosed with bipolar I disorder.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-605", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-615", "error_flag": 1, "error_sentence_id": 10, "corrected_sentence": "Patient was diagnosed with a hemothorax.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-597", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-604", "error_flag": 1, "error_sentence_id": 6, "corrected_sentence": "Patient is diagnosed with bacterial vaginosis.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-616", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-622", "error_flag": 1, "error_sentence_id": 5, "corrected_sentence": "Based on imaging and cerebrospinal fluid findings, patient was diagnosed with Epstein-Barr virus-associated primary central nervous system lymphoma.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-639", "error_flag": 1, "error_sentence_id": 17, "corrected_sentence": "Patient was diagnosed with a testicular tumor.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-626", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-625", "error_flag": 1, "error_sentence_id": 6, "corrected_sentence": "Suspected of amyotrophic lateral sclerosis.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-667", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-666", "error_flag": 1, "error_sentence_id": 12, "corrected_sentence": "Patient was diagnosed with vaginismus.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-623", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-640", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-673", "error_flag": 1, "error_sentence_id": 25, "corrected_sentence": "Patient is diagnosed with iron deficiency anemia secondary to colorectal cancer.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-686", "error_flag": 1, "error_sentence_id": 12, "corrected_sentence": "Diagnosis is interstitial ectopic pregnancy.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-676", "error_flag": 1, "error_sentence_id": 6, "corrected_sentence": "Based on the following findings, patient was diagnosed with greater trochanteric pain syndrome.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-677", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-674", "error_flag": 1, "error_sentence_id": 19, "corrected_sentence": "Patient is diagnosed with iron deficiency anemia after laboratory studies show:", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-693", "error_flag": 1, "error_sentence_id": 8, "corrected_sentence": "Suspected of exogenous insulin administration.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-694", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-687", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-708", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-692", "error_flag": 1, "error_sentence_id": 5, "corrected_sentence": "Patient is diagnosed with somatic symptom disorder.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-763", "error_flag": 1, "error_sentence_id": 12, "corrected_sentence": "An echocardiogram should be performed to further evaluate the diastolic murmur.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-762", "error_flag": 1, "error_sentence_id": 7, "corrected_sentence": "Amoxicillin-clavulanate is prescribed and patient is directed to follow up in 1 week.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-750", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-767", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-749", "error_flag": 1, "error_sentence_id": 11, "corrected_sentence": "Plan for reassurance and no further treatment.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-766", "error_flag": 1, "error_sentence_id": 10, "corrected_sentence": "Patient should be given the first dose of the hepatitis B vaccine at 1 month of age.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-709", "error_flag": 1, "error_sentence_id": 9, "corrected_sentence": "The newborn was diagnosed with duodenal atresia.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-794", "error_flag": 1, "error_sentence_id": 5, "corrected_sentence": "The physician counsels the patient on the risks and benefits of vasectomy and offers a referral to a urologist, since the decision is his to make and does not require his wife's consent.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-813", "error_flag": 1, "error_sentence_id": 5, "corrected_sentence": "Orotracheal intubation is performed.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-761", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-812", "error_flag": 1, "error_sentence_id": 9, "corrected_sentence": "Lateral neck radiography is ordered.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-850", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-829", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-849", "error_flag": 1, "error_sentence_id": 10, "corrected_sentence": "A fluorescent treponemal antibody absorption (FTA-ABS) test was ordered to confirm the diagnosis.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-842", "error_flag": 1, "error_sentence_id": 32, "corrected_sentence": "Bilateral inferior petrosal sinus sampling with corticotropin-releasing hormone stimulation is recommended to determine whether the ACTH source is pituitary (Cushing disease) or ectopic.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-862", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-830", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-873", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-938", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-917", "error_flag": 1, "error_sentence_id": 15, "corrected_sentence": "Haloperidol was administered to the patient after obtaining lab results.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-918", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-950", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-939", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-965", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-940", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-964", "error_flag": 1, "error_sentence_id": 6, "corrected_sentence": "She is scheduled to recheck for gonorrhea and chlamydia in 3 months.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-972", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-951", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-973", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-978", "error_flag": 1, "error_sentence_id": 14, "corrected_sentence": "Patient was scheduled for a ureteroscopy.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-872", "error_flag": 1, "error_sentence_id": 4, "corrected_sentence": "Propranolol therapy should be avoided because of his asthma.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-979", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-984", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-986", "error_flag": 1, "error_sentence_id": 6, "corrected_sentence": "Induction of labor is indicated.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1023", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-983", "error_flag": 1, "error_sentence_id": 8, "corrected_sentence": "Upright x-ray of the chest is ordered.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1042", "error_flag": 1, "error_sentence_id": 8, "corrected_sentence": "Recommended to avoid contact sports and strenuous physical activity.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-987", "error_flag": 1, "error_sentence_id": 7, "corrected_sentence": "Planning for vaginal misoprostol administration.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1030", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1047", "error_flag": 1, "error_sentence_id": 13, "corrected_sentence": "In addition to analgesia, palliative radiation therapy to the lumbar spine and systemic therapy for metastatic castration-resistant prostate cancer, such as an androgen receptor pathway inhibitor, are indicated.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1022", "error_flag": 1, "error_sentence_id": 6, "corrected_sentence": "No dietary restriction or treatment is necessary.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1043", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1031", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1059", "error_flag": 1, "error_sentence_id": 6, "corrected_sentence": "Treatment plan was communicated through a professional medical interpreter.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1070", "error_flag": 1, "error_sentence_id": 9, "corrected_sentence": "Analgesia and reassurance are provided, and no splint is applied.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1071", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1087", "error_flag": 1, "error_sentence_id": 7, "corrected_sentence": "Ventriculoperitoneal shunt placement is recommended.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1048", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1088", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1074", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1081", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1080", "error_flag": 1, "error_sentence_id": 7, "corrected_sentence": "Serial casting using the Ponseti method was recommended based on the clinical findings, which confirmed the suspected diagnosis of bilateral congenital clubfoot.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1075", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1113", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1114", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1092", "error_flag": 1, "error_sentence_id": 3, "corrected_sentence": "Cervical immobilization is not required.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1126", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1127", "error_flag": 1, "error_sentence_id": 13, "corrected_sentence": "No neuroimaging is indicated; he will be managed as a concussion with removal from play and a graded return-to-play protocol.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1124", "error_flag": 1, "error_sentence_id": 10, "corrected_sentence": "Patient is referred to a vascular surgeon for evaluation of elective endovascular repair of the aneurysm, and cardiovascular risk factors are adjusted.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1125", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1091", "error_flag": 1, "error_sentence_id": 2, "corrected_sentence": "CT of the cervical spine is required.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1128", "error_flag": 1, "error_sentence_id": 8, "corrected_sentence": "Patient was observed for 6 hours in the ED and should refrain from contact sports until his symptoms resolve and he is cleared by a physician for graded return to play.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1189", "error_flag": 1, "error_sentence_id": 7, "corrected_sentence": "Carboxyhemoglobin level is obtained.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1166", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1129", "error_flag": 1, "error_sentence_id": 15, "corrected_sentence": "Observation with activity modification is recommended.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1167", "error_flag": 1, "error_sentence_id": 9, "corrected_sentence": "High-dose intravenous methylprednisolone is administered.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1190", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1165", "error_flag": 1, "error_sentence_id": 11, "corrected_sentence": "A renal and bladder ultrasound with post-void residual measurement is ordered.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1130", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1207", "error_flag": 1, "error_sentence_id": 7, "corrected_sentence": "Ceftriaxone was discontinued, and the patient was switched to the intended IV levofloxacin with close monitoring for anaphylaxis, with an allergy consultation.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1236", "error_flag": 1, "error_sentence_id": 8, "corrected_sentence": "Recommended management with cognitive behavioral therapy, including graduated exposure therapy.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1237", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1214", "error_flag": 1, "error_sentence_id": 22, "corrected_sentence": "After 2 hours of fluid restriction, his plasma osmolality is 315 mOsmol/kg H2O and his urine osmolality is 210 mOsmol/kg H2O. One hour after an ADH analog injection, his plasma osmolality is 276 mOsmol/kg H2O and his urine osmolality is 425 mOsmol/kg H2O. Desmopressin therapy is recommended.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1215", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1239", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1261", "error_flag": 1, "error_sentence_id": 12, "corrected_sentence": "Newborn will receive the hepatitis B vaccine series after delivery.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1245", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1303", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1302", "error_flag": 1, "error_sentence_id": 6, "corrected_sentence": "Shortly after, most of his symptoms have resolved, but pralidoxime is administered as he continues to have muscular spasms.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1238", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1269", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1347", "error_flag": 1, "error_sentence_id": 12, "corrected_sentence": "The patient was managed with observation and a repeat chest x-ray; no chest tube was placed.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1270", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1244", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1363", "error_flag": 1, "error_sentence_id": 15, "corrected_sentence": "In addition to dietary and lifestyle modification, patient is administered a high-intensity statin.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1321", "error_flag": 1, "error_sentence_id": 10, "corrected_sentence": "A short-acting inhaled beta-2 agonist before exercise is recommended.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1364", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1322", "error_flag": 1, "error_sentence_id": 3, "corrected_sentence": "Albuterol pretreatment before exercise is recommended.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1425", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1383", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1384", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1478", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1424", "error_flag": 1, "error_sentence_id": 8, "corrected_sentence": "In addition to intravenous administration of fluids, enteral feeding was initiated using a nasogastric tube.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1488", "error_flag": 1, "error_sentence_id": 11, "corrected_sentence": "Colonoscopy was scheduled.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1407", "error_flag": 1, "error_sentence_id": 20, "corrected_sentence": "Heparin is stopped, and a non-heparin anticoagulant such as argatroban is started for suspected heparin-induced thrombocytopenia.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1489", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1406", "error_flag": 1, "error_sentence_id": 13, "corrected_sentence": "Heparin was discontinued after reviewing laboratory values 6 days later.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1487", "error_flag": 1, "error_sentence_id": 9, "corrected_sentence": "Radiation therapy is initiated.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1445", "error_flag": 1, "error_sentence_id": 24, "corrected_sentence": "Adrenal venous sampling is scheduled.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1526", "error_flag": 1, "error_sentence_id": 20, "corrected_sentence": "A technetium-99m bone scan was ordered to further evaluate.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1527", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1556", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1501", "error_flag": 1, "error_sentence_id": 4, "corrected_sentence": "Patient is given high-dose aspirin for symptomatic relief.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1555", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1599", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1565", "error_flag": 1, "error_sentence_id": 6, "corrected_sentence": "Based on labs, she was scheduled for an abdominal ultrasonography.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1593", "error_flag": 1, "error_sentence_id": 10, "corrected_sentence": "Emergent transfusion of packed red blood cells under the massive transfusion protocol with urgent surgical consultation is recommended.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1598", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1617", "error_flag": 1, "error_sentence_id": 13, "corrected_sentence": "Repeating the endoscopy in 6 months was recommended to the patient.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1523", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1566", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1623", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1626", "error_flag": 1, "error_sentence_id": 10, "corrected_sentence": "Contrast-enhanced CT or MRI of the head and neck is ordered.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1653", "error_flag": 1, "error_sentence_id": 15, "corrected_sentence": "Chest radiography was performed to evaluate for an apical lung mass.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1606", "error_flag": 1, "error_sentence_id": 35, "corrected_sentence": "Potassium chloride therapy was provided.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1654", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1671", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1670", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1627", "error_flag": 1, "error_sentence_id": 11, "corrected_sentence": "Contrast-enhanced CT of the face and sinuses is ordered.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1622", "error_flag": 1, "error_sentence_id": 9, "corrected_sentence": "Topical nitroglycerin ointment and sitz baths were prescribed for the anal fissure.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1679", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1683", "error_flag": 1, "error_sentence_id": 15, "corrected_sentence": "Plan to obtain duplex ultrasonography of the right lower extremity to evaluate for deep venous thrombosis, and to initiate anticoagulation if thrombosis is confirmed.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1630", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1686", "error_flag": 1, "error_sentence_id": 11, "corrected_sentence": "Urine drug testing was performed and the patient was recommended to begin lithium therapy.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1687", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1680", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1703", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1688", "error_flag": 1, "error_sentence_id": 11, "corrected_sentence": "Patient is scheduled for surgical ligation of the patent ductus arteriosus after confirming the diagnosis via echocardiography.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1702", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1693", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1678", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1689", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1692", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1745", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1744", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1801", "error_flag": 1, "error_sentence_id": 40, "corrected_sentence": "Amphotericin B, flucytosine, and folinic acid were administered.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1729", "error_flag": 1, "error_sentence_id": 33, "corrected_sentence": "Patient will undergo thyroid function testing with serum TSH and free T4 and follow-up in 3 months.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1802", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1753", "error_flag": 1, "error_sentence_id": 7, "corrected_sentence": "Surgical uterine evacuation by suction curettage is performed after ultrasonography shows an embryo of 4 cm in crown-rump length and no fetal cardiac activity.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1816", "error_flag": 1, "error_sentence_id": 8, "corrected_sentence": "Protamine sulfate was administered to rapidly reverse this patient's heparin-induced coagulopathy.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1754", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1818", "error_flag": 1, "error_sentence_id": 4, "corrected_sentence": "Patient was prescribed haloperidol.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1833", "error_flag": 1, "error_sentence_id": 5, "corrected_sentence": "Piperacillin-tazobactam is prescribed.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1839", "error_flag": 1, "error_sentence_id": 14, "corrected_sentence": "Patient is prescribed penicillamine.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1840", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1817", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1848", "error_flag": 1, "error_sentence_id": 5, "corrected_sentence": "Acarbose was prescribed.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1834", "error_flag": 1, "error_sentence_id": 6, "corrected_sentence": "Ceftriaxone and metronidazole is prescribed.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1880", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1867", "error_flag": 1, "error_sentence_id": 8, "corrected_sentence": "Patient was prescribed trimethoprim, sulfamethoxazole, and azithromycin.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1888", "error_flag": 1, "error_sentence_id": 4, "corrected_sentence": "Oral vancomycin was administered.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1887", "error_flag": 1, "error_sentence_id": 2, "corrected_sentence": "Potassium iodide was administered immediately to block further thyroid uptake of the radioisotope and reduce the radiation exposure.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1886", "error_flag": 1, "error_sentence_id": 7, "corrected_sentence": "Cilostazol was prescribed.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1890", "error_flag": 1, "error_sentence_id": 8, "corrected_sentence": "The patient is started on donepezil.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1889", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1902", "error_flag": 1, "error_sentence_id": 16, "corrected_sentence": "Patient was treated with azithromycin and doxycycline.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1891", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1900", "error_flag": 1, "error_sentence_id": 7, "corrected_sentence": "After examining the patient, she was started on doxycycline.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1903", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1901", "error_flag": 1, "error_sentence_id": 10, "corrected_sentence": "Patient was started on doxycycline.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1906", "error_flag": 1, "error_sentence_id": 12, "corrected_sentence": "Patient is given erythromycin.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1918", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1917", "error_flag": 1, "error_sentence_id": 18, "corrected_sentence": "Azithromycin was prescribed to the patient.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1932", "error_flag": 1, "error_sentence_id": 8, "corrected_sentence": "Penicillamine was prescribed to the patient based on exam.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1984", "error_flag": 1, "error_sentence_id": 2, "corrected_sentence": "Patient is prescribed clozapine.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1930", "error_flag": 1, "error_sentence_id": 9, "corrected_sentence": "Suspect episodes were caused by lisinopril-induced hypotension.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1907", "error_flag": 1, "error_sentence_id": 8, "corrected_sentence": "Patient is given aspirin after examination shows left ankle and knee joint swelling and tenderness; range of motion is limited.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1931", "error_flag": 1, "error_sentence_id": 7, "corrected_sentence": "Suspect episodes were caused by lisinopril-induced hypotension.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1933", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1992", "error_flag": 1, "error_sentence_id": 5, "corrected_sentence": "Patient was treated with emergency exchange transfusion after a CT scan of the head did not demonstrate an intracranial bleed.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1986", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1994", "error_flag": 1, "error_sentence_id": 3, "corrected_sentence": "Patient was treated with all-trans retinoic acid (ATRA) and arsenic trioxide.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1985", "error_flag": 1, "error_sentence_id": 4, "corrected_sentence": "Based on exam, the patient was scheduled for a hymenotomy.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1993", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1879", "error_flag": 1, "error_sentence_id": 7, "corrected_sentence": "After examining the patient, she was recommended lithium therapy for long-term maintenance.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-1995", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-2014", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-2043", "error_flag": 1, "error_sentence_id": 9, "corrected_sentence": "Patient was prescribed propylthiouracil.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-2013", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-2004", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-2057", "error_flag": 1, "error_sentence_id": 17, "corrected_sentence": "Patient was treated with dantrolene.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-2046", "error_flag": 1, "error_sentence_id": 17, "corrected_sentence": "Patient was treated with fludarabine, cyclophosphamide, and rituximab induction.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-2063", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-2058", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-2060", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-2054", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-2047", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-2062", "error_flag": 1, "error_sentence_id": 4, "corrected_sentence": "Patient is prescribed oral naproxen after radiographs of the spine and pelvis show bilateral sacroiliitis.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-2084", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-2089", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-2059", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-2112", "error_flag": 1, "error_sentence_id": 5, "corrected_sentence": "Patient will be admitted for intravenous antipseudomonal antibiotic therapy (e.g., ciprofloxacin or cefepime) with ENT consultation for suspected malignant otitis externa based on exam findings.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-2113", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-2088", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-2144", "error_flag": 1, "error_sentence_id": 3, "corrected_sentence": "A large-volume lumbar puncture (tap test) was performed.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-2126", "error_flag": 1, "error_sentence_id": 7, "corrected_sentence": "/mcL, with a creatine kinase (CK) level of 3,000 mcg/L. Dantrolene was prescribed.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-2101", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-2100", "error_flag": 1, "error_sentence_id": 10, "corrected_sentence": "Patient is referred for echocardiography and cardiology evaluation, and advised to avoid competitive sports, after an ECG shows sinus rhythm and a QT interval corrected for heart rate (QTc) of 470 milliseconds.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-2145", "error_flag": 1, "error_sentence_id": 4, "corrected_sentence": "Non-contrast head CT (or brain MRI) was ordered.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-2165", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-2160", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-2164", "error_flag": 1, "error_sentence_id": 5, "corrected_sentence": "Hormone replacement therapy with estrogen alone is given to the patient for symptomatic relief.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-2127", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-2187", "error_flag": 1, "error_sentence_id": 9, "corrected_sentence": "Patient was prescribed benztropine.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-2159", "error_flag": 1, "error_sentence_id": 5, "corrected_sentence": "Dialectical behavior therapy was recommended.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-2181", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-2180", "error_flag": 1, "error_sentence_id": 11, "corrected_sentence": "Oral dexamethasone was recommended for the likely croup, and a chest x-ray was not indicated.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-2155", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-2176", "error_flag": 1, "error_sentence_id": 6, "corrected_sentence": "Olanzapine was prescribed.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-2156", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-2188", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-2177", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}

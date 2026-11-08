@@ -34,6 +34,16 @@
           <textarea id="text" rows="11" placeholder="A 53-year-old man comes to the physician because of..."></textarea>
 
           <h2>2. Opciones</h2>
+          <label for="verifier">¿Quién decide si hay error (A)?</label>
+          <select id="verifier"><option value="none">Combinación BERT + Qwen con DSPy (pipeline original)</option></select>
+          <div id="verifier-opts" class="hidden">
+            <label for="corrector">¿Quién corrige (C)?</label>
+            <select id="corrector">
+              <option value="verifier">El mismo LLM que verifica</option>
+              <option value="qwen">Qwen local con ejemplos similares</option>
+            </select>
+            <p class="hint">BiomedBERT elige la oración más sospechosa y el LLM solo responde si esa oración es correcta.</p>
+          </div>
           <div class="options">
             <label class="check"><input type="checkbox" id="use_bert" checked> BiomedBERT (3a)</label>
             <label class="check"><input type="checkbox" id="use_dspy" checked> Qwen + DSPy (3b)</label>
@@ -41,12 +51,14 @@
           </div>
           <label class="check claude-opt"><input type="checkbox" id="use_claude" disabled>
             Comparar con Claude Opus 5.5 <small id="claude-note">(no habilitado)</small></label>
+          <div id="combine-opts">
           <label for="weight">Peso de BERT <b>w</b> = <span id="weight-value"></span>
             <small>(puntaje = w · p_bert + (1 - w) · s_dspy)</small></label>
           <input type="range" id="weight" min="0" max="1" step="0.05">
           <label for="threshold">Umbral = <span id="threshold-value"></span></label>
           <input type="range" id="threshold" min="0.05" max="0.95" step="0.025">
           <button id="reset" class="link" type="button">Restaurar valores ajustados en validación</button>
+          </div>
           <button id="run" class="primary" type="button">Analizar</button>
           <p class="hint">En los servidores (solo CPU) el LLM tarda varios minutos por paso. BiomedBERT solo tarda segundos.</p>
         </div>

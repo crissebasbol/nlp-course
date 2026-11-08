@@ -1,0 +1,63 @@
+{
+  "traces": [],
+  "train": [],
+  "demos": [
+    {
+      "augmented": true,
+      "numbered_text": "0 A 6-year-old girl is brought to the physician for a well-child examination.\n1 She has no history of serious illness.\n2 Her temperature is 37 C (98.6 F), pulse is 95/min, and blood pressure is 96/52 mm\n3 Hg.\n4 Examination shows a 2/6 continuous, low-pitched murmur over the left upper sternal border that radiates towards the neck.\n5 The murmur disappears when she flexes her neck.\n6 Suspected of patent ductus arteriosus.\n7 The remainder of the examination shows no abnormalities.",
+      "sentence_id": 6,
+      "sentence": "Suspected of patent ductus arteriosus.",
+      "is_correct": false,
+      "corrected_sentence": "Suspected of venous hum."
+    },
+    {
+      "augmented": true,
+      "numbered_text": "0 A 15-year-old girl is brought to the physician by her mother because of a 3-day history of lower abdominal pain.\n1 Over the past 9 months, she has had multiple similar episodes of abdominal pain, each lasting for 4â€“5 days.\n2 Menarche has not yet occurred.\n3 Examination shows suprapubic tenderness to palpation.\n4 Pubic hair and breast development are Tanner stage 4.\n5 Suspected of imperforate hymen.\n6 Pelvic examination shows bulging, bluish tissue 1 cm inside the vaginal introitus.",
+      "sentence_id": 5,
+      "sentence": "Suspected of imperforate hymen.",
+      "is_correct": true,
+      "corrected_sentence": "Suspected of imperforate hymen."
+    },
+    {
+      "augmented": true,
+      "numbered_text": "0 A 24-year-old woman comes to the physician for a routine health maintenance examination.\n1 She feels well.\n2 Menses occur at regular 28-day intervals and last for 3â€“5 days, with normal flow.\n3 They are occasionally accompanied by pain.\n4 Three years ago, she was diagnosed with chlamydial cervicitis and treated with doxycycline.\n5 She has been sexually active with multiple partners since the age of 18 years.\n6 She regularly uses condoms for contraception.\n7 She drinks 2â€“3 beers on weekends and smokes half a pack of cigarettes daily.\n8 Vital signs are within normal limits.\n9 Physical examination including a complete pelvic exam shows no abnormalities.\n10 A Pap smear shows a low-grade squamous epithelial lesion (LSIL).\n11 Patient was recommended a repeat Pap smear in 3 months.",
+      "sentence_id": 11,
+      "sentence": "Patient was recommended a repeat Pap smear in 3 months.",
+      "is_correct": false,
+      "corrected_sentence": "Patient was recommended a repeat Pap smear in 12 months."
+    }
+  ],
+  "signature": {
+    "instructions": "You are a physician reviewing a clinical note. The note is either fully correct or contains\nexactly one medical error (a wrong diagnosis, management step, treatment, pharmacotherapy or\ncausal organism). Sentences are numbered from 0. One sentence was selected because it states the\nkey clinical decision. Decide whether that sentence is medically correct given the rest of the\nnote. If it is not, rewrite it with the error fixed, keeping the same style.",
+    "fields": [
+      {
+        "prefix": "Numbered Text:",
+        "description": "Clinical note, one numbered sentence per line"
+      },
+      {
+        "prefix": "Sentence Id:",
+        "description": "Number of the selected sentence"
+      },
+      {
+        "prefix": "Sentence:",
+        "description": "Text of the selected sentence"
+      },
+      {
+        "prefix": "Is Correct:",
+        "description": "True if the selected sentence is medically correct"
+      },
+      {
+        "prefix": "Corrected Sentence:",
+        "description": "If incorrect, the sentence with the error fixed; if correct, the same sentence"
+      }
+    ]
+  },
+  "lm": null,
+  "metadata": {
+    "dependency_versions": {
+      "python": "3.11",
+      "dspy": "3.4.1",
+      "cloudpickle": "3.1"
+    }
+  }
+}

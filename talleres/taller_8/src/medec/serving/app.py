@@ -43,6 +43,10 @@ class AnalyzeRequest(BaseModel):
     use_bert: bool = True
     use_dspy: bool = True
     correct: bool = True
+    verifier: str | None = Field(default=None, description="none, or a name under verifier.lms (haiku, sonnet, qwen): "
+                                                       "BERT picks the sentence and this LLM decides whether it is wrong")
+    corrector: str = Field(default="verifier", pattern="^(verifier|qwen)$",
+                           description="With a verifier: correct with the same LLM (verifier) or with the local Qwen")
     use_claude: bool = Field(default=False, description="Also ask Claude Opus 5.5 (costs money; needs ANTHROPIC_API_KEY)")
     weight: float | None = Field(default=None, ge=0, le=1)
     threshold: float | None = Field(default=None, ge=0, le=1)

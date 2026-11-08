@@ -21,9 +21,17 @@ SYSTEMS = {
     "pipeline_v1": "Pipeline v1 (combinación elige la oración + corrector)",
     "pipeline": "Pipeline final (combinación decide A, BERT elige B + corrector)",
     "claude": "Referencia: Claude Opus 5.5",
+    "claude_haiku": "Referencia: Claude Haiku 5.5 solo",
     "pipeline_medqa": "Experimento: pipeline + pista de MedQA",
 }
-CORRECTORS = ["pipeline_v1", "pipeline", "claude", "pipeline_medqa"]
+CORRECTORS = ["pipeline_v1", "pipeline", "claude", "claude_haiku", "pipeline_medqa"]
+
+# BERT + LLM verifier (run_verifier.py): one system per verifier, corrected by the same LLM or by Qwen
+for _name, _label in (("haiku", "Claude Haiku 5.5"), ("haiku_compiled", "Claude Haiku 5.5 compilado"),
+                      ("sonnet", "Claude Sonnet 5.5"), ("qwen", "Qwen2.5-7B")):
+    SYSTEMS[f"verified_{_name}"] = f"BERT elige B + {_label} decide A y corrige"
+    SYSTEMS[f"verified_{_name}_qwen"] = f"BERT elige B + {_label} decide A + Qwen corrige"
+    CORRECTORS += [f"verified_{_name}", f"verified_{_name}_qwen"]
 
 
 def extra(parser):

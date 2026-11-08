@@ -57,6 +57,20 @@
       "sentence_acc": 0.5509,
       "sentence_acc_on_errors": 0.8729,
       "n": 334
+    },
+    {
+      "system": "BERT elige B + Claude Haiku 5.5 decide A y corrige",
+      "flag_acc": 0.8353,
+      "sentence_acc": 0.8353,
+      "sentence_acc_on_errors": 0.8508,
+      "n": 334
+    },
+    {
+      "system": "BERT elige B + Claude Haiku 5.5 compilado decide A y corrige",
+      "flag_acc": 0.8263,
+      "sentence_acc": 0.8263,
+      "sentence_acc_on_errors": 0.8453,
+      "n": 334
     }
   ],
   "correction": [
@@ -64,17 +78,25 @@
       "system": "Pipeline v1 (combinación elige la oración + corrector)",
       "rouge1_official": 0.4232,
       "rouge1_pairs": 0.6557,
-      "n_pairs": 121,
-      "bertscore_official": 0.4963,
-      "bertscore_pairs": 0.8575
+      "n_pairs": 121
     },
     {
       "system": "Pipeline final (combinación decide A, BERT elige B + corrector)",
       "rouge1_official": 0.3868,
       "rouge1_pairs": 0.6216,
-      "n_pairs": 166,
-      "bertscore_official": 0.4983,
-      "bertscore_pairs": 0.846
+      "n_pairs": 166
+    },
+    {
+      "system": "BERT elige B + Claude Haiku 5.5 decide A y corrige",
+      "rouge1_official": 0.7035,
+      "rouge1_pairs": 0.714,
+      "n_pairs": 154
+    },
+    {
+      "system": "BERT elige B + Claude Haiku 5.5 compilado decide A y corrige",
+      "rouge1_official": 0.7061,
+      "rouge1_pairs": 0.7375,
+      "n_pairs": 153
     }
   ],
   "error_analysis": {

@@ -1,0 +1,8 @@
+{
+  "method": "tfidf word 1-3 grams",
+  "cutoff": 0.2,
+  "removed": 1301,
+  "kept": 10150,
+  "medec_with_source": 1958,
+  "medec_total": 2189
+}

@@ -51,3 +51,8 @@ def test_analyze_requires_text():
 def test_word_diff():
     ops = word_diff("was H. influenzae today", "was S. pneumoniae today")
     assert {"op": "insert", "text": "S. pneumoniae"} in ops
+
+
+def test_analyze_rejects_unknown_corrector():
+    resp = make_client().post("/api/analyze", json={"text": "He has fever.", "verifier": "haiku", "corrector": "gpt"})
+    assert resp.status_code == 422

@@ -34,10 +34,32 @@ async function loadStatus() {
       : "(no habilitado: falta ANTHROPIC_API_KEY en el servidor)";
     $("#status").innerHTML = pills.map(([name, on]) => `<span class="pill ${on ? "on" : "off"}">${esc(name)}</span>`).join("");
     if ($("#weight").dataset.init !== "1") resetSliders();
+    renderVerifierOptions(s);
     if (!s.bert) $("#use_bert").checked = false;
   } catch (e) {
     $("#status").innerHTML = `<span class="pill off">API sin conexión</span>`;
   }
+}
+
+function renderVerifierOptions(s) {
+  const sel = $("#verifier");
+  const current = sel.dataset.init === "1" ? sel.value : s.default_verifier;
+  sel.innerHTML = `<option value="none">Combinación BERT + Qwen con DSPy (pipeline original)</option>` +
+    (s.verifiers || []).map((v) => `<option value="${esc(v.name)}" ${v.available ? "" : "disabled"}>BERT elige la oración + ${esc(v.label)} verifica` +
+      `${v.claude ? " (API, de pago)" : ""}${v.available ? "" : " (no disponible)"}</option>`).join("");
+  const ok = [...sel.options].some((o) => o.value === current && !o.disabled);
+  sel.value = ok ? current : "none";
+  sel.dataset.init = "1";
+  updateModeControls();
+}
+
+function updateModeControls() {
+  const verifierMode = $("#verifier").value !== "none";
+  $("#verifier-opts").classList.toggle("hidden", !verifierMode);
+  $("#combine-opts").classList.toggle("hidden", verifierMode);
+  $("#use_dspy").closest("label").classList.toggle("hidden", verifierMode);
+  $("#use_bert").disabled = verifierMode;
+  if (verifierMode) $("#use_bert").checked = true;
 }
 
 function resetSliders() {
@@ -82,6 +104,8 @@ async function run() {
     use_dspy: $("#use_dspy").checked,
     correct: $("#correct").checked,
     use_claude: $("#use_claude").checked,
+    verifier: $("#verifier").value,
+    corrector: $("#corrector").value,
     weight: Number($("#weight").value),
     threshold: Number($("#threshold").value),
   };
@@ -89,7 +113,8 @@ async function run() {
   if (currentExample && text === exampleText) body.text_id = currentExample.text_id;
   else body.text = text;
   // With a single detector the sliders do not apply: BERT uses its own tuned threshold, DSPy its own answer
-  if (!(body.use_bert && body.use_dspy)) { delete body.weight; delete body.threshold; }
+  if (body.verifier !== "none") { body.use_dspy = false; delete body.weight; delete body.threshold; }
+  else if (!(body.use_bert && body.use_dspy)) { delete body.weight; delete body.threshold; }
 
   $("#run").disabled = true;
   $("#result").classList.add("hidden");
@@ -131,6 +156,11 @@ function bar(cls, value) {
 
 function scoresExplanation(r) {
   const d = r.decision;
+  if (d.mode === "verifier") {
+    const v = r.verifier;
+    return `<p class="hint scores-help">Barra <b>azul</b> = probabilidad de BiomedBERT. <b>¿Cuál oración?</b> BERT eligió la ${v.k}, la de la barra azul más alta. ` +
+      `<b>¿Hay error?</b> Lo decidió <b>${esc(v.label)}</b>: respondió que la oración ${v.k} ${v.is_correct ? "<b>es correcta</b>, así que el texto se considera sin error" : "<b>no es correcta</b>, así que hay error"} (${num(v.seconds, 1)} s).</p>`;
+  }
   if (d.mode === "combined") {
     const best = Math.max(...r.scores);
     let txt = `Cada oración tiene tres barras: <b>azul</b> = probabilidad de error según BiomedBERT, <b>morada</b> = puntaje de Qwen + DSPy, <b>naranja</b> = final = ${num(d.weight, 2)} × azul + ${num(1 - d.weight, 2)} × morada. `;
@@ -233,7 +263,7 @@ function renderResult(r) {
   }
 
   const d = r.decision;
-  html += `<div class="hint">Decisión: ${d.mode === "combined" ? `combinación con w = ${num(d.weight, 2)} y umbral ${num(d.threshold)}${d.sentence_from === "bert" ? "; la oración la elige BERT" : ""}` : d.mode === "bert" ? `solo BERT, umbral ${num(d.threshold)}` : "solo el LLM (su propia respuesta)"}</div>`;
+  html += `<div class="hint">Decisión: ${d.mode === "verifier" ? `BERT elige la oración y ${esc(d.verifier)} decide si es correcta` : d.mode === "combined" ? `combinación con w = ${num(d.weight, 2)} y umbral ${num(d.threshold)}${d.sentence_from === "bert" ? "; la oración la elige BERT" : ""}` : d.mode === "bert" ? `solo BERT, umbral ${num(d.threshold)}` : "solo el LLM (su propia respuesta)"}</div>`;
   html += `<div class="legend">${r.p_bert ? `<span><i style="background:var(--bert)"></i>BERT (p_bert)</span>` : ""}${r.s_dspy ? `<span><i style="background:var(--dspy)"></i>Qwen + DSPy (s_dspy)</span>` : ""}<span><i style="background:var(--combined)"></i>final (combinado)</span><span>recuadro naranja = oración elegida</span>${gold && gold.error_flag ? `<span>número con borde verde punteado = oración con error real</span>` : ""}</div>`;
   html += scoresExplanation(r);
   html += `<div class="sentences">` + r.sentences.map((s, i) => {
@@ -244,7 +274,7 @@ function renderResult(r) {
 
   if (!r.corrected_sentence && r.reference_check) html += referenceHtml(r.reference_check);
   if (r.corrected_sentence) {
-    html += `<h3>Corrección propuesta</h3>` + diffHtml(r.diff);
+    html += `<h3>Corrección propuesta${r.corrector ? ` <small>(${esc(r.corrector)})</small>` : ""}</h3>` + diffHtml(r.diff);
     if (r.quality) {
       html += `<p class="hint">ROUGE-L frente a la original: ${num(r.quality.rouge_l)}${r.quality.doubtful ? ` · <b class="error-msg">dudosa (${r.quality.reason === "identical" ? "quedó igual" : "cambió demasiado"})</b>` : " · pasa el control de calidad"}</p>`;
     }
@@ -315,8 +345,9 @@ $("#weight").addEventListener("input", updateSliderLabels);
 $("#threshold").addEventListener("input", updateSliderLabels);
 $("#reset").addEventListener("click", resetSliders);
 $("#run").addEventListener("click", run);
+$("#verifier").addEventListener("change", updateModeControls);
 
-renderSteps([["prepare", "1-2. Preparar oraciones"], ["claude", "Referencia: Claude Opus 5.5 (opcional)"], ["bert", "3a. BiomedBERT"], ["dspy", "3b. Qwen + DSPy"],
+renderSteps([["prepare", "1-2. Preparar oraciones"], ["claude", "Referencia: Claude Opus 5.5 (opcional)"], ["bert", "3a. BiomedBERT"], ["dspy", "3b. Qwen + DSPy"], ["verify", "3b. LLM verifica la oración de BERT"],
   ["combine", "3c. Combinar y decidir"], ["correct", "4. Corregir"], ["quality", "5. Revisar corrección"]]
   .map(([id, label]) => ({ id, label, status: "pending", seconds: null })));
 loadStatus();

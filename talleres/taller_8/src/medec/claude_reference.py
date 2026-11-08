@@ -144,21 +144,40 @@ def collect_claude_results(client: anthropic.Anthropic, batch_id: str) -> list[d
     """Results keyed by custom_id (they arrive in any order); refusals and errors are recorded."""
     out = []
     for item in client.messages.batches.results(batch_id):
-        rec: dict[str, Any] = {"text_id": item.custom_id, "status": item.result.type}
         if item.result.type == "succeeded":
-            msg = item.result.message
-            rec["stop_reason"] = msg.stop_reason
-            rec["usage"] = {"input_tokens": msg.usage.input_tokens, "output_tokens": msg.usage.output_tokens}
-            if msg.stop_reason == "refusal":
-                rec["answer"] = None
-            else:
-                text = next((b.text for b in msg.content if b.type == "text"), "")
-                try:
-                    rec["answer"] = json.loads(text)
-                except json.JSONDecodeError:
-                    rec["answer"], rec["raw"] = None, text
-        out.append(rec)
+            out.append(message_to_record(item.custom_id, item.result.message))
+        else:
+            out.append({"text_id": item.custom_id, "status": item.result.type})
     return out
+
+
+def message_to_record(text_id: str, msg) -> dict[str, Any]:
+    """Same record for a batch result and a synchronous call; refusals and bad JSON are recorded."""
+    rec: dict[str, Any] = {"text_id": text_id, "status": "succeeded", "stop_reason": msg.stop_reason,
+                           "usage": {"input_tokens": msg.usage.input_tokens, "output_tokens": msg.usage.output_tokens}}
+    if msg.stop_reason == "refusal":
+        rec["answer"] = None
+        return rec
+    text = next((b.text for b in msg.content if b.type == "text"), "")
+    try:
+        rec["answer"] = json.loads(text)
+    except json.JSONDecodeError:
+        rec["answer"], rec["raw"] = None, text
+    return rec
+
+
+def run_claude_sync(client: anthropic.Anthropic, requests: list[Request], num_threads: int = 8) -> list[dict[str, Any]]:
+    """Normal (non-batch) calls in parallel: full price, but a predictable time of a few minutes."""
+    from concurrent.futures import ThreadPoolExecutor
+
+    def call(req: Request) -> dict[str, Any]:
+        try:
+            return message_to_record(req["custom_id"], client.messages.create(**req["params"]))
+        except anthropic.APIError as exc:
+            return {"text_id": req["custom_id"], "status": "errored", "error": str(exc)[:300]}
+
+    with ThreadPoolExecutor(max_workers=num_threads) as pool:
+        return list(pool.map(call, requests))
 
 
 def to_prediction_format(results: list[dict[str, Any]], df: pd.DataFrame) -> list[Prediction]:

@@ -10,13 +10,14 @@ import anthropic
 
 from medec.claude_reference import (
     build_claude_request, collect_claude_results, count_prompt_tokens, format_example, load_api_key,
-    submit_claude_batch, to_prediction_format, wait_for_batch,
+    run_claude_sync, submit_claude_batch, to_prediction_format, wait_for_batch,
 )
 from medec.config import PROJECT_DIR, output_path
 from medec.data import load_split
 from medec.schemas import load_jsonl, save_jsonl, save_predictions
 
-PRICE_IN, PRICE_OUT = 4.0, 20.0  # USD per million tokens, claude-opus-5-5
+# USD per million tokens (input, output), before the 50 % Batch discount
+PRICES = {"claude-opus-5-5": (4.0, 20.0), "claude-sonnet-5-5": (2.0, 10.0), "claude-haiku-5-5": (0.10, 0.50)}
 
 
 def approx_prompt_tokens(request) -> float:
@@ -30,11 +31,16 @@ def extra(parser):
     parser.add_argument("--dry-run", action="store_true", help="Only count tokens and estimate the cost")
     parser.add_argument("--batch-id", default=None, help="Collect an already submitted batch")
     parser.add_argument("--est-output-tokens", type=int, default=1000, help="Output tokens per text (thinking included)")
+    parser.add_argument("--sync", action="store_true", help="Normal parallel calls instead of the Batch API (2x price, minutes)")
+    parser.add_argument("--model", default=None, help="Override claude.model (e.g. claude-haiku-5-5)")
+    parser.add_argument("--name", default="claude", help="Output name: claude/<name>_... and predictions/<name>_<split>.jsonl")
 
 
 def main() -> None:
     args, cfg = parse_args(__doc__, splits=True, extra=extra)
-    ccfg = cfg["claude"]
+    ccfg = {**cfg["claude"], **({"model": args.model} if args.model else {})}
+    PRICE_IN, PRICE_OUT = PRICES[ccfg["model"]]
+    print(f"Modelo: {ccfg['model']} | salida: {args.name}")
     try:
         client = anthropic.Anthropic(api_key=load_api_key(PROJECT_DIR / ".env"))
     except RuntimeError:
@@ -51,7 +57,8 @@ def main() -> None:
             df = df.head(args.limit)
         # A --limit run is a sample: it gets its own file so the full run does not reuse it
         suffix = f"_limit{args.limit}" if args.limit else ""
-        raw_path = output_path(cfg, "claude", f"results_{split}{suffix}.jsonl")
+        prefix = "results" if args.name == "claude" else f"{args.name}_results"
+        raw_path = output_path(cfg, "claude", f"{prefix}_{split}{suffix}.jsonl")
         if args.batch_id:
             batch_id = args.batch_id
         elif raw_path.exists():
@@ -68,8 +75,12 @@ def main() -> None:
             print(f"{split}: {len(requests)} textos, ~{avg_in:.0f} tokens de entrada por texto, costo estimado con batch ~${cost:.2f}")
             if args.dry_run:
                 continue
-            batch_id = submit_claude_batch(client, requests)
-            print("Lote enviado:", batch_id)
+            if args.sync:
+                save_jsonl(run_claude_sync(client, requests), raw_path)
+                batch_id = None
+            else:
+                batch_id = submit_claude_batch(client, requests)
+                print("Lote enviado:", batch_id)
         if batch_id:
             wait_for_batch(client, batch_id)
             save_jsonl(collect_claude_results(client, batch_id), raw_path)
@@ -77,11 +88,11 @@ def main() -> None:
             continue
         results = load_jsonl(raw_path)
         if not args.limit:
-            save_predictions(to_prediction_format(results, df), output_path(cfg, "predictions", f"claude_{split}.jsonl"))
+            save_predictions(to_prediction_format(results, df), output_path(cfg, "predictions", f"{args.name}_{split}.jsonl"))
         refused = sum(r.get("stop_reason") == "refusal" for r in results)
         tokens_in = sum(r.get("usage", {}).get("input_tokens", 0) for r in results)
         tokens_out = sum(r.get("usage", {}).get("output_tokens", 0) for r in results)
-        real = (tokens_in * PRICE_IN + tokens_out * PRICE_OUT) / 1e6 / 2
+        real = (tokens_in * PRICE_IN + tokens_out * PRICE_OUT) / 1e6 / (1 if args.sync else 2)
         print(f"{split}: {len(results)} resultados, {refused} rechazos, costo real ~${real:.2f}")
         if results:
             print(f"  promedio por texto: {tokens_in / len(results):.0f} tokens de entrada, {tokens_out / len(results):.0f} de salida")

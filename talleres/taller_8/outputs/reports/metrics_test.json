@@ -64,6 +64,27 @@
       "sentence_acc": 0.9419,
       "sentence_acc_on_errors": 0.9508,
       "n": 327
+    },
+    {
+      "system": "Referencia: Claude Haiku 5.5 solo",
+      "flag_acc": 0.8012,
+      "sentence_acc": 0.7706,
+      "sentence_acc_on_errors": 0.8525,
+      "n": 327
+    },
+    {
+      "system": "BERT elige B + Claude Haiku 5.5 decide A y corrige",
+      "flag_acc": 0.8257,
+      "sentence_acc": 0.8226,
+      "sentence_acc_on_errors": 0.7923,
+      "n": 327
+    },
+    {
+      "system": "BERT elige B + Claude Haiku 5.5 decide A + Qwen corrige",
+      "flag_acc": 0.8257,
+      "sentence_acc": 0.8226,
+      "sentence_acc_on_errors": 0.7923,
+      "n": 327
     }
   ],
   "correction": [
@@ -90,6 +111,30 @@
       "n_pairs": 176,
       "bertscore_official": 0.8836,
       "bertscore_pairs": 0.8803
+    },
+    {
+      "system": "Referencia: Claude Haiku 5.5 solo",
+      "rouge1_official": 0.601,
+      "rouge1_pairs": 0.6055,
+      "n_pairs": 166,
+      "bertscore_official": 0.7136,
+      "bertscore_pairs": 0.8273
+    },
+    {
+      "system": "BERT elige B + Claude Haiku 5.5 decide A y corrige",
+      "rouge1_official": 0.6915,
+      "rouge1_pairs": 0.6995,
+      "n_pairs": 146,
+      "bertscore_official": 0.7733,
+      "bertscore_pairs": 0.8826
+    },
+    {
+      "system": "BERT elige B + Claude Haiku 5.5 decide A + Qwen corrige",
+      "rouge1_official": 0.6523,
+      "rouge1_pairs": 0.6117,
+      "n_pairs": 146,
+      "bertscore_official": 0.7588,
+      "bertscore_pairs": 0.8503
     }
   ],
   "error_analysis": {

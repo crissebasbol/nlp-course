@@ -1,0 +1,3 @@
+{"text_id": "ms-train-8", "error_flag": 1, "error_sentence_id": 4, "corrected_sentence": "Sporothrix schenckii was determined as the causal organism.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-2", "error_flag": 1, "error_sentence_id": 10, "corrected_sentence": "Suspected of infection with Enterobius vermicularis.", "scores": [], "doubtful": false, "extra": {"failed": false}}
+{"text_id": "ms-train-3", "error_flag": 0, "error_sentence_id": -1, "corrected_sentence": null, "scores": [], "doubtful": false, "extra": {"failed": false}}
