@@ -1,10 +1,7 @@
-# Configuración central de SECOPEDIA.
-# Todas las rutas son relativas a la carpeta proyecto/.
-
 semilla: 42
 
 prediccion:
-  # Ajustar las probabilidades a la frecuencia real de cada segmento (ver notebooks/04_analisis_errores.ipynb).
+  # Ajustar las probabilidades a la frecuencia real de cada segmento (ver notebooks/03_analisis_errores.ipynb).
   ajustar_distribucion: true
 
 rutas:

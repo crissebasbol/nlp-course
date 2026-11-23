@@ -112,4 +112,4 @@ Los modelos se entrenan con un tope de contratos por segmento (clases casi balan
 
 Se puede desactivar con `prediccion.ajustar_distribucion: false` en `configs/config.yaml`.
 
-El análisis de errores completo está en `notebooks/04_analisis_errores.ipynb`. En una revisión manual de 100 errores de BETO, solo el 11% fueron errores claros del modelo: el resto eran etiquetas mal puestas por la entidad (36%), contratos ambiguos entre dos segmentos (46%) o textos que no dicen qué se compra (7%).
+El análisis de errores completo está en `notebooks/03_analisis_errores.ipynb`. En una revisión manual de 100 errores de BETO, solo el 11% fueron errores claros del modelo: el resto eran etiquetas mal puestas por la entidad (36%), contratos ambiguos entre dos segmentos (46%) o textos que no dicen qué se compra (7%).
