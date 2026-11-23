@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SECOPEDIA</title>
+  <link rel="stylesheet" href="/estaticos/estilos.css">
+</head>
+<body>
+  <header class="barra">
+    <div>
+      <h1>SECOPEDIA</h1>
+      <p class="subtitulo">Sugerencia automática de segmentos UNSPSC para contratos públicos de SECOP II</p>
+    </div>
+    <label class="selector">
+      Modelo
+      <select id="modelo"></select>
+    </label>
+  </header>
+
+  <nav class="pestanas" role="tablist">
+    <button class="pestana activa" data-panel="panel-sugerir" role="tab">Sugerir código</button>
+    <button class="pestana" data-panel="panel-auditar" role="tab">Auditar contratos</button>
+    <a class="enlace-docs" href="/docs" target="_blank" rel="noopener">API</a>
+  </nav>
+
+  <main>
+    <section id="panel-sugerir" class="panel">
+      <div class="tarjeta">
+        <label for="texto"><strong>¿Qué quiere contratar?</strong></label>
+        <textarea id="texto" rows="4" placeholder="Ej.: compra de computadores portátiles para la secretaría de educación"></textarea>
+        <div class="ejemplos" id="ejemplos"></div>
+        <button id="boton-sugerir" class="primario">Sugerir</button>
+        <p id="error-sugerir" class="error oculto"></p>
+      </div>
+
+      <div id="resultado-sugerir" class="tarjeta oculto">
+        <h2>Categorías sugeridas</h2>
+        <ol id="sugerencias" class="sugerencias"></ol>
+        <details>
+          <summary>Ver el texto como lo ve el modelo</summary>
+          <p><span class="etiqueta">Normalizado (etapa 4)</span> <code id="normalizado"></code></p>
+          <p><span class="etiqueta">Entrada del modelo</span> <code id="entrada-modelo"></code></p>
+        </details>
+      </div>
+    </section>
+
+    <section id="panel-auditar" class="panel oculto">
+      <div class="tarjeta">
+        <p>Sube un CSV con las columnas <code>objeto_del_contrato</code> y <code>codigo_de_categoria_principal</code>.
+          Se marcan los contratos donde el modelo está muy seguro de un segmento distinto al registrado.</p>
+        <div class="fila">
+          <input type="file" id="archivo" accept=".csv">
+          <label class="casilla"><input type="checkbox" id="usar-muestra"> Usar muestra de 300 contratos de 2026</label>
+        </div>
+        <label for="umbral">Confianza mínima para marcar: <strong id="valor-umbral">0.80</strong></label>
+        <input type="range" id="umbral" min="0.5" max="0.99" step="0.01" value="0.8">
+        <button id="boton-auditar" class="primario">Auditar</button>
+        <p id="error-auditar" class="error oculto"></p>
+      </div>
+
+      <div id="resultado-auditar" class="tarjeta oculto">
+        <div class="fila entre">
+          <h2 id="resumen-auditoria"></h2>
+          <button id="boton-descargar" class="secundario">Descargar CSV completo</button>
+        </div>
+        <div class="tabla-contenedor">
+          <table>
+            <thead>
+              <tr>
+                <th>Objeto del contrato</th>
+                <th>Registrado</th>
+                <th>Sugerido</th>
+                <th>Confianza</th>
+                <th>Prob. registrado</th>
+              </tr>
+            </thead>
+            <tbody id="filas-auditoria"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="/estaticos/app.js"></script>
+</body>
+</html>
