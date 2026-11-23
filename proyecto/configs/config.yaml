@@ -1,0 +1,68 @@
+# Configuración central de SECOPEDIA.
+# Todas las rutas son relativas a la carpeta proyecto/.
+
+semilla: 42
+
+prediccion:
+  # Ajustar las probabilidades a la frecuencia real de cada segmento (ver notebooks/04_analisis_errores.ipynb).
+  ajustar_distribucion: true
+
+rutas:
+  crudos: data/raw/contratos_secop.parquet
+  limpios: data/interim/contratos_limpios.parquet
+  conflictos: data/interim/textos_con_etiquetas_distintas.parquet
+  lugares: data/interim/lugares.json
+  # Distribución de clases para ajustar las probabilidades (se versiona: la usa la demo).
+  ajuste_distribucion: reports/metrics/ajuste_distribucion.json
+  procesados: data/processed
+  modelos: models
+  # Repositorio público en Hugging Face con BETO (raíz), los modelos clásicos (clasicos/) y el
+  # léxico de lugares (recursos/). La demo descarga de ahí lo que no esté entrenado localmente.
+  hub: crissebasbol/secopedia-beto-unspsc
+  metricas: reports/metrics
+  figuras: reports/figures
+
+extraccion:
+  url: https://www.datos.gov.co/resource/jbjy-vk9h.json
+  # Solo columnas necesarias: nunca se piden columnas con datos personales.
+  columnas:
+    - id_contrato
+    - objeto_del_contrato
+    - descripcion_del_proceso
+    - codigo_de_categoria_principal
+    - tipo_de_contrato
+    - fecha_de_firma
+  tipos_excluidos:
+    - Prestación de servicios
+  fecha_minima: "2022-01-01T00:00:00"
+  tamano_pagina: 50000
+  reintentos: 5
+  pausa_segundos: 5
+  timeout_segundos: 300
+
+limpieza:
+  # Tipos adicionales a excluir (se decide con el EDA: "Otro", "Decreto 092 de 2017").
+  tipos_excluidos: []
+  min_palabras: 3
+  textos_vacios:
+    - no definido
+    - sin descripcion
+    - no aplica
+    - n/a
+    - na
+  patron_codigo: '^V1\.\d{8}$'
+  # Códigos "por defecto" que no describen el contenido (801116 = personal temporal).
+  # Decisión del EDA: se conservan los tipos "Otro" y "Decreto 092 de 2017", pero se quita
+  # este código en todos los tipos, igual que se excluyó prestación de servicios.
+  prefijos_codigo_excluidos:
+    - V1.801116
+
+etiquetas:
+  # Con 3.000 quedan 28 segmentos + "otros" tras deduplicar (ver notebooks/01_eda.ipynb).
+  min_ejemplos_por_segmento: 3000
+  nombre_clase_otros: otros
+  tope_por_clase: 5000
+  # Contratos firmados desde esta fecha forman el conjunto de prueba temporal.
+  fecha_corte_temporal: "2026-01-01"
+  tamano_prueba_temporal: 20000
+  proporciones: {entrenamiento: 0.8, validacion: 0.1, prueba: 0.1}
