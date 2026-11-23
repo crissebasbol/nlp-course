@@ -1,0 +1,7 @@
+modelo,C,segundos_entrenamiento,accuracy,f1_macro,f1_ponderado,top3_accuracy,n
+regresion_logistica,1.0,26.8,0.6608,0.656,0.6576,0.8567,13127
+regresion_logistica,4.0,38.7,0.6656,0.6616,0.6635,0.8609,13127
+regresion_logistica,16.0,47.2,0.6565,0.6529,0.6553,0.8508,13127
+svm_lineal,0.1,8.9,0.6584,0.654,0.6558,0.853,13127
+svm_lineal,0.5,10.5,0.673,0.6671,0.6695,0.8548,13127
+svm_lineal,1.0,12.1,0.6716,0.6647,0.6672,0.8499,13127
