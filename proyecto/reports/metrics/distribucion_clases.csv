@@ -1,0 +1,30 @@
+etiqueta,nombre,entrenamiento,validacion,prueba,prueba_temporal
+otros,Otros segmentos (poco frecuentes),4000,500,500,2554
+50,"Alimentos, bebidas y tabaco",4000,500,500,399
+81,"Servicios de ingeniería, investigación y tecnología",4000,500,500,1106
+80,"Servicios de gestión, profesionales de empresa y administrativos",4000,500,500,3130
+78,"Servicios de transporte, almacenaje y correo",4000,500,500,362
+77,Servicios medioambientales,4000,500,500,321
+72,"Servicios de edificación, construcción y mantenimiento",4000,500,500,2658
+90,"Servicios de viajes, alimentación, alojamiento y entretenimiento",4000,500,500,660
+84,Servicios financieros y de seguros,4000,500,500,579
+53,"Ropa, maletas y productos de aseo personal",4000,500,500,427
+93,Servicios políticos y de asuntos cívicos,4000,500,500,1718
+46,"Equipos y suministros de defensa, orden público y seguridad",4000,500,500,326
+44,"Equipos de oficina, accesorios y suministros",4000,500,500,343
+43,Tecnologías de la información y telecomunicaciones,4000,500,500,667
+42,"Equipo médico, accesorios y suministros",4000,500,500,447
+41,"Equipos y suministros de laboratorio, medición y pruebas",4000,500,500,281
+95,"Terrenos, edificios, estructuras y vías",4000,500,500,210
+85,Servicios de salud,4000,500,500,1241
+86,Servicios educativos y de formación,3941,493,493,246
+56,"Muebles, mobiliario y decoración",3476,434,435,204
+25,"Vehículos comerciales, militares y particulares, accesorios y componentes",3214,401,402,282
+60,"Instrumentos musicales, juegos, artes, artesanías y equipo educativo",3143,393,393,224
+70,"Servicios agrícolas, pesqueros, forestales y de fauna",2979,372,373,193
+15,"Combustibles, aditivos para combustibles, lubricantes y anticorrosivos",2970,372,371,367
+83,Servicios públicos y relacionados con el sector público,2770,346,346,168
+82,"Servicios editoriales, de diseño, artes gráficas y bellas artes",2769,346,346,156
+30,"Componentes y suministros para estructuras, edificación y obras civiles",2618,327,327,278
+47,Equipos de limpieza y suministros,2615,327,327,185
+14,Materiales y productos de papel,2522,316,315,268

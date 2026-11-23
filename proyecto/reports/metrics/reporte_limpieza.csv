@@ -1,0 +1,7 @@
+paso,antes,despues,eliminados,pct_eliminado
+texto vacío o con menos de 3 palabras,585990,582879,3111,0.53
+código UNSPSC inválido,582879,568458,14421,2.47
+código por defecto (V1.801116),568458,517191,51267,9.02
+fecha de firma inválida,517191,517191,0,0.0
+duplicados de texto y código,517191,395736,121455,23.48
+mismo texto con varios códigos (se deja uno),395736,373954,21782,5.5
