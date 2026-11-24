@@ -14,7 +14,7 @@ Cuando una entidad pública publica un proceso en SECOP II debe clasificar lo qu
 
 | Etapa | Módulo | Qué hace |
 |---|---|---|
-| 1. Extracción | `src/secopedia/extraccion.py` | Descarga desde la API de datos.gov.co solo las columnas necesarias, sin datos personales |
+| 1. Extracción | `src/secopedia/extraccion.py` | Descarga desde la API de datos.gov.co solo las columnas necesarias, sin columnas de datos personales |
 | 2. Limpieza | `src/secopedia/limpieza.py` | Quita textos vacíos, códigos inválidos, el código por defecto 801116 (personal temporal) y duplicados |
 | 3. Etiquetas | `src/secopedia/etiquetas.py` | Código UNSPSC a segmento, clase "otros", tope por clase, particiones y prueba temporal |
 | 4. Normalización | `src/secopedia/normalizacion.py` | Minúsculas, sin tildes, años a `<AÑO>`, números a `<NUM>` y municipios o departamentos (DIVIPOLA) a `<LUGAR>` |
@@ -23,6 +23,25 @@ Cuando una entidad pública publica un proceso en SECOP II debe clasificar lo qu
 | 7. Modelos | `src/secopedia/modelos/` | Línea base TF-IDF + Regresión Logística / SVM lineal; red neuronal CNN sobre fastText; fine-tuning de BETO |
 | 8. Evaluación | `src/secopedia/evaluacion.py` | Accuracy, F1 macro, F1 ponderado, top-3 accuracy y matriz de confusión |
 | 9. Demo | `src/secopedia/prediccion.py`, `src/secopedia/web/` | `predecir(texto)` (top 3) y `auditar(contratos)`, expuestos en una API FastAPI con interfaz web |
+
+## Estructura
+
+| Carpeta | Contenido |
+|---|---|
+| `configs/` | `config.yaml`: rutas, filtros, umbrales, semilla y repositorio de Hugging Face |
+| `src/secopedia/` | Código del pipeline (una etapa por módulo) y la demo web |
+| `scripts/` | Programas que encadenan las etapas: descargar, preparar, preprocesar y entrenar |
+| `notebooks/` | `01` exploración de datos, `02` ejemplos de cada transformación, `03` evaluación y análisis de errores |
+| `reports/` | Métricas (`metrics/`) y figuras (`figures/`) de todos los modelos |
+| `tests/` | Pruebas unitarias |
+
+## Requerimientos
+
+- Python 3.10 o superior (probado con 3.12).
+- Conexión a internet para instalar las dependencias y descargar los modelos o los datos.
+- Espacio en disco: unos 2,5 GB para la demo (entorno y modelos) y unos 5 GB para el pipeline completo.
+- GPU opcional: solo se recomienda para entrenar BETO (CUDA o Apple Silicon).
+- Librerías principales: pandas, spaCy, scikit-learn, gensim, PyTorch, Transformers y FastAPI. Las versiones exactas están en `requirements.txt`.
 
 ## Instalación paso a paso
 
@@ -78,7 +97,7 @@ uvicorn secopedia.web.servidor:app --port 8000
 pytest
 ```
 
-BETO usa la GPU si está disponible (CUDA o Apple Silicon); sin GPU funciona en CPU, pero mucho más lento.
+El entrenamiento de BETO usa la GPU si está disponible (CUDA o Apple Silicon); en CPU funciona, pero mucho más lento. La demo usa CUDA si existe y, si no, la CPU.
 
 Los datos se guardan en `data/` y no se suben al repositorio.
 
@@ -112,4 +131,10 @@ Los modelos se entrenan con un tope de contratos por segmento (clases casi balan
 
 Se puede desactivar con `prediccion.ajustar_distribucion: false` en `configs/config.yaml`.
 
-El análisis de errores completo está en `notebooks/03_analisis_errores.ipynb`. En una revisión manual de 100 errores de BETO, solo el 11% fueron errores claros del modelo: el resto eran etiquetas mal puestas por la entidad (36%), contratos ambiguos entre dos segmentos (46%) o textos que no dicen qué se compra (7%).
+El análisis de errores completo está en `notebooks/03_analisis_errores.ipynb`. En una revisión preliminar de 100 errores de BETO (pendiente de validar por el grupo), solo el 11% fueron errores claros del modelo: el resto eran etiquetas mal puestas por la entidad (36%), contratos ambiguos entre dos segmentos (46%) o textos que no dicen qué se compra (7%).
+
+### Ensamble y curva de aprendizaje
+
+El promedio de las probabilidades de los cuatro modelos llega a F1 macro 0,680 y top-3 0,877 en prueba, un poco mejor que BETO solo. La demo usa los modelos por separado.
+
+Con más datos de entrenamiento la mejora casi se detiene: al pasar de 105 mil a 284 mil contratos, la CNN gana menos de 1 punto de F1 y la regresión logística empeora (`scripts/curva_aprendizaje.py`, `reports/figures/curva_aprendizaje.png`).
