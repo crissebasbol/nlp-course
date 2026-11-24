@@ -1,7 +1,7 @@
 """Etapa 6: representación vectorial del texto.
 
 - TF-IDF con unigramas y bigramas sobre los lemas (etapa 5).
-- Embeddings fastText promediados por documento (para la red neuronal).
+- Embeddings fastText para la CNN; ver `modelos/red_neuronal.py`.
 - BETO usa su propio tokenizador; ver `modelos/beto.py`.
 """
 
@@ -38,14 +38,3 @@ def terminos_principales(vectorizador: TfidfVectorizer, texto: str, n: int = 5) 
     vocabulario = vectorizador.get_feature_names_out()
     indices = np.argsort(vector)[::-1][:n]
     return [(vocabulario[i], round(float(vector[i]), 3)) for i in indices if vector[i] > 0]
-
-
-def promediar_embeddings(lemas: list[str], vectores, dimension: int) -> np.ndarray:
-    """Promedio de los vectores de palabra de un documento (cero si no hay ninguno).
-
-    `vectores` es cualquier objeto con acceso por palabra, por ejemplo un modelo fastText
-    (que además genera vectores para palabras fuera del vocabulario con subpalabras).
-    """
-    if not lemas:
-        return np.zeros(dimension, dtype=np.float32)
-    return np.mean([vectores[palabra] for palabra in lemas], axis=0).astype(np.float32)
