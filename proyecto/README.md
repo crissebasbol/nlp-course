@@ -42,7 +42,7 @@ Los municipios y departamentos se cambian por `<LUGAR>` para que el modelo apren
 | `scripts/` | Programas que encadenan las etapas: descargar, preparar, preprocesar y entrenar |
 | `notebooks/` | `01` exploración de datos, `02` ejemplos de cada transformación, `03` evaluación y análisis de errores |
 | `docker/`, `docker-compose.yml` | Imagen de la demo y proxy Caddy |
-| `deploy/` | Scripts para desplegar la demo en un servidor |
+| `deploy/` | Scripts que se ejecutan en el servidor para desplegar y operar la demo |
 | `reports/` | Métricas (`metrics/`) y figuras (`figures/`) de todos los modelos |
 | `tests/` | Pruebas unitarias |
 
@@ -100,7 +100,7 @@ python scripts/entrenar_linea_base.py
 # 6. Entrenar y evaluar la red neuronal (CNN sobre fastText, unos 4 minutos)
 python scripts/entrenar_red_neuronal.py
 
-# 7. Entrenar y evaluar BETO (alrededor de 1 hora en un Apple M4 Pro)
+# 7. Entrenar y evaluar BETO (alrededor de 1 hora con GPU)
 python scripts/entrenar_beto.py
 
 # 8. Abrir la demo: interfaz en http://localhost:8000 y documentación de la API en /docs
@@ -122,15 +122,9 @@ La demo se publica con dos contenedores: `app` (API, interfaz y los cuatro model
 navegador ──80/443──> proxy (Caddy) ──8000, red interna──> app (FastAPI + modelos)
 ```
 
-### Probar los contenedores en este computador
+El código llega al servidor con `git`: se clona una vez y se actualiza con `git pull`.
 
-```bash
-deploy/local.sh                          # construye y levanta en http://localhost:8080
-deploy/probar.sh http://localhost:8080   # prueba los cuatro modelos y la auditoría
-deploy/local.sh detener
-```
-
-### 1. Crear la instancia en AWS
+### 1. Crear el servidor en AWS
 
 En la consola de EC2, *Launch instance*:
 
@@ -138,37 +132,49 @@ En la consola de EC2, *Launch instance*:
 |---|---|
 | Imagen | Ubuntu Server 24.04 LTS, **64-bit (x86)** |
 | Tipo | `t3.medium` (2 vCPU, 4 GB) |
-| Par de llaves | Crear uno y guardar el `.pem` fuera del repositorio |
 | Disco | 20 GB gp3 |
-| Puerto 22 (SSH) | Solo *My IP* |
+| Puerto 22 (SSH) | Solo las IP de quienes administran el servidor |
 | Puertos 80 y 443 | Cualquier origen (`0.0.0.0/0`), o solo las IP que vayan a usar la demo |
 
 - No sirve una instancia ARM (`t4g`): spaCy 3.8.3 no tiene paquete listo para Linux ARM.
+- Para entrar con *EC2 Instance Connect*, el puerto 22 también debe permitir la lista de prefijos `com.amazonaws.<región>.ec2-instance-connect`.
 - La IP pública cambia al detener y encender la instancia. Para conservarla, asocia una *Elastic IP*.
 - Conviene crear una alerta de gasto en AWS Budgets.
 
-### 2. Configurar
+### 2. Instalar
+
+Conéctate al servidor, por SSH o con *EC2 Instance Connect* desde la consola, y ejecuta:
 
 ```bash
-chmod 400 ~/.ssh/secopedia.pem
-cp deploy/servidor.env.example deploy/servidor.env   # no se sube a git
-```
-
-En `deploy/servidor.env` completa `SSH_HOST` con la IP pública y `SSH_LLAVE` con la ruta del `.pem`.
-
-### 3. Desplegar
-
-```bash
+git clone https://github.com/crissebasbol/nlp-course.git
+cd nlp-course/proyecto
 deploy/preparar_servidor.sh   # una sola vez: instala Docker y crea 2 GB de swap
-deploy/desplegar.sh           # copia el código, construye la imagen y espera a que responda
-deploy/probar.sh http://IP_PUBLICA
+deploy/desplegar.sh           # construye la imagen, levanta la demo y espera a que responda
+deploy/probar.sh              # prueba los cuatro modelos y la auditoría
 ```
 
-Para publicar cambios se repite `deploy/desplegar.sh`.
+La demo queda en `http://IP_PUBLICA`.
 
-### HTTPS con dominio
+### 3. Actualizar
 
-Crea un registro DNS de tipo A que apunte a la IP, pon `SECOPEDIA_DIRECCION="secopedia.midominio.com"` en `deploy/servidor.env` y repite `deploy/desplegar.sh`. Caddy obtiene y renueva el certificado. Con solo la IP, la demo funciona por HTTP sin cifrar.
+```bash
+cd nlp-course/proyecto
+deploy/desplegar.sh           # hace git pull, reconstruye y reinicia
+```
+
+Con `deploy/desplegar.sh --sin-pull` se usa el código tal como está.
+
+### Configuración y HTTPS
+
+La configuración está en `.env`, que se crea a partir de `.env.example` en el primer despliegue y no se sube a git. Después de cambiarla, se repite `deploy/desplegar.sh`.
+
+Para activar HTTPS, crea un registro DNS de tipo A que apunte a la IP y pon el dominio en `.env`:
+
+```bash
+SECOPEDIA_DIRECCION=secopedia.midominio.com
+```
+
+Caddy obtiene y renueva el certificado. Con solo la IP, la demo funciona por HTTP sin cifrar.
 
 ### Operación
 
@@ -184,12 +190,12 @@ La demo vuelve a arrancar sola si se reinicia el servidor. `deploy/detener.sh` n
 
 - No tiene usuarios ni contraseñas: cualquiera que llegue al puerto 80 o 443 puede usarla. Para restringirla, limita las IP en el grupo de seguridad.
 - Una auditoría a la vez, con máximo 5.000 contratos y archivos de hasta 10 MB. Las sugerencias siguen funcionando mientras tanto.
-- Las auditorías grandes conviene hacerlas con un modelo clásico. En una prueba local en contenedor con 2 CPU, auditar 300 contratos tomó 0,5 s con la regresión logística y 20 s con BETO.
+- Las auditorías grandes conviene hacerlas con un modelo clásico. En una prueba en contenedor con 2 CPU, auditar 300 contratos tomó 0,5 s con la regresión logística y 20 s con BETO.
 
 | Problema | Solución |
 |---|---|
-| `Connection timed out` por SSH | Tu IP cambió: actualiza la regla del puerto 22 en el grupo de seguridad |
-| `UNPROTECTED PRIVATE KEY FILE` | `chmod 400` a la llave |
+| `Connection timed out` por SSH | Revisa la regla del puerto 22 en el grupo de seguridad |
+| `git pull` falla por cambios locales | `git status` muestra los archivos modificados en el servidor; descártalos o guárdalos antes de actualizar |
 | La demo no responde tras desplegar | `deploy/registros.sh app`; el servidor necesita salida a internet para descargar los modelos |
 | No se emite el certificado | El dominio debe apuntar a la IP, y los puertos 80 y 443 deben estar abiertos |
 
@@ -208,7 +214,7 @@ SECOP II - Contratos Electrónicos, publicado por Colombia Compra Eficiente en d
 
 Los cuatro modelos están publicados en Hugging Face: [crissebasbol/secopedia-beto-unspsc](https://huggingface.co/crissebasbol/secopedia-beto-unspsc) (BETO en la raíz y los modelos clásicos en `clasicos/`). La demo los descarga automáticamente si no se entrenaron localmente.
 
-BETO es el mejor en todas las métricas, sobre todo en top-3 con contratos nuevos (2026): en 85 de cada 100 el segmento correcto está entre las 3 sugerencias. A cambio, es unas 600 veces más lento por contrato (6 ms frente a 0,01 ms), aunque sigue siendo instantáneo para un usuario. Se entrenó en 57 minutos en la GPU de un Apple M4 Pro.
+BETO es el mejor en todas las métricas, sobre todo en top-3 con contratos nuevos (2026): en 85 de cada 100 el segmento correcto está entre las 3 sugerencias. A cambio, es unas 600 veces más lento por contrato (6 ms frente a 0,01 ms), aunque sigue siendo instantáneo para un usuario. El entrenamiento tomó 57 minutos con GPU. Los tiempos son de un mismo equipo y cambian según el hardware.
 
 ### Ajuste por distribución de clases
 
