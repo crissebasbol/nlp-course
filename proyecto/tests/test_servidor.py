@@ -3,6 +3,7 @@
 import pytest
 from fastapi.testclient import TestClient
 
+from secopedia.web import servidor
 from secopedia.web.servidor import MODELOS, MUESTRA_AUDITORIA, app
 
 pytestmark = pytest.mark.skipif(not MODELOS["regresion_logistica"][1].exists(),
@@ -47,3 +48,17 @@ def test_auditar_sin_columnas():
 def test_auditar_muestra():
     datos = cliente.post("/api/auditar", data={"usar_muestra": "true"}).json()
     assert datos["total"] == 300
+
+
+def test_una_auditoria_a_la_vez():
+    csv = "objeto_del_contrato,codigo_de_categoria_principal\ncompra de sillas,V1.56101500\n"
+    archivos = {"archivo": ("c.csv", csv, "text/csv")}
+    with servidor._candado_auditoria:
+        assert cliente.post("/api/auditar", files=archivos).status_code == 429
+    assert cliente.post("/api/auditar", files=archivos).status_code == 200
+
+
+def test_precarga_tolera_modelos_invalidos(monkeypatch):
+    monkeypatch.setenv("SECOPEDIA_PRECARGAR", "regresion_logistica, no_existe")
+    servidor.precargar_modelos()
+    assert "regresion_logistica" in servidor._predictores

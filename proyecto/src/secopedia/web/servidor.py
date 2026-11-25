@@ -11,7 +11,10 @@ from __future__ import annotations
 
 import io
 import json
+import logging
+import os
 import threading
+from contextlib import asynccontextmanager
 from pathlib import Path
 
 import pandas as pd
@@ -23,6 +26,8 @@ from pydantic import BaseModel, Field
 from secopedia.configuracion import RAIZ_PROYECTO, cargar_config
 from secopedia.prediccion import Predictor
 from secopedia.segmentos import nombre_segmento
+
+log = logging.getLogger("uvicorn.error")
 
 CARPETA_WEB = Path(__file__).parent
 CARPETA_ESTATICOS = CARPETA_WEB / "estaticos"
@@ -46,6 +51,8 @@ HUB = config["rutas"].get("hub")
 
 def modelo_disponible(clave: str) -> bool:
     return MODELOS[clave][1].exists() or bool(HUB)
+
+
 EJEMPLOS = [
     "Compra de computadores portátiles para la secretaría de educación",
     "Suministro de combustible para los vehículos de la alcaldía",
@@ -57,6 +64,8 @@ EJEMPLOS = [
 
 _predictores: dict[str, Predictor] = {}
 _candado = threading.Lock()
+# Solo una auditoría a la vez: usa mucha CPU y frenaría las sugerencias de los demás.
+_candado_auditoria = threading.Lock()
 
 
 def obtener_predictor(modelo: str) -> Predictor:
@@ -77,10 +86,28 @@ def obtener_predictor(modelo: str) -> Predictor:
         return _predictores[modelo]
 
 
+def precargar_modelos() -> None:
+    """Carga al arrancar los modelos de SECOPEDIA_PRECARGAR (separados por coma), para que la
+    primera solicitud no espere. Si uno falla, se registra y se intenta de nuevo cuando se pida."""
+    for modelo in filter(None, (m.strip() for m in os.environ.get("SECOPEDIA_PRECARGAR", "").split(","))):
+        try:
+            obtener_predictor(modelo)
+            log.info("Modelo cargado: %s", modelo)
+        except Exception:
+            log.exception("No se pudo cargar el modelo %s", modelo)
+
+
+@asynccontextmanager
+async def ciclo_de_vida(_: FastAPI):
+    precargar_modelos()
+    yield
+
+
 app = FastAPI(
     title="SECOPEDIA",
     description="Sugerencia automática de segmentos UNSPSC para contratos públicos de SECOP II.",
     version="0.1.0",
+    lifespan=ciclo_de_vida,
 )
 
 
@@ -122,7 +149,7 @@ def predecir(solicitud: SolicitudPrediccion) -> dict:
 
 
 @app.post("/api/auditar")
-async def auditar(
+def auditar(
     archivo: UploadFile | None = File(None, description="CSV con objeto_del_contrato y codigo_de_categoria_principal"),
     usar_muestra: bool = Form(False, description="Usar la muestra incluida de contratos de 2026"),
     modelo: str = Form("regresion_logistica"),
@@ -130,7 +157,7 @@ async def auditar(
 ) -> dict:
     """Marca los contratos donde el modelo está muy seguro de un segmento distinto al registrado."""
     if archivo is not None and archivo.filename:
-        contenido = await archivo.read()
+        contenido = archivo.file.read()
         try:
             contratos = pd.read_csv(io.BytesIO(contenido), dtype=str)
         except Exception as error:  # CSV mal formado
@@ -146,7 +173,13 @@ async def auditar(
     if len(contratos) > MAXIMO_CONTRATOS_AUDITORIA:
         raise HTTPException(413, f"Máximo {MAXIMO_CONTRATOS_AUDITORIA} contratos por solicitud")
 
-    resultado = obtener_predictor(modelo).auditar(contratos, umbral=umbral)
+    predictor = obtener_predictor(modelo)
+    if not _candado_auditoria.acquire(blocking=False):
+        raise HTTPException(429, "Ya hay otra auditoría en curso. Intenta de nuevo en un momento.")
+    try:
+        resultado = predictor.auditar(contratos, umbral=umbral)
+    finally:
+        _candado_auditoria.release()
     resultado["nombre_registrado"] = resultado["segmento_registrado"].map(nombre_segmento)
     columnas = [c for c in ["id_contrato", "objeto_del_contrato", "codigo_de_categoria_principal",
                             "segmento_registrado", "nombre_registrado", "segmento_sugerido", "nombre_sugerido",

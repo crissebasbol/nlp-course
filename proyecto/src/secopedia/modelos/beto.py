@@ -7,6 +7,7 @@ Se entrena localmente con scripts/entrenar_beto.py (GPU CUDA, Apple Silicon MPS 
 
 from __future__ import annotations
 
+import threading
 from pathlib import Path
 
 import numpy as np
@@ -124,6 +125,8 @@ class ClasificadorBeto:
         self.dispositivo = dispositivo or ("cuda" if torch.cuda.is_available() else "cpu")
         self.tokenizador = AutoTokenizer.from_pretrained(ruta_o_repo)
         self.modelo = AutoModelForSequenceClassification.from_pretrained(ruta_o_repo).to(self.dispositivo).eval()
+        # El tokenizador rápido no admite varios hilos a la vez ("Already borrowed").
+        self._candado = threading.Lock()
         etiquetas = self.modelo.config.id2label
         self.classes_ = np.array([etiquetas[i] for i in range(len(etiquetas))])
 
@@ -138,8 +141,9 @@ class ClasificadorBeto:
         with torch.no_grad():
             for inicio in range(0, len(textos), tamano_lote):
                 indices = orden[inicio:inicio + tamano_lote]
-                lote = self.tokenizador([textos[i] for i in indices], truncation=True,
-                                        max_length=LONGITUD_MAXIMA, padding=True, return_tensors="pt")
+                with self._candado:
+                    lote = self.tokenizador([textos[i] for i in indices], truncation=True,
+                                            max_length=LONGITUD_MAXIMA, padding=True, return_tensors="pt")
                 logits = self.modelo(**lote.to(self.dispositivo)).logits
                 salida[indices] = torch.softmax(logits, dim=1).cpu().numpy()
         return salida
