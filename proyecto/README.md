@@ -10,6 +10,22 @@ Cuando una entidad pública publica un proceso en SECOP II debe clasificar lo qu
 - **Usuarios secundarios:** proveedores y pymes, veedurías y entes de control.
 - **Tarea de PLN:** clasificación de texto multiclase supervisada (28 segmentos más la clase "otros").
 
+## Demo en línea
+
+**http://54.167.29.15/** ([documentación de la API](http://54.167.29.15/docs))
+
+Está desplegada en una instancia `t3.medium` de AWS con los cuatro modelos. Funciona por HTTP sin cifrar: no subas archivos con información confidencial.
+
+> **Servidor temporal:** se mantiene encendido para la entrega y la sustentación del proyecto. Después puede apagarse o cambiar de dirección. Si el enlace no responde, la demo se puede ejecutar siguiendo [Uso](#uso) o [Despliegue](#despliegue).
+
+**Sugerir código.** Se escribe lo que se quiere contratar y se obtienen los 3 segmentos más probables. En el selector se elige el modelo.
+
+![Modo Sugerir: "compra de servidores con GPU" con regresión logística sugiere el segmento 43 con 62,3%](docs/demo/sugerir.png)
+
+**Auditar contratos.** Se sube un CSV, o se usa la muestra de 300 contratos de 2026, y se marcan los que tienen una categoría que no coincide con su descripción. Es una alerta para revisar, no prueba de que el código esté mal.
+
+![Modo Auditar: la SVM lineal marca 19 de 300 contratos de 2026 con confianza mínima de 0,80](docs/demo/auditar.png)
+
 ## Pipeline de PLN
 
 | Etapa | Módulo | Qué hace |
@@ -43,6 +59,7 @@ Los municipios y departamentos se cambian por `<LUGAR>` para que el modelo apren
 | `notebooks/` | `01` exploración de datos, `02` ejemplos de cada transformación, `03` evaluación y análisis de errores |
 | `docker/`, `docker-compose.yml` | Imagen de la demo y proxy Caddy |
 | `deploy/` | Scripts que se ejecutan en el servidor para desplegar y operar la demo |
+| `docs/demo/` | Capturas de la demo |
 | `reports/` | Métricas (`metrics/`) y figuras (`figures/`) de todos los modelos |
 | `tests/` | Pruebas unitarias |
 
@@ -190,7 +207,7 @@ La demo vuelve a arrancar sola si se reinicia el servidor. `deploy/detener.sh` n
 
 - No tiene usuarios ni contraseñas: cualquiera que llegue al puerto 80 o 443 puede usarla. Para restringirla, limita las IP en el grupo de seguridad.
 - Una auditoría a la vez, con máximo 5.000 contratos y archivos de hasta 10 MB. Las sugerencias siguen funcionando mientras tanto.
-- Las auditorías grandes conviene hacerlas con un modelo clásico. En una prueba en contenedor con 2 CPU, auditar 300 contratos tomó 0,5 s con la regresión logística y 20 s con BETO.
+- Las auditorías grandes conviene hacerlas con un modelo clásico. En la `t3.medium`, medido desde fuera del servidor, las sugerencias tardan menos de 0,5 s con cualquier modelo, y auditar 300 contratos tomó 1,4 s con la regresión logística y 37 s con BETO.
 
 | Problema | Solución |
 |---|---|
@@ -212,7 +229,7 @@ SECOP II - Contratos Electrónicos, publicado por Colombia Compra Eficiente en d
 | CNN 1D sobre fastText | 0,652 | 0,859 | 0,534 | 0,839 | 0,01 |
 | BETO (fine-tuning, 3 épocas) | **0,667** | **0,871** | **0,556** | **0,853** | 6 |
 
-Los cuatro modelos están publicados en Hugging Face: [crissebasbol/secopedia-beto-unspsc](https://huggingface.co/crissebasbol/secopedia-beto-unspsc) (BETO en la raíz y los modelos clásicos en `clasicos/`). La demo los descarga automáticamente si no se entrenaron localmente.
+Los cuatro modelos están publicados en Hugging Face: [crissebasbol/secopedia-beto-unspsc](https://huggingface.co/crissebasbol/secopedia-beto-unspsc) (BETO en la raíz y los modelos clásicos en `clasicos/`). La demo los descarga automáticamente si no se entrenaron localmente. Las métricas completas están en `reports/metrics/` y en [`/api/metricas`](http://54.167.29.15/api/metricas).
 
 BETO es el mejor en todas las métricas, sobre todo en top-3 con contratos nuevos (2026): en 85 de cada 100 el segmento correcto está entre las 3 sugerencias. A cambio, es unas 600 veces más lento por contrato (6 ms frente a 0,01 ms), aunque sigue siendo instantáneo para un usuario. El entrenamiento tomó 57 minutos con GPU. Los tiempos son de un mismo equipo y cambian según el hardware.
 
