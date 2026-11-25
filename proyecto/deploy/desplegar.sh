@@ -1,51 +1,49 @@
 #!/usr/bin/env bash
-# Copia el código, construye la imagen en el servidor y levanta la demo. También sirve para actualizar.
+# Despliega o actualiza la demo en la máquina donde se ejecuta.
+#   deploy/desplegar.sh             git pull, construir y levantar
+#   deploy/desplegar.sh --sin-pull  usa el código tal como está
 source "$(dirname "$0")/comun.sh"
-cd "$CARPETA_PROYECTO"
-mkdir -p docker/certs
 
-remoto 'docker compose version >/dev/null 2>&1' || {
-  echo "El servidor no tiene Docker. Ejecuta primero deploy/preparar_servidor.sh" >&2; exit 1; }
-
-titulo "Copiando el código a $SSH_HOST"
-# Se borra el código anterior (no los volúmenes) para que no queden archivos viejos.
-# COPYFILE_DISABLE evita los archivos ._* que agrega macOS.
-COPYFILE_DISABLE=1 tar --exclude='__pycache__' --exclude='*.egg-info' --exclude='*.parquet' --exclude='*.crt' \
-    --exclude='.DS_Store' -czf - \
-    docker docker-compose.yml .dockerignore requirements-serve.txt configs src reports/metrics \
-  | remoto "mkdir -p $CARPETA_REMOTA && cd $CARPETA_REMOTA && rm -rf docker configs src reports && tar --warning=no-unknown-keyword -xzf -"
-
-remoto "cat > $CARPETA_REMOTA/.env" <<ENV
-SECOPEDIA_DIRECCION=$SECOPEDIA_DIRECCION
-SECOPEDIA_PRECARGAR=$SECOPEDIA_PRECARGAR
-MEMORIA_APP=$MEMORIA_APP
-HILOS=$HILOS
-ENV
-
-titulo "Construyendo la imagen (la primera vez tarda varios minutos)"
-compose_remoto build app
-
-titulo "Levantando los contenedores"
-compose_remoto up -d --remove-orphans
-# El Caddyfile se monta como archivo: se recrea el proxy para que tome los cambios.
-compose_remoto up -d --force-recreate --no-deps proxy
-
-titulo "Esperando a la demo (la primera vez descarga unos 500 MB de modelos)"
-espera=0
-until [ "$(remoto "docker inspect -f '{{.State.Health.Status}}' \$(cd $CARPETA_REMOTA && docker compose ps -q app)" 2>/dev/null)" = healthy ]; do
-  if [ "$espera" -ge 900 ]; then
-    echo "La demo no respondió en 15 minutos. Últimos registros:" >&2
-    compose_remoto logs --tail 40 app >&2
-    exit 1
+# Todo va en una función: git pull puede reemplazar este archivo mientras se ejecuta.
+principal() {
+  if [ "${1:-}" != "--sin-pull" ]; then
+    titulo "Actualizando el código"
+    git pull --ff-only
+    # Se continúa con la versión recién descargada de este script.
+    exec "$PWD/deploy/desplegar.sh" --sin-pull
   fi
-  sleep 10; espera=$((espera + 10)); printf '.'
-done
-echo " lista"
 
-titulo "Liberando espacio de imágenes anteriores"
-remoto 'docker image prune -f >/dev/null; docker builder prune -f --keep-storage 3GB >/dev/null 2>&1 || true; df -h / | tail -1'
+  [ -f .env ] || { cp .env.example .env; echo "Se creó .env con los valores por defecto"; }
 
-echo
-echo "Interfaz: $(url_publica)"
-echo "API:      $(url_publica)/docs"
-echo "Prueba:   deploy/probar.sh $(url_publica)"
+  titulo "Construyendo la imagen (la primera vez tarda varios minutos)"
+  compose build app
+
+  titulo "Levantando los contenedores"
+  compose up -d --remove-orphans
+  # El Caddyfile se monta como archivo: se recrea el proxy para que tome los cambios.
+  compose up -d --force-recreate --no-deps proxy
+
+  titulo "Esperando a la demo (la primera vez descarga unos 500 MB de modelos)"
+  local espera=0
+  until [ "$("${DOCKER[@]}" inspect -f '{{.State.Health.Status}}' "$(compose ps -q app)" 2>/dev/null)" = healthy ]; do
+    if [ "$espera" -ge 900 ]; then
+      echo "La demo no respondió en 15 minutos. Últimos registros:" >&2
+      compose logs --tail 40 app >&2
+      exit 1
+    fi
+    sleep 10; espera=$((espera + 10)); printf '.'
+  done
+  echo " lista"
+
+  titulo "Liberando espacio de imágenes anteriores"
+  "${DOCKER[@]}" image prune -f >/dev/null
+  df -h / | tail -1
+
+  local puerto
+  puerto="$(compose port proxy 80 | sed 's/.*://')"
+  echo
+  echo "Demo lista en el puerto $puerto. Prueba: deploy/probar.sh http://localhost:$puerto"
+}
+
+principal "$@"
+exit

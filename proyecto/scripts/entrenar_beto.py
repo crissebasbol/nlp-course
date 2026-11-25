@@ -1,7 +1,7 @@
 """Entrena y evalúa BETO (modelo 7c) localmente.
 
 Usa la GPU si está disponible (CUDA o Apple Silicon con MPS); si no, la CPU.
-En un Apple M4 Pro tarda alrededor de una hora con 3 épocas.
+Con 3 épocas tarda alrededor de una hora en una GPU de portátil.
 
 Guarda:
 - models/beto_secopedia/                  modelo y tokenizador afinados

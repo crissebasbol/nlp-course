@@ -15,7 +15,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     TOKENIZERS_PARALLELISM=false \
     PYTHONPATH=/app/src
 
-# Certificado adicional opcional (redes corporativas que inspeccionan TLS). Vacío en el servidor.
+# Certificados raíz adicionales (.crt), solo si la red los exige. Normalmente vacío.
 COPY docker/certs/ /usr/local/share/ca-certificates/extra/
 RUN update-ca-certificates
 

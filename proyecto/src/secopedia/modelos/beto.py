@@ -2,7 +2,7 @@
 
 Recibe el texto normalizado de la etapa 4 (no los lemas): BETO tiene su propio tokenizador
 de subpalabras (WordPiece) y aprovecha el contexto completo de la oración.
-Se entrena localmente con scripts/entrenar_beto.py (GPU CUDA, Apple Silicon MPS o CPU).
+Se entrena con scripts/entrenar_beto.py (GPU CUDA, Apple Silicon MPS o CPU).
 """
 
 from __future__ import annotations
@@ -81,7 +81,7 @@ def entrenar_beto(
         save_strategy="epoch",
         save_total_limit=1,
         save_only_model=True,  # sin el estado del optimizador: ~0,45 GB por checkpoint en vez de ~1,3 GB
-        # Lotes con textos de longitud parecida: menos relleno, ~1,6x más rápido (medido en un M4 Pro).
+        # Lotes con textos de longitud parecida: menos relleno, ~1,6x más rápido.
         group_by_length=True,
         load_best_model_at_end=True,
         metric_for_best_model="f1_macro",

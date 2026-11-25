@@ -241,8 +241,7 @@ proyecto/.venv/
 proyecto/logs/
 # Probabilidades de BETO por partición (~8 MB; se regeneran con entrenar_beto.py --solo-evaluar)
 proyecto/reports/metrics/beto_probabilidades_*.parquet
-# Despliegue: datos del servidor y certificados locales
-proyecto/deploy/servidor.env
+# Despliegue: certificados locales y llaves (proyecto/.env ya está ignorado)
 proyecto/docker/certs/*
 !proyecto/docker/certs/.gitkeep
 *.pem
