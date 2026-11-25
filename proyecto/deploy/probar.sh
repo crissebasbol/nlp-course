@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Prueba una demo en marcha: estado, los cuatro modelos y una auditoría de la muestra.
+# Prueba una demo en marcha: estado, los cuatro modelos y dos auditorías de la muestra.
 #   deploy/probar.sh http://localhost        (por defecto)
 #   deploy/probar.sh https://mi-dominio.com
 set -euo pipefail

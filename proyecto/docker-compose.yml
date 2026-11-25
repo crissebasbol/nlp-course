@@ -1,7 +1,7 @@
 # Dos contenedores:
 #   app    FastAPI, interfaz y modelos (solo accesible dentro de la red de Docker)
 #   proxy  Caddy: puertos 80 y 443, HTTPS automático si hay dominio
-# Los valores se leen del archivo .env que escribe deploy/desplegar.sh.
+# Los valores se leen del archivo .env (ver .env.example).
 name: secopedia
 
 services:

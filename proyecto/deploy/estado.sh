@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
-# Estado de los contenedores, memoria y disco del servidor.
+# Estado de los contenedores, memoria y disco.
 source "$(dirname "$0")/comun.sh"
-compose_remoto ps
-remoto 'docker stats --no-stream; echo; free -h; echo; df -h / | tail -1'
+compose ps
+"${DOCKER[@]}" stats --no-stream
+echo
+if command -v free >/dev/null; then free -h; fi
+df -h / | tail -1

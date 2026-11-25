@@ -1,18 +1,16 @@
 #!/usr/bin/env bash
-# Prepara un Ubuntu 24.04 recién creado: Docker, compose y 2 GB de swap. Se ejecuta una sola vez;
-# repetirlo no daña nada.
-source "$(dirname "$0")/comun.sh"
-
-titulo "Instalando Docker en $SSH_HOST"
-remoto 'bash -s' <<'REMOTO'
+# Se ejecuta una sola vez en un servidor Ubuntu 24.04 recién creado, con un usuario que tenga sudo.
+# Instala Docker con Compose y crea 2 GB de swap. Repetirlo no daña nada.
 set -euo pipefail
 export DEBIAN_FRONTEND=noninteractive
-# En una instancia nueva, cloud-init puede estar usando apt todavía.
+
+# En una máquina nueva, cloud-init puede estar usando apt todavía.
 if command -v cloud-init >/dev/null; then sudo cloud-init status --wait >/dev/null || true; fi
 sudo apt-get -o DPkg::Lock::Timeout=300 update -q
-sudo apt-get -o DPkg::Lock::Timeout=300 install -yq docker.io docker-compose-v2 docker-buildx curl
+sudo apt-get -o DPkg::Lock::Timeout=300 install -yq docker.io docker-compose-v2 docker-buildx git curl
 sudo systemctl enable --now docker
 sudo usermod -aG docker "$USER"
+
 # Swap: margen para construir la imagen y para picos de memoria. Si no se puede, se sigue sin él.
 activar_swap() {
   sudo swapon --show | grep -q /swapfile && return
@@ -21,8 +19,6 @@ activar_swap() {
   grep -q '^/swapfile ' /etc/fstab || echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab >/dev/null
 }
 activar_swap || echo "Aviso: no se pudo activar el swap"
-REMOTO
 
-titulo "Comprobando"
-remoto 'docker --version && docker compose version && free -h && df -h / | tail -1'
+docker --version && sudo docker compose version && free -h && df -h / | tail -1
 echo "Servidor listo. Sigue: deploy/desplegar.sh"
