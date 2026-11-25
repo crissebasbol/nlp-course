@@ -41,6 +41,8 @@ Los municipios y departamentos se cambian por `<LUGAR>` para que el modelo apren
 | `src/secopedia/` | Código del pipeline (una etapa por módulo) y la demo web |
 | `scripts/` | Programas que encadenan las etapas: descargar, preparar, preprocesar y entrenar |
 | `notebooks/` | `01` exploración de datos, `02` ejemplos de cada transformación, `03` evaluación y análisis de errores |
+| `docker/`, `docker-compose.yml` | Imagen de la demo y proxy Caddy |
+| `deploy/` | Scripts para desplegar la demo en un servidor |
 | `reports/` | Métricas (`metrics/`) y figuras (`figures/`) de todos los modelos |
 | `tests/` | Pruebas unitarias |
 
@@ -50,6 +52,8 @@ Los municipios y departamentos se cambian por `<LUGAR>` para que el modelo apren
 - Conexión a internet para instalar las dependencias y descargar los modelos o los datos.
 - Espacio en disco: unos 2,5 GB para la demo (entorno y modelos) y unos 5 GB para el pipeline completo.
 - GPU opcional: solo se recomienda para entrenar BETO (CUDA o Apple Silicon).
+- Docker con Compose v2, solo para la demo en contenedores.
+- Para desplegarla: un servidor x86 con 2 vCPU, 4 GB de RAM y 20 GB de disco (por ejemplo, una `t3.medium` de AWS). No necesita GPU.
 - Librerías principales: pandas, spaCy, scikit-learn, gensim, PyTorch, Transformers y FastAPI. Las versiones exactas están en `requirements.txt`.
 
 ## Instalación paso a paso
@@ -109,6 +113,85 @@ pytest
 El entrenamiento de BETO usa la GPU si está disponible (CUDA o Apple Silicon); en CPU funciona, pero mucho más lento. La demo usa CUDA si existe y, si no, la CPU.
 
 Los datos se guardan en `data/` y no se suben al repositorio.
+
+## Despliegue
+
+La demo se publica con dos contenedores: `app` (API, interfaz y los cuatro modelos) y `proxy` (Caddy, que atiende los puertos 80 y 443 y maneja HTTPS). El puerto 8000 de la aplicación no se expone. Los modelos se descargan de Hugging Face en el primer arranque y quedan en un volumen.
+
+```
+navegador ──80/443──> proxy (Caddy) ──8000, red interna──> app (FastAPI + modelos)
+```
+
+### Probar los contenedores en este computador
+
+```bash
+deploy/local.sh                          # construye y levanta en http://localhost:8080
+deploy/probar.sh http://localhost:8080   # prueba los cuatro modelos y la auditoría
+deploy/local.sh detener
+```
+
+### 1. Crear la instancia en AWS
+
+En la consola de EC2, *Launch instance*:
+
+| Opción | Valor |
+|---|---|
+| Imagen | Ubuntu Server 24.04 LTS, **64-bit (x86)** |
+| Tipo | `t3.medium` (2 vCPU, 4 GB) |
+| Par de llaves | Crear uno y guardar el `.pem` fuera del repositorio |
+| Disco | 20 GB gp3 |
+| Puerto 22 (SSH) | Solo *My IP* |
+| Puertos 80 y 443 | Cualquier origen (`0.0.0.0/0`), o solo las IP que vayan a usar la demo |
+
+- No sirve una instancia ARM (`t4g`): spaCy 3.8.3 no tiene paquete listo para Linux ARM.
+- La IP pública cambia al detener y encender la instancia. Para conservarla, asocia una *Elastic IP*.
+- Conviene crear una alerta de gasto en AWS Budgets.
+
+### 2. Configurar
+
+```bash
+chmod 400 ~/.ssh/secopedia.pem
+cp deploy/servidor.env.example deploy/servidor.env   # no se sube a git
+```
+
+En `deploy/servidor.env` completa `SSH_HOST` con la IP pública y `SSH_LLAVE` con la ruta del `.pem`.
+
+### 3. Desplegar
+
+```bash
+deploy/preparar_servidor.sh   # una sola vez: instala Docker y crea 2 GB de swap
+deploy/desplegar.sh           # copia el código, construye la imagen y espera a que responda
+deploy/probar.sh http://IP_PUBLICA
+```
+
+Para publicar cambios se repite `deploy/desplegar.sh`.
+
+### HTTPS con dominio
+
+Crea un registro DNS de tipo A que apunte a la IP, pon `SECOPEDIA_DIRECCION="secopedia.midominio.com"` en `deploy/servidor.env` y repite `deploy/desplegar.sh`. Caddy obtiene y renueva el certificado. Con solo la IP, la demo funciona por HTTP sin cifrar.
+
+### Operación
+
+| Comando | Qué hace |
+|---|---|
+| `deploy/estado.sh` | Contenedores, memoria y disco |
+| `deploy/registros.sh app` | Registros en vivo (`app` o `proxy`) |
+| `deploy/detener.sh` | Detiene la demo y conserva los modelos descargados |
+
+La demo vuelve a arrancar sola si se reinicia el servidor. `deploy/detener.sh` no apaga la instancia: para dejar de pagar el cómputo hay que detenerla en la consola de AWS (el disco se sigue cobrando).
+
+### Límites
+
+- No tiene usuarios ni contraseñas: cualquiera que llegue al puerto 80 o 443 puede usarla. Para restringirla, limita las IP en el grupo de seguridad.
+- Una auditoría a la vez, con máximo 5.000 contratos y archivos de hasta 10 MB. Las sugerencias siguen funcionando mientras tanto.
+- Las auditorías grandes conviene hacerlas con un modelo clásico. En una prueba local en contenedor con 2 CPU, auditar 300 contratos tomó 0,5 s con la regresión logística y 20 s con BETO.
+
+| Problema | Solución |
+|---|---|
+| `Connection timed out` por SSH | Tu IP cambió: actualiza la regla del puerto 22 en el grupo de seguridad |
+| `UNPROTECTED PRIVATE KEY FILE` | `chmod 400` a la llave |
+| La demo no responde tras desplegar | `deploy/registros.sh app`; el servidor necesita salida a internet para descargar los modelos |
+| No se emite el certificado | El dominio debe apuntar a la IP, y los puertos 80 y 443 deben estar abiertos |
 
 ## Datos
 
