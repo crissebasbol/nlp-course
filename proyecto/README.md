@@ -24,6 +24,15 @@ Cuando una entidad pública publica un proceso en SECOP II debe clasificar lo qu
 | 8. Evaluación | `src/secopedia/evaluacion.py` | Accuracy, F1 macro, F1 ponderado, top-3 accuracy y matriz de confusión |
 | 9. Demo | `src/secopedia/prediccion.py`, `src/secopedia/web/` | `predecir(texto)` (top 3) y `auditar(contratos)`, expuestos en una API FastAPI con interfaz web |
 
+### Por qué se reemplazan los lugares
+
+Los municipios y departamentos se cambian por `<LUGAR>` para que el modelo aprenda qué se compra y no dónde. La literatura muestra que depender de las entidades del texto puede dañar la generalización a otros dominios (Suntwal et al., 2019) y a datos futuros (Zhu et al., 2022), que es lo que mide la prueba temporal de 2026.
+
+- Es una decisión de diseño: no se entrenó una versión sin reemplazo, así que su efecto en las métricas no está medido. El efecto del preprocesamiento depende de los datos, el dominio y el idioma (Uysal y Gunal, 2014; HaCohen-Kerner et al., 2020).
+- También puede ser desfavorable: en clasificación por temas, ocultar entidades hizo menos estables las predicciones de otros modelos ([arXiv:2404.06838](https://arxiv.org/abs/2404.06838)).
+- Solo BETO recibe la marca `<LUGAR>`. En la regresión, la SVM y la CNN se descarta al lematizar, lo que equivale a borrar el lugar.
+- Limitación: los nombres cortos que no están en DIVIPOLA no se reemplazan (la lista trae "Santiago de Cali", pero no "Cali").
+
 ## Estructura
 
 | Carpeta | Contenido |
@@ -138,3 +147,10 @@ El análisis de errores completo está en `notebooks/03_analisis_errores.ipynb`.
 El promedio de las probabilidades de los cuatro modelos llega a F1 macro 0,680 y top-3 0,877 en prueba, un poco mejor que BETO solo. La demo usa los modelos por separado.
 
 Con más datos de entrenamiento la mejora casi se detiene: al pasar de 105 mil a 284 mil contratos, la CNN gana menos de 1 punto de F1 y la regresión logística empeora (`scripts/curva_aprendizaje.py`, `reports/figures/curva_aprendizaje.png`).
+
+## Referencias
+
+- HaCohen-Kerner, Y., Miller, D. y Yigal, Y. (2020). The influence of preprocessing on text classification using a bag-of-words representation. *PLOS ONE, 15*(5), e0232525. https://doi.org/10.1371/journal.pone.0232525
+- Suntwal, S., Paul, M., Sharp, R. y Surdeanu, M. (2019). On the Importance of Delexicalization for Fact Verification. *EMNLP-IJCNLP 2019*, 3413-3418. https://aclanthology.org/D19-1340/
+- Uysal, A. K. y Gunal, S. (2014). The impact of preprocessing on text classification. *Information Processing & Management, 50*(1), 104-112. https://doi.org/10.1016/j.ipm.2013.08.006
+- Zhu, Y., Sheng, Q., Cao, J., Li, S., Wang, D. y Zhuang, F. (2022). Generalizing to the Future: Mitigating Entity Bias in Fake News Detection. *SIGIR 2022*. https://arxiv.org/abs/2204.09484
