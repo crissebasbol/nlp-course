@@ -44,13 +44,11 @@ limpieza:
     - na
   patron_codigo: '^V1\.\d{8}$'
   # Códigos "por defecto" que no describen el contenido (801116 = personal temporal).
-  # Decisión del EDA: se conservan los tipos "Otro" y "Decreto 092 de 2017", pero se quita
-  # este código en todos los tipos, igual que se excluyó prestación de servicios.
   prefijos_codigo_excluidos:
     - V1.801116
 
 etiquetas:
-  # Con 3.000 quedan 28 segmentos + "otros" tras deduplicar (ver notebooks/01_eda.ipynb).
+  # Con 3.000 quedan 28 segmentos + "otros"
   min_ejemplos_por_segmento: 3000
   nombre_clase_otros: otros
   tope_por_clase: 5000

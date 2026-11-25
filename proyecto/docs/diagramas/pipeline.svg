@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1176" width="1200" height="1176" role="img" aria-label="Pipeline de PLN de SECOPEDIA">
+<defs><marker id="f" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#4a5d63"/></marker></defs>
+<rect width="1200" height="1176" fill="#ffffff"/>
+<text x="40" y="48" font-family="Helvetica, Arial, sans-serif" font-size="28" font-weight="700" fill="#14282c" text-anchor="start">Pipeline de PLN de SECOPEDIA</text>
+<text x="1160" y="48" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="400" fill="#526669" text-anchor="end">Del objeto del contrato al segmento UNSPSC</text>
+<rect x="16" y="70" width="1168" height="188" rx="8" fill="#e6f1f2"/>
+<text x="40" y="100" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="700" fill="#0a6870" text-anchor="start">Datos</text>
+<rect x="40" y="114" width="346" height="126" rx="6" fill="#ffffff" stroke="#0a6870" stroke-width="2"/>
+<text x="56" y="145" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="700" fill="#0a6870" text-anchor="start">1. Extracción</text>
+<text x="56" y="173" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="400" fill="#22343a" text-anchor="start">API de datos.gov.co (SECOP II)</text>
+<text x="56" y="197" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="400" fill="#22343a" text-anchor="start">Contratos desde 2022</text>
+<text x="56" y="221" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="400" fill="#22343a" text-anchor="start">585.990 contratos</text>
+<rect x="427" y="114" width="346" height="126" rx="6" fill="#ffffff" stroke="#0a6870" stroke-width="2"/>
+<text x="443" y="145" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="700" fill="#0a6870" text-anchor="start">2. Limpieza</text>
+<text x="443" y="173" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="400" fill="#22343a" text-anchor="start">Sin vacíos, códigos inválidos</text>
+<text x="443" y="197" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="400" fill="#22343a" text-anchor="start">ni duplicados</text>
+<text x="443" y="221" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="400" fill="#22343a" text-anchor="start">373.954 contratos</text>
+<rect x="814" y="114" width="346" height="126" rx="6" fill="#ffffff" stroke="#0a6870" stroke-width="2"/>
+<text x="830" y="145" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="700" fill="#0a6870" text-anchor="start">3. Etiquetas y particiones</text>
+<text x="830" y="173" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="400" fill="#22343a" text-anchor="start">28 segmentos + &quot;otros&quot;</text>
+<text x="830" y="197" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="400" fill="#22343a" text-anchor="start">Entrenamiento, validación, prueba</text>
+<text x="830" y="221" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="400" fill="#22343a" text-anchor="start">y prueba temporal (2026)</text>
+<path d="M386 177.0H424" fill="none" stroke="#4a5d63" stroke-width="2.5"  marker-end="url(#f)"/>
+<path d="M773 177.0H811" fill="none" stroke="#4a5d63" stroke-width="2.5"  marker-end="url(#f)"/>
+<rect x="16" y="334" width="1168" height="188" rx="8" fill="#fdf3d6"/>
+<text x="320" y="364" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="700" fill="#8a6100" text-anchor="start">Preparación del texto</text>
+<path d="M987 240V298H300V375" fill="none" stroke="#4a5d63" stroke-width="2.5"  marker-end="url(#f)"/>
+<rect x="40" y="277" width="218" height="38" rx="19" fill="#ffffff" stroke="#4a5d63" stroke-width="2" stroke-dasharray="7 5"/>
+<text x="149" y="302" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="700" fill="#22343a" text-anchor="middle">Contrato nuevo (en uso)</text>
+<path d="M110 315V375" fill="none" stroke="#4a5d63" stroke-width="2.5" stroke-dasharray='7 5' marker-end="url(#f)"/>
+<rect x="40" y="378" width="346" height="126" rx="6" fill="#ffffff" stroke="#8a6100" stroke-width="2"/>
+<text x="56" y="409" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="700" fill="#8a6100" text-anchor="start">4. Normalización</text>
+<text x="56" y="437" font-family="Menlo, Consolas, monospace" font-size="15.5" font-weight="400" fill="#22343a" text-anchor="start">adquisicion de &lt;NUM&gt;</text>
+<text x="56" y="461" font-family="Menlo, Consolas, monospace" font-size="15.5" font-weight="400" fill="#22343a" text-anchor="start">computadores portatiles ...</text>
+<text x="56" y="485" font-family="Menlo, Consolas, monospace" font-size="15.5" font-weight="400" fill="#22343a" text-anchor="start">municipio de &lt;LUGAR&gt;</text>
+<rect x="427" y="378" width="733" height="126" rx="6" fill="#ffffff" stroke="#8a6100" stroke-width="2"/>
+<text x="443" y="409" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="700" fill="#8a6100" text-anchor="start">5. Tokens y lemas (spaCy)</text>
+<text x="443" y="437" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="400" fill="#22343a" text-anchor="start">Quita palabras vacías y deja la forma base de cada palabra</text>
+<text x="443" y="461" font-family="Menlo, Consolas, monospace" font-size="15.5" font-weight="400" fill="#22343a" text-anchor="start">computador  portatil  secretaria  educacion</text>
+<path d="M386 441.0H424" fill="none" stroke="#4a5d63" stroke-width="2.5"  marker-end="url(#f)"/>
+<rect x="16" y="558" width="1168" height="312" rx="8" fill="#e9ecf8"/>
+<text x="235" y="588" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="700" fill="#3b4a9c" text-anchor="start">Representación y modelos</text>
+<path d="M213 504V599" fill="none" stroke="#4a5d63" stroke-width="2.5"  marker-end="url(#f)"/>
+<path d="M600 504V599" fill="none" stroke="#4a5d63" stroke-width="2.5"  marker-end="url(#f)"/>
+<path d="M987 504V599" fill="none" stroke="#4a5d63" stroke-width="2.5"  marker-end="url(#f)"/>
+<rect x="40" y="602" width="346" height="102" rx="6" fill="#ffffff" stroke="#3b4a9c" stroke-width="2"/>
+<text x="56" y="633" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="700" fill="#3b4a9c" text-anchor="start">6. Subpalabras</text>
+<text x="56" y="661" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="400" fill="#22343a" text-anchor="start">Tokenizador de BETO</text>
+<text x="56" y="685" font-family="Menlo, Consolas, monospace" font-size="15.5" font-weight="400" fill="#22343a" text-anchor="start">adquis ##icion de ...</text>
+<rect x="427" y="602" width="346" height="102" rx="6" fill="#ffffff" stroke="#3b4a9c" stroke-width="2"/>
+<text x="443" y="633" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="700" fill="#3b4a9c" text-anchor="start">6. TF-IDF</text>
+<text x="443" y="661" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="400" fill="#22343a" text-anchor="start">Unigramas y bigramas</text>
+<text x="443" y="685" font-family="Menlo, Consolas, monospace" font-size="15.5" font-weight="400" fill="#22343a" text-anchor="start">computador portatil  0,535</text>
+<rect x="814" y="602" width="346" height="102" rx="6" fill="#ffffff" stroke="#3b4a9c" stroke-width="2"/>
+<text x="830" y="633" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="700" fill="#3b4a9c" text-anchor="start">6. fastText</text>
+<text x="830" y="661" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="400" fill="#22343a" text-anchor="start">Vectores propios de 100</text>
+<text x="830" y="685" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="400" fill="#22343a" text-anchor="start">números por lema</text>
+<rect x="40" y="748" width="346" height="102" rx="6" fill="#ffffff" stroke="#3b4a9c" stroke-width="2"/>
+<text x="56" y="779" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="700" fill="#3b4a9c" text-anchor="start">7. BETO</text>
+<text x="56" y="807" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="400" fill="#22343a" text-anchor="start">BERT en español, ajustado</text>
+<text x="56" y="831" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="400" fill="#22343a" text-anchor="start">F1 0,667 · top 3 0,871</text>
+<rect x="427" y="748" width="346" height="102" rx="6" fill="#ffffff" stroke="#3b4a9c" stroke-width="2"/>
+<text x="443" y="779" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="700" fill="#3b4a9c" text-anchor="start">7. Regresión logística y SVM</text>
+<text x="443" y="807" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="400" fill="#22343a" text-anchor="start">Reg.: F1 0,651 · top 3 0,855</text>
+<text x="443" y="831" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="400" fill="#22343a" text-anchor="start">SVM: F1 0,659 · top 3 0,845</text>
+<rect x="814" y="748" width="346" height="102" rx="6" fill="#ffffff" stroke="#3b4a9c" stroke-width="2"/>
+<text x="830" y="779" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="700" fill="#3b4a9c" text-anchor="start">7. Red neuronal (CNN)</text>
+<text x="830" y="807" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="400" fill="#22343a" text-anchor="start">Filtros de 2, 3 y 4 palabras</text>
+<text x="830" y="831" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="400" fill="#22343a" text-anchor="start">F1 0,652 · top 3 0,859</text>
+<path d="M213 704V745" fill="none" stroke="#4a5d63" stroke-width="2.5"  marker-end="url(#f)"/>
+<path d="M600 704V745" fill="none" stroke="#4a5d63" stroke-width="2.5"  marker-end="url(#f)"/>
+<path d="M987 704V745" fill="none" stroke="#4a5d63" stroke-width="2.5"  marker-end="url(#f)"/>
+<rect x="16" y="924" width="1168" height="218" rx="8" fill="#e6f3ea"/>
+<text x="40" y="954" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="700" fill="#1d6b3d" text-anchor="start">Evaluación y uso</text>
+<path d="M213 850V897" fill="none" stroke="#4a5d63" stroke-width="2.5"/>
+<path d="M600 850V897" fill="none" stroke="#4a5d63" stroke-width="2.5"/>
+<path d="M987 850V897" fill="none" stroke="#4a5d63" stroke-width="2.5"/>
+<path d="M213 897H987" fill="none" stroke="#4a5d63" stroke-width="2.5"/>
+<path d="M310 897V965" fill="none" stroke="#4a5d63" stroke-width="2.5"  marker-end="url(#f)"/>
+<path d="M890 897V965" fill="none" stroke="#4a5d63" stroke-width="2.5"  marker-end="url(#f)"/>
+<rect x="40" y="968" width="540" height="156" rx="6" fill="#ffffff" stroke="#1d6b3d" stroke-width="2"/>
+<text x="56" y="999" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="700" fill="#1d6b3d" text-anchor="start">8. Evaluación</text>
+<text x="56" y="1027" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="400" fill="#22343a" text-anchor="start">F1 macro, top 3 y matriz de confusión</text>
+<text x="56" y="1051" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="400" fill="#22343a" text-anchor="start">Prueba (2022 a 2025) y prueba temporal (2026)</text>
+<text x="56" y="1075" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="400" fill="#22343a" text-anchor="start">Análisis de errores y curva de aprendizaje</text>
+<rect x="620" y="968" width="540" height="156" rx="6" fill="#ffffff" stroke="#1d6b3d" stroke-width="2"/>
+<text x="636" y="999" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="700" fill="#1d6b3d" text-anchor="start">9. Predicción y demo (FastAPI)</text>
+<text x="636" y="1027" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="400" fill="#22343a" text-anchor="start">Ajuste a la frecuencia real de los segmentos</text>
+<text x="636" y="1051" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="400" fill="#22343a" text-anchor="start">Sugerir: 43 Tecnologías, 84% (regresión logística)</text>
+<text x="636" y="1075" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="400" fill="#22343a" text-anchor="start">Auditar: marca contratos cuyo segmento</text>
+<text x="636" y="1099" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="400" fill="#22343a" text-anchor="start">registrado no coincide con el sugerido</text>
+<text x="40" y="1164" font-family="Helvetica, Arial, sans-serif" font-size="14.2" font-weight="400" fill="#526669" text-anchor="start">F1 macro y top 3 en la partición de prueba, sin ajuste. Ejemplo: &quot;Adquisición de 25 computadores portátiles para la secretaría de educación del municipio de Pasto&quot;.</text>
+</svg>
