@@ -1,0 +1,40 @@
+{
+ "regresion_logistica": {
+  "C": 4.0,
+  "prueba": {
+   "accuracy": 0.6574,
+   "f1_macro": 0.6508,
+   "f1_ponderado": 0.6546,
+   "top3_accuracy": 0.8548,
+   "n": 13128,
+   "ms_por_contrato": 0.01
+  },
+  "prueba_temporal": {
+   "accuracy": 0.577,
+   "f1_macro": 0.5361,
+   "f1_ponderado": 0.5819,
+   "top3_accuracy": 0.8216,
+   "n": 20000,
+   "ms_por_contrato": 0.011
+  }
+ },
+ "svm_lineal": {
+  "C": 0.5,
+  "prueba": {
+   "accuracy": 0.6668,
+   "f1_macro": 0.6587,
+   "f1_ponderado": 0.6628,
+   "top3_accuracy": 0.8447,
+   "n": 13128,
+   "ms_por_contrato": 0.011
+  },
+  "prueba_temporal": {
+   "accuracy": 0.5874,
+   "f1_macro": 0.5442,
+   "f1_ponderado": 0.5898,
+   "top3_accuracy": 0.8196,
+   "n": 20000,
+   "ms_por_contrato": 0.011
+  }
+ }
+}

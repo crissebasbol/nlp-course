@@ -1,0 +1,29 @@
+{
+ "epocas": 3,
+ "tasa_aprendizaje": 3e-05,
+ "minutos_entrenamiento": 57.5,
+ "validacion": {
+  "accuracy": 0.6846,
+  "f1_macro": 0.6752,
+  "f1_ponderado": 0.6795,
+  "top3_accuracy": 0.8719,
+  "n": 13127,
+  "ms_por_contrato": 5.909
+ },
+ "prueba": {
+  "accuracy": 0.6791,
+  "f1_macro": 0.6673,
+  "f1_ponderado": 0.673,
+  "top3_accuracy": 0.8713,
+  "n": 13128,
+  "ms_por_contrato": 5.91
+ },
+ "prueba_temporal": {
+  "accuracy": 0.6022,
+  "f1_macro": 0.556,
+  "f1_ponderado": 0.6062,
+  "top3_accuracy": 0.853,
+  "n": 20000,
+  "ms_por_contrato": 6.346
+ }
+}

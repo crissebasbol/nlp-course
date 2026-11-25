@@ -1,0 +1,12 @@
+# Solo entra lo que usa docker/Dockerfile.
+*
+!requirements-serve.txt
+!configs/**
+!docker/certs/**
+!reports/metrics/ajuste_distribucion.json
+!reports/metrics/linea_base.json
+!reports/metrics/red_neuronal.json
+!reports/metrics/beto.json
+!src/**
+**/__pycache__
+**/*.egg-info

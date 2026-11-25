@@ -2,6 +2,10 @@
 .claude/
 CLAUDE.md
 
+# Internal planning and Claude context for the project (never upload)
+proyecto/plan.md
+proyecto/contexto_claude*.md
+
 # IDE
 .idea/
 
@@ -229,3 +233,16 @@ __marimo__/
 talleres/taller_7/guion_presentacion.md
 talleres/taller_7/resumen_articulos.md
 talleres/taller_7/internal.md
+
+# Proyecto final: datos y modelos pesados (se regeneran con los scripts)
+proyecto/data/
+proyecto/models/
+proyecto/.venv/
+proyecto/logs/
+# Probabilidades de BETO por partición (~8 MB; se regeneran con entrenar_beto.py --solo-evaluar)
+proyecto/reports/metrics/beto_probabilidades_*.parquet
+# Despliegue: datos del servidor y certificados locales
+proyecto/deploy/servidor.env
+proyecto/docker/certs/*
+!proyecto/docker/certs/.gitkeep
+*.pem

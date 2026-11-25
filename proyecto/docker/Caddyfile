@@ -1,0 +1,18 @@
+# Proxy público. Con un dominio en SECOPEDIA_DIRECCION, Caddy obtiene y renueva solo el certificado HTTPS.
+{$SECOPEDIA_DIRECCION} {
+	encode gzip
+	request_body {
+		max_size 10MB
+	}
+	header {
+		X-Content-Type-Options nosniff
+		X-Frame-Options DENY
+		Referrer-Policy no-referrer
+		-Server
+	}
+	reverse_proxy app:8000 {
+		transport http {
+			response_header_timeout 10m
+		}
+	}
+}

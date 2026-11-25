@@ -1,0 +1,32 @@
+# Datos y utilidades
+pandas==2.2.3
+pyarrow==18.1.0
+requests==2.32.3
+pyyaml==6.0.2
+tqdm==4.67.1
+
+# PLN clásico y modelos
+spacy==3.8.3
+scikit-learn==1.5.2
+gensim==4.4.0
+joblib==1.4.2
+
+# Visualización y notebooks
+matplotlib==3.9.3
+seaborn==0.13.2
+jupyter==1.1.1
+
+# BETO (modelo 7c): usa la GPU si hay (CUDA o Apple Silicon con MPS)
+torch==2.15.0
+transformers==4.46.3
+datasets==3.1.0
+accelerate==1.1.1
+
+# Demo web (API y interfaz)
+fastapi==0.115.6
+uvicorn[standard]==0.32.1
+python-multipart==0.0.19
+
+# Pruebas
+pytest==8.3.4
+httpx==0.28.1

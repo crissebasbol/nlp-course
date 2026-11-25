@@ -1,0 +1,13 @@
+# Dependencias mínimas para servir la demo (imagen Docker, solo CPU).
+# PyTorch se instala aparte en docker/Dockerfile desde el índice de CPU.
+numpy==2.2.6
+pandas==2.2.3
+pyyaml==6.0.2
+scikit-learn==1.5.2
+joblib==1.4.2
+spacy==3.8.3
+es_core_news_sm @ https://github.com/explosion/spacy-models/releases/download/es_core_news_sm-3.8.0/es_core_news_sm-3.8.0-py3-none-any.whl
+transformers==4.46.3
+fastapi==0.115.6
+uvicorn[standard]==0.32.1
+python-multipart==0.0.19
