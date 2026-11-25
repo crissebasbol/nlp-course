@@ -10,7 +10,23 @@ Cuando una entidad pública publica un proceso en SECOP II debe clasificar lo qu
 - **Usuarios secundarios:** proveedores y pymes, veedurías y entes de control.
 - **Tarea de PLN:** clasificación de texto multiclase supervisada (28 segmentos más la clase "otros").
 
+## Demo en línea
+
+**http://54.167.29.15/** ([documentación de la API](http://54.167.29.15/docs))
+
+> **Servidor temporal:** se mantiene encendido para la entrega y la sustentación del proyecto. Después puede apagarse o cambiar de dirección. Si el enlace no responde, la demo se puede ejecutar manualmente. 
+
+Se escribe lo que se quiere contratar y se obtienen los 3 segmentos más probables. En el selector se elige el modelo.
+
+![Modo Sugerir: "compra de servidores con GPU" con regresión logística sugiere el segmento 43 con 62,3%](docs/demo/sugerir.png)
+
+Así mismo se puede subir un CSV, o se usa la muestra de 300 contratos de 2026, y se marcan los que tienen una categoría que no coincide con su descripción.
+
+![Modo Auditar: la SVM lineal marca 19 de 300 contratos de 2026 con confianza mínima de 0,80](docs/demo/auditar.png)
+
 ## Pipeline de PLN
+
+![Diagrama del pipeline de PLN: datos, preparación del texto, representación y modelos, evaluación y uso](docs/diagramas/pipeline.png)
 
 | Etapa | Módulo | Qué hace |
 |---|---|---|
@@ -26,12 +42,9 @@ Cuando una entidad pública publica un proceso en SECOP II debe clasificar lo qu
 
 ### Por qué se reemplazan los lugares
 
-Los municipios y departamentos se cambian por `<LUGAR>` para que el modelo aprenda qué se compra y no dónde. La literatura muestra que depender de las entidades del texto puede dañar la generalización a otros dominios (Suntwal et al., 2019) y a datos futuros (Zhu et al., 2022), que es lo que mide la prueba temporal de 2026.
+Los municipios y departamentos se cambian por `<LUGAR>` para que el modelo aprenda qué se compra y no dónde. La literatura muestra que depender de las entidades del texto puede dañar la generalización a otros dominios (Suntwal et al., 2019) y a datos futuros (Zhu et al., 2022), que es lo que mide la prueba temporal de 2026. 
 
-- Es una decisión de diseño: no se entrenó una versión sin reemplazo, así que su efecto en las métricas no está medido. El efecto del preprocesamiento depende de los datos, el dominio y el idioma (Uysal y Gunal, 2014; HaCohen-Kerner et al., 2020).
-- También puede ser desfavorable: en clasificación por temas, ocultar entidades hizo menos estables las predicciones de otros modelos ([arXiv:2404.06838](https://arxiv.org/abs/2404.06838)).
-- Solo BETO recibe la marca `<LUGAR>`. En la regresión, la SVM y la CNN se descarta al lematizar, lo que equivale a borrar el lugar.
-- Limitación: los nombres cortos que no están en DIVIPOLA no se reemplazan (la lista trae "Santiago de Cali", pero no "Cali").
+Solo BETO recibe la marca `<LUGAR>`. En la regresión, la SVM y la CNN se descarta al lematizar, lo que equivale a borrar el lugar.
 
 ## Estructura
 
@@ -43,6 +56,8 @@ Los municipios y departamentos se cambian por `<LUGAR>` para que el modelo apren
 | `notebooks/` | `01` exploración de datos, `02` ejemplos de cada transformación, `03` evaluación y análisis de errores |
 | `docker/`, `docker-compose.yml` | Imagen de la demo y proxy Caddy |
 | `deploy/` | Scripts que se ejecutan en el servidor para desplegar y operar la demo |
+| `docs/demo/` | Capturas de la demo |
+| `docs/diagramas/` | Diagrama del pipeline (PNG y SVG) |
 | `reports/` | Métricas (`metrics/`) y figuras (`figures/`) de todos los modelos |
 | `tests/` | Pruebas unitarias |
 
@@ -51,9 +66,8 @@ Los municipios y departamentos se cambian por `<LUGAR>` para que el modelo apren
 - Python 3.10 o superior (probado con 3.12).
 - Conexión a internet para instalar las dependencias y descargar los modelos o los datos.
 - Espacio en disco: unos 2,5 GB para la demo (entorno y modelos) y unos 5 GB para el pipeline completo.
-- GPU opcional: solo se recomienda para entrenar BETO (CUDA o Apple Silicon).
-- Docker con Compose v2, solo para la demo en contenedores.
-- Para desplegarla: un servidor x86 con 2 vCPU, 4 GB de RAM y 20 GB de disco (por ejemplo, una `t3.medium` de AWS). No necesita GPU.
+- GPU opcional: solo se recomienda para entrenar BETO.
+- Docker con Compose v2, solo para el despliegue, en un servidor x86 con 2 vCPU y 4 GB de RAM.
 - Librerías principales: pandas, spaCy, scikit-learn, gensim, PyTorch, Transformers y FastAPI. Las versiones exactas están en `requirements.txt`.
 
 ## Instalación paso a paso
@@ -76,8 +90,6 @@ Los cuatro modelos entrenados y el léxico de lugares están publicados en Huggi
 ```bash
 uvicorn secopedia.web.servidor:app --port 8000
 ```
-
-La primera vez que se usa cada modelo, la demo lo descarga del Hub (unos 500 MB en total, la mayor parte de BETO).
 
 ### Pipeline completo
 
@@ -110,40 +122,10 @@ uvicorn secopedia.web.servidor:app --port 8000
 pytest
 ```
 
-El entrenamiento de BETO usa la GPU si está disponible (CUDA o Apple Silicon); en CPU funciona, pero mucho más lento. La demo usa CUDA si existe y, si no, la CPU.
-
-Los datos se guardan en `data/` y no se suben al repositorio.
-
 ## Despliegue
 
-La demo se publica con dos contenedores: `app` (API, interfaz y los cuatro modelos) y `proxy` (Caddy, que atiende los puertos 80 y 443 y maneja HTTPS). El puerto 8000 de la aplicación no se expone. Los modelos se descargan de Hugging Face en el primer arranque y quedan en un volumen.
 
-```
-navegador ──80/443──> proxy (Caddy) ──8000, red interna──> app (FastAPI + modelos)
-```
-
-El código llega al servidor con `git`: se clona una vez y se actualiza con `git pull`.
-
-### 1. Crear el servidor en AWS
-
-En la consola de EC2, *Launch instance*:
-
-| Opción | Valor |
-|---|---|
-| Imagen | Ubuntu Server 24.04 LTS, **64-bit (x86)** |
-| Tipo | `t3.medium` (2 vCPU, 4 GB) |
-| Disco | 20 GB gp3 |
-| Puerto 22 (SSH) | Solo las IP de quienes administran el servidor |
-| Puertos 80 y 443 | Cualquier origen (`0.0.0.0/0`), o solo las IP que vayan a usar la demo |
-
-- No sirve una instancia ARM (`t4g`): spaCy 3.8.3 no tiene paquete listo para Linux ARM.
-- Para entrar con *EC2 Instance Connect*, el puerto 22 también debe permitir la lista de prefijos `com.amazonaws.<región>.ec2-instance-connect`.
-- La IP pública cambia al detener y encender la instancia. Para conservarla, asocia una *Elastic IP*.
-- Conviene crear una alerta de gasto en AWS Budgets.
-
-### 2. Instalar
-
-Conéctate al servidor, por SSH o con *EC2 Instance Connect* desde la consola, y ejecuta:
+Conéctate al servidor y ejecutar:
 
 ```bash
 git clone https://github.com/crissebasbol/nlp-course.git
@@ -153,28 +135,7 @@ deploy/desplegar.sh           # construye la imagen, levanta la demo y espera a 
 deploy/probar.sh              # prueba los cuatro modelos y la auditoría
 ```
 
-La demo queda en `http://IP_PUBLICA`.
-
-### 3. Actualizar
-
-```bash
-cd nlp-course/proyecto
-deploy/desplegar.sh           # hace git pull, reconstruye y reinicia
-```
-
-Con `deploy/desplegar.sh --sin-pull` se usa el código tal como está.
-
-### Configuración y HTTPS
-
-La configuración está en `.env`, que se crea a partir de `.env.example` en el primer despliegue y no se sube a git. Después de cambiarla, se repite `deploy/desplegar.sh`.
-
-Para activar HTTPS, crea un registro DNS de tipo A que apunte a la IP y pon el dominio en `.env`:
-
-```bash
-SECOPEDIA_DIRECCION=secopedia.midominio.com
-```
-
-Caddy obtiene y renueva el certificado. Con solo la IP, la demo funciona por HTTP sin cifrar.
+La demo queda en `http://54.167.29.15/`.
 
 ### Operación
 
@@ -184,20 +145,11 @@ Caddy obtiene y renueva el certificado. Con solo la IP, la demo funciona por HTT
 | `deploy/registros.sh app` | Registros en vivo (`app` o `proxy`) |
 | `deploy/detener.sh` | Detiene la demo y conserva los modelos descargados |
 
-La demo vuelve a arrancar sola si se reinicia el servidor. `deploy/detener.sh` no apaga la instancia: para dejar de pagar el cómputo hay que detenerla en la consola de AWS (el disco se sigue cobrando).
 
 ### Límites
 
 - No tiene usuarios ni contraseñas: cualquiera que llegue al puerto 80 o 443 puede usarla. Para restringirla, limita las IP en el grupo de seguridad.
 - Una auditoría a la vez, con máximo 5.000 contratos y archivos de hasta 10 MB. Las sugerencias siguen funcionando mientras tanto.
-- Las auditorías grandes conviene hacerlas con un modelo clásico. En una prueba en contenedor con 2 CPU, auditar 300 contratos tomó 0,5 s con la regresión logística y 20 s con BETO.
-
-| Problema | Solución |
-|---|---|
-| `Connection timed out` por SSH | Revisa la regla del puerto 22 en el grupo de seguridad |
-| `git pull` falla por cambios locales | `git status` muestra los archivos modificados en el servidor; descártalos o guárdalos antes de actualizar |
-| La demo no responde tras desplegar | `deploy/registros.sh app`; el servidor necesita salida a internet para descargar los modelos |
-| No se emite el certificado | El dominio debe apuntar a la IP, y los puertos 80 y 443 deben estar abiertos |
 
 ## Datos
 
@@ -212,7 +164,7 @@ SECOP II - Contratos Electrónicos, publicado por Colombia Compra Eficiente en d
 | CNN 1D sobre fastText | 0,652 | 0,859 | 0,534 | 0,839 | 0,01 |
 | BETO (fine-tuning, 3 épocas) | **0,667** | **0,871** | **0,556** | **0,853** | 6 |
 
-Los cuatro modelos están publicados en Hugging Face: [crissebasbol/secopedia-beto-unspsc](https://huggingface.co/crissebasbol/secopedia-beto-unspsc) (BETO en la raíz y los modelos clásicos en `clasicos/`). La demo los descarga automáticamente si no se entrenaron localmente.
+Los cuatro modelos están publicados en Hugging Face: [crissebasbol/secopedia-beto-unspsc](https://huggingface.co/crissebasbol/secopedia-beto-unspsc) (BETO en la raíz y los modelos clásicos en `clasicos/`). La demo los descarga automáticamente si no se entrenaron localmente. Las métricas completas están en `reports/metrics/` y en [`/api/metricas`](http://54.167.29.15/api/metricas).
 
 BETO es el mejor en todas las métricas, sobre todo en top-3 con contratos nuevos (2026): en 85 de cada 100 el segmento correcto está entre las 3 sugerencias. A cambio, es unas 600 veces más lento por contrato (6 ms frente a 0,01 ms), aunque sigue siendo instantáneo para un usuario. El entrenamiento tomó 57 minutos con GPU. Los tiempos son de un mismo equipo y cambian según el hardware.
 
@@ -228,8 +180,6 @@ Los modelos se entrenan con un tope de contratos por segmento (clases casi balan
 | BETO | 0,556 | **0,591** | 0,853 | **0,888** |
 
 Se puede desactivar con `prediccion.ajustar_distribucion: false` en `configs/config.yaml`.
-
-El análisis de errores completo está en `notebooks/03_analisis_errores.ipynb`. En una revisión preliminar de 100 errores de BETO (pendiente de validar por el grupo), solo el 11% fueron errores claros del modelo: el resto eran etiquetas mal puestas por la entidad (36%), contratos ambiguos entre dos segmentos (46%) o textos que no dicen qué se compra (7%).
 
 ### Ensamble y curva de aprendizaje
 
