@@ -1,0 +1,47 @@
+# Dos contenedores:
+#   app    FastAPI, interfaz y modelos (solo accesible dentro de la red de Docker)
+#   proxy  Caddy: puertos 80 y 443, HTTPS automático si hay dominio
+# Los valores se leen del archivo .env que escribe deploy/desplegar.sh.
+name: secopedia
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    image: secopedia-app:latest
+    # spaCy 3.8.3 no trae paquete listo para ARM en Linux: en otra arquitectura se emula.
+    platform: linux/amd64
+    environment:
+      SECOPEDIA_PRECARGAR: "${SECOPEDIA_PRECARGAR-regresion_logistica,svm_lineal,red_neuronal,beto}"
+      OMP_NUM_THREADS: "${HILOS:-2}"
+    volumes:
+      - modelos:/modelos
+    expose:
+      - "8000"
+    mem_limit: "${MEMORIA_APP:-3g}"
+    restart: unless-stopped
+    logging: &registros
+      driver: json-file
+      options: {max-size: "10m", max-file: "3"}
+
+  proxy:
+    image: caddy:2-alpine
+    environment:
+      SECOPEDIA_DIRECCION: "${SECOPEDIA_DIRECCION:-:80}"
+    volumes:
+      - ./docker/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_datos:/data
+      - caddy_config:/config
+    ports:
+      - "${PUERTO_HTTP:-80}:80"
+      - "${PUERTO_HTTPS:-443}:443"
+    depends_on:
+      - app
+    restart: unless-stopped
+    logging: *registros
+
+volumes:
+  modelos:
+  caddy_datos:
+  caddy_config:
