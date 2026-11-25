@@ -247,3 +247,7 @@ proyecto/docker/certs/*
 *.pem
 # Fuente LaTeX del documento final (el PDF sí se versiona, en proyecto/docs/)
 proyecto/docs/documento/
+# Guion de la sustentación: uso interno
+proyecto/docs/presentacion/guion*.md
+# GIF sueltos de la presentación (ya van dentro del .pptx)
+proyecto/docs/presentacion/gifs/

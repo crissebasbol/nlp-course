@@ -14,6 +14,8 @@ Cuando una entidad pública publica un proceso en SECOP II debe clasificar lo qu
 
 El documento final del proyecto está en [docs/secopedia_proyecto_final.pdf](docs/secopedia_proyecto_final.pdf).
 
+La presentación de la sustentación está en [docs/presentacion/secopedia_presentacion.pptx](docs/presentacion/secopedia_presentacion.pptx). Las animaciones se ven en modo presentación.
+
 ## Demo en línea
 
 **http://54.167.29.15/** ([documentación de la API](http://54.167.29.15/docs))
@@ -26,7 +28,7 @@ Se escribe lo que se quiere contratar y se obtienen los 3 segmentos más probabl
 
 Así mismo se puede subir un CSV, o se usa la muestra de 300 contratos de 2026, y se marcan los que tienen una categoría que no coincide con su descripción.
 
-![Modo Auditar: la SVM lineal marca 19 de 300 contratos de 2026 con confianza mínima de 0,80](docs/demo/auditar.png)
+![Modo Auditar: la regresión logística marca 19 de 300 contratos de 2026 con confianza mínima de 0,80](docs/demo/auditar.png)
 
 ## Pipeline de PLN
 
