@@ -10,6 +10,10 @@ Cuando una entidad pública publica un proceso en SECOP II debe clasificar lo qu
 - **Usuarios secundarios:** proveedores y pymes, veedurías y entes de control.
 - **Tarea de PLN:** clasificación de texto multiclase supervisada (28 segmentos más la clase "otros").
 
+## Documento
+
+El documento final del proyecto está en [docs/secopedia_proyecto_final.pdf](docs/secopedia_proyecto_final.pdf).
+
 ## Demo en línea
 
 **http://54.167.29.15/** ([documentación de la API](http://54.167.29.15/docs))

@@ -245,3 +245,5 @@ proyecto/reports/metrics/beto_probabilidades_*.parquet
 proyecto/docker/certs/*
 !proyecto/docker/certs/.gitkeep
 *.pem
+# Fuente LaTeX del documento final (el PDF sí se versiona, en proyecto/docs/)
+proyecto/docs/documento/
