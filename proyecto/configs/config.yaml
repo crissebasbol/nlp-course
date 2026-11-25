@@ -1,7 +1,7 @@
 semilla: 42
 
 prediccion:
-  # Ajustar las probabilidades a la frecuencia real de cada segmento (ver notebooks/03_analisis_errores.ipynb).
+  # Ajustar las probabilidades a la frecuencia real de cada segmento
   ajustar_distribucion: true
 
 rutas:
@@ -9,19 +9,15 @@ rutas:
   limpios: data/interim/contratos_limpios.parquet
   conflictos: data/interim/textos_con_etiquetas_distintas.parquet
   lugares: data/interim/lugares.json
-  # Distribución de clases para ajustar las probabilidades (se versiona: la usa la demo).
   ajuste_distribucion: reports/metrics/ajuste_distribucion.json
   procesados: data/processed
   modelos: models
-  # Repositorio público en Hugging Face con BETO (raíz), los modelos clásicos (clasicos/) y el
-  # léxico de lugares (recursos/). La demo descarga de ahí lo que no esté entrenado localmente.
   hub: crissebasbol/secopedia-beto-unspsc
   metricas: reports/metrics
   figuras: reports/figures
 
 extraccion:
   url: https://www.datos.gov.co/resource/jbjy-vk9h.json
-  # Solo columnas necesarias: nunca se piden columnas con datos personales.
   columnas:
     - id_contrato
     - objeto_del_contrato
@@ -38,7 +34,6 @@ extraccion:
   timeout_segundos: 300
 
 limpieza:
-  # Tipos adicionales a excluir (se decide con el EDA: "Otro", "Decreto 092 de 2017").
   tipos_excluidos: []
   min_palabras: 3
   textos_vacios:
