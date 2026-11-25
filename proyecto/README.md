@@ -61,6 +61,15 @@ Solo BETO recibe la marca `<LUGAR>`. En la regresión, la SVM y la CNN se descar
 | `reports/` | Métricas (`metrics/`) y figuras (`figures/`) de todos los modelos |
 | `tests/` | Pruebas unitarias |
 
+## Requerimientos
+
+- Python 3.10 o superior (probado con 3.12).
+- Conexión a internet para instalar las dependencias y descargar los modelos o los datos.
+- Espacio en disco: unos 2,5 GB para la demo (entorno y modelos) y unos 5 GB para el pipeline completo.
+- GPU opcional: solo se recomienda para entrenar BETO.
+- Docker con Compose v2, solo para el despliegue, en un servidor x86 con 2 vCPU y 4 GB de RAM.
+- Librerías principales: pandas, spaCy, scikit-learn, gensim, PyTorch, Transformers y FastAPI. Las versiones exactas están en `requirements.txt`.
+
 ## Instalación paso a paso
 
 ```bash
